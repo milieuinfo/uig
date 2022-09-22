@@ -25,6 +25,14 @@ fi
 ' --tag-name-filter cat -- --branches --tags
 ```
 
+### Opkuisen Git - dangling commits
+
+```
+git reflog expire --expire-unreachable=now --all
+git gc --prune=now
+du -sh .git 
+```
+
 ## Bash
 
 <sub>Welk process draait op welke poort, inclusief details.</sub>

@@ -1,3 +1,8 @@
+---
+layout: doc
+title: UIG - NX
+toc: true
+---
 # Project Structuur
 
 ## Beschrijving

@@ -4,6 +4,11 @@ on:
     paths:
       - .github/workflows/ci-applications.yml
       - applications/**
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+
 jobs:
   ci-applications:
     runs-on: ubuntu-latest
@@ -16,6 +21,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
+      - name: authenticate to acd-npm repository
+        run: |
+          echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/"  > ~/.npmrc
+          echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG_ACD_NPM }}" >> ~/.npmrc
       - name: applications - npm ci
         run: npm ci
         continue-on-error: false

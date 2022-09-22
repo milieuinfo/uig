@@ -5,6 +5,10 @@ on:
     paths:
       - .github/workflows/ci-web-components.yml
       - web-components/**
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
 
 env:
   CYPRESS_CACHE_FOLDER: cypress/cache
@@ -190,56 +194,99 @@ jobs:
           name: dist-e2e-test-storybook
           path: ./web-components/dist
           retention-days: 30
+      - uses: geekyeggo/delete-artifact@v2
+        with:
+          name: |
+            dist-e2e-test-storybook-p1
+            dist-e2e-test-storybook-p2
+            dist-e2e-test-storybook-p3
+            dist-e2e-test-storybook-p4
+            dist-e2e-test-storybook-p5
 
-  publish-apps-and-documentation:
+  release-and-publish:
+    if:
+      # only publish main and beta-team branches
+      contains('refs/heads/main, refs/heads/beta, refs/heads/beta-apo, refs/heads/beta-dec, refs/heads/beta-olo, refs/heads/beta-phe, refs/heads/beta-uig', github.ref)
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
-        working-directory: ./web-components
     needs: [perform-all-unit-tests, build-apps-libs-and-storybook, e2e-report-storybook]
     steps:
       # github-pages-deploy-action gives an error when 'not in a git directory'
       # -> so a checkout instead of a 'restore workspace cache'
       - uses: actions/checkout@v3
+      - name: restore workspace cache
+        id: cache-workspace
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-workspace
+        with:
+          path: |
+            ./web-components
+            cypress/cache
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
+      - name: prepare the release for beta branches
+        if: contains('refs/heads/beta, refs/heads/beta-apo, refs/heads/beta-dec, refs/heads/beta-olo, refs/heads/beta-phe, refs/heads/beta-uig', github.ref)
+        run: |
+          pagesSubPath=${{ github.ref_name }}
+          echo using $pagesSubPath as pagesSubPath
+          echo "pages_sub_path=$pagesSubPath" >> $GITHUB_ENV
+          cd ./web-components
+          mv .releaserc-beta .releaserc
+          npx semantic-release
+      - name: prepare the release for the main branch
+        if: contains('refs/heads/main', github.ref)
+        run: |
+          pagesSubPath=${{ github.ref_name }}/${{ env.root_semver }}
+          echo using $pagesSubPath as pagesSubPath
+          echo "pages_sub_path=$pagesSubPath" >> $GITHUB_ENV
+          cd ./web-components
+          mv .releaserc-main .releaserc
+          npx semantic-release
       - name: get package version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
         with:
           path: ./web-components
+      - name: get root semver
+        run: |
+          rootsemver=$(echo ${{ steps.package-version.outputs.current-version }} | cut -d '.' -f1-3)
+          echo using $rootsemver as rootsemver
+          echo "root_semver=$rootsemver" >> $GITHUB_ENV
       - name: download artifacts
         uses: actions/download-artifact@v3
+      - name: authenticate to local-npm repository
+        run: |
+          echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"  > ~/.npmrc
+          echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
+      - name: publish to npm
+        run: |
+          cd dist-build-apps-libs-and-storybook/libs
+          echo path: $(pwd)
+          cd ./common/utilities && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
+          cd ../../elements && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
+          cd ../components && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
+          cd ../sections && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
       - name: output the build result path
-        run: echo "the build results (dist folders) are available at /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}"
-#      - name: publish dist folder on github-pages
-#        uses: JamesIves/github-pages-deploy-action@v4
-#        with:
-#          folder: web-components/dist
-#          repository-name: milieuinfo/uig-pages
-#          branch: main
-#          target-folder: build-github/${{ github.ref_name }}/web-components/${{ github.run_number }}
-#          token: ${{ secrets.PAT_UIG_PAGES }}
-      - name: publish Exhibit on github-pages
+        run: echo "the build results (dist folders) are available at /build-apps/${{ env.pages_sub_path }}"
+      - name: replace the base-href with the correct path
+        run: |
+          toReplace=$(echo href=\"/\")
+          baseHref=$(echo /uig-pages/${{ env.pages_sub_path }}/exhibit)
+          echo using $baseHref as baseHref
+          sed -i'.bak' "s,$toReplace,$baseHref," dist-build-apps-libs-and-storybook/apps/exhibit/index.html
+      - name: prepare the publish
+        run: |
+          mkdir to-publish
+          mv dist-build-apps-libs-and-storybook/apps/exhibit to-publish/exhibit
+          mv dist-build-apps-libs-and-storybook/apps/storybook to-publish/storybook
+          mv archived-documentation to-publish/documentation
+      - name: publish on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist-build-apps-libs-and-storybook/apps/exhibit
+          folder: to-publish
           repository-name: milieuinfo/uig-pages
           branch: main
-          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/exhibit
-          token: ${{ secrets.PAT_UIG_PAGES }}
-      - name: publish Storybook on github-pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: dist-build-apps-libs-and-storybook/apps/storybook
-          repository-name: milieuinfo/uig-pages
-          branch: main
-          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/storybook
-          token: ${{ secrets.PAT_UIG_PAGES }}
-      - name: publish documentation on github-pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: archived-documentation
-          repository-name: milieuinfo/uig-pages
-          branch: main
-          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/documentation
+          target-folder: build-apps/${{ env.pages_sub_path }}
           token: ${{ secrets.PAT_UIG_PAGES }}
