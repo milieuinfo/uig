@@ -239,6 +239,11 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@main
         with:
           path: ./web-components
+      - name: get root semver
+        run: |
+          rootsemver=$(echo ${{ steps.package-version.outputs.current-version }} | cut -d '.' -f1-3)
+          echo using $rootsemver as rootsemver
+          echo "root_semver=$rootsemver" >> $GITHUB_ENV
       - name: build the pages_sub_path for beta branches
         if: contains('refs/heads/beta, refs/heads/beta-apo, refs/heads/beta-dec, refs/heads/beta-olo, refs/heads/beta-phe, refs/heads/beta-uig', github.ref)
         run: |
@@ -264,6 +269,21 @@ jobs:
           echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
       - name: publish to npm
         run: |
+          cd dist-build-apps-libs-and-storybook/libs/common
+          echo path: $(pwd)
+          cd ./utilities && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
+          cd ..
+          cd ./elements && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
+          cd ..
+          cd ./components && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
+          cd ..
+          cd ./sections && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
+      - name: authenticate to local-npm repository
+        run: |
+          echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"  > ~/.npmrc
+          echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
+      - name: publish to npm
+        run: |
           cd dist-build-apps-libs-and-storybook/libs
           echo path: $(pwd)
           cd ./common/utilities && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
@@ -272,6 +292,30 @@ jobs:
           cd ../sections && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
           cd ../support/test-support && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
       - name: output the build result path
+        run: echo "the build results (dist folders) are available at /build-apps/${{ github.ref_name }}/${{ env.root_semver }}"
+      - name: replace the base-href with the correct path
+        run: |
+          toReplace=$(echo href=\"/\")
+          baseHref=$(echo /uig-pages/${{ github.ref_name }}/${{ env.root_semver }}/exhibit)
+          echo using $baseHref as baseHref
+          sed -i'.bak' "s,$toReplace,$baseHref," dist-build-apps-libs-and-storybook/apps/exhibit/index.html
+      - name: publish Exhibit on github-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist-build-apps-libs-and-storybook/apps/exhibit
+          repository-name: milieuinfo/uig-pages
+          branch: main
+          target-folder: /build-apps/${{ github.ref_name }}/${{ env.root_semver }}/exhibit
+          token: ${{ secrets.PAT_UIG_PAGES }}
+      - name: publish Storybook on github-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist-build-apps-libs-and-storybook/apps/storybook
+          repository-name: milieuinfo/uig-pages
+          branch: main
+          target-folder: /build-apps/${{ github.ref_name }}/${{ env.root_semver }}/storybook
+          token: ${{ secrets.PAT_UIG_PAGES }}
+      - name: publish documentation on github-pages
         run: echo "the build results (dist folders) are available at /build-apps/${{ env.pages_sub_path }}"
       - name: replace the base-href with the correct path
         run: |
