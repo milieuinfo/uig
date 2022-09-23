@@ -1,4 +1,4 @@
-name: build-applications-actions
+name: ci-applications
 on:
   push:
     paths:
