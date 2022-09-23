@@ -2,6 +2,7 @@ name: build-applications-actions
 on:
   push:
     paths:
+      - .github/workflows/build-applications-actions.yml
       - applications/**
 jobs:
   build-applications:
