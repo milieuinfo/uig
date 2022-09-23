@@ -2,10 +2,10 @@ name: build-applications-actions
 on:
   push:
     paths:
-      - .github/workflows/build-applications-actions.yml
+      - .github/workflows/ci-applications.yml
       - applications/**
 jobs:
-  build-applications:
+  ci-applications:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -16,9 +16,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: Applications - npm install
+      - name: applications - npm install
         run: npm install
-      - name: Applications - test
+        continue-on-error: false
+      - name: applications - test
         run: npx nx test
-      - name: Applications - build
+        continue-on-error: false
+      - name: applications - build
         run: npx nx build
