@@ -6,10 +6,34 @@
     * [applications | web-components] / apps [an empty workspace with no plugins with a layout that works best for building apps]
     * no distributed caching
 
-## Applications
+## Setup - applications
 
-- npm install -D @nrwl/web@14.7.8 (not explicitly specifying the versions didn't work)
+- npm install -D @nrwl/web
 - npx nx g @nrwl/web:application alliance
+
+## Setup - web-components
+
+- npx create-nx-workspace@latest
+    * [applications | web-components] / apps [an empty workspace with no plugins with a layout that works best for building apps]
+    * no distributed caching
+- npm install -D @nrwl/web
+- npx nx g @nrwl/web:lib elements --buildable --publishable --importPath=@domg-lib/elements
+- npx nx g @nrwl/web:lib components --buildable --publishable --importPath=@domg-lib/components
+- npx nx g @nrwl/web:lib testers --buildable --publishable --importPath=@domg-lib/testers
+- npx nx g @nrwl/web:lib common/utilities --buildable
+- npx nx g @nrwl/web:application exhibit
+
+
+## GitHub Actions
+
+### ci-web-components
+
+- test
+- publish the test results per build on uig-pages
+- build
+- [if main] release
+- [if branch] publish branch storybook
+- [if main] publish release version storybook + update reference to main storybook
 
 
 # Monorepo
@@ -42,6 +66,10 @@ uig/
 │  │  ├─ support/
 │  │  │   -> @domg-lib/react-support [ts]
 │  │  │   -> @domg-lib/test-support [js]
+│  ├─ resources/
+│  │  ├─ documentation/
+│  │  │   -> .md + .numbers files
+│  │  ├─ images/
 ```
 
 

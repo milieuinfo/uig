@@ -1,0 +1,26 @@
+name: ci-web-components
+on:
+  push:
+    paths:
+      - .github/workflows/ci-web-components.yml
+      - web-components/**
+jobs:
+  ci-web-components:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./web-components
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: web-components - npm install
+        run: npm install
+        continue-on-error: false
+      - name: web-components - test
+        run: npx nx test
+        continue-on-error: false
+      - name: web-components - build
+        run: npx nx build

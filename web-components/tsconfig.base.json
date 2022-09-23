@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@domg-lib/components": ["libs/components/src/index.ts"],
+      "@domg-lib/elements": ["libs/elements/src/index.ts"],
+      "@domg-lib/testers": ["libs/testers/src/index.ts"],
+      "@web-components/common/utilities": ["libs/common/utilities/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
