@@ -16,8 +16,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: Applications - npm ci
-        run: npm ci
+      - name: Applications - npm install
+        run: npm install
       - name: Applications - test
         run: npx nx test
       - name: Applications - build
