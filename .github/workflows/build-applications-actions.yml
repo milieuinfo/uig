@@ -6,12 +6,18 @@ on:
 jobs:
   build-applications:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./applications
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - working-directory: ./applications
-      - run: npm ci
-      - run: npx nx test
-      - run: npx nx build
+      - name: Applications - npm ci
+        run: npm ci
+      - name: Applications - test
+        run: npx nx test
+      - name: Applications - build
+        run: npx nx build
