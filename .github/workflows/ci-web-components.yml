@@ -26,8 +26,8 @@ jobs:
         run: npx nx build
       - name: web-components - publish elements
         uses: JS-DevTools/npm-publish@v1
-          with:
-            registry: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/
-            token: ${{ secrets.NPM_TOKEN_DOMG }}
-            package: ./web-components/dist/libs/elements/package.json
-            dry-run: true
+        with:
+          registry: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/
+          token: ${{ secrets.NPM_TOKEN_DOMG }}
+          package: ./web-components/dist/libs/elements/package.json
+          dry-run: true
