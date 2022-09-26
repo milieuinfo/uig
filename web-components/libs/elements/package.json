@@ -2,7 +2,7 @@
     "name": "@domg-lib/elements",
     "version": "1.0.1",
     "scripts": {
-        "release": "npm publish"
+        "release": "npm publish --dry-run"
     },
     "publishConfig": {
         "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"

@@ -26,9 +26,8 @@ jobs:
         run: npx nx build
       - name: web-components - elements - build
         run: npx nx build elements
+      - name: Authenticate with private NPM package
+        run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
       - name: web-components - elements - publish
-        uses: honzabilek4/npm-publish@v1.5.1
-        with:
-          token: ${{ secrets.NPM_TOKEN_DOMG }}
-          package: ./web-components/dist/libs/elements/package.json
-          dry-run: true
+        working-directory: ./dist/libs/elements
+        run: npm run release
