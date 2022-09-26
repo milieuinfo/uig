@@ -1,5 +1,14 @@
 {
-  "name": "@domg-lib/elements",
-  "version": "0.0.1",
-  "private": true
+    "name": "@domg-lib/elements",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "release": "npm publish"
+    },
+    "publishConfig": {
+        "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
+    },
+    "files": [
+        "*"
+    ]
 }
