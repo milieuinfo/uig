@@ -54,15 +54,13 @@ uig/
 │  │   -> @domg-uig/storybook
 │  ├─ libs/
 │  │  ├─ components/
-│  │  │  -> @domg-lib/components (+ header-footer /  http-error-message) [ts]
+│  │  │  -> @domg-lib/components (+ header-footer /  http-error-message / proza-message) [ts]
 │  │  ├─ elements/
 │  │  │   -> @domg-lib/elements [ts]
 │  │  ├─ fat/
 │  │  │   -> @domg-lib/fat-header-footer [ts] (code zit onder components)
 │  │  ├─ map/
 │  │  │   -> @domg-lib/map [js]
-│  │  ├─ proza/
-│  │  │   -> @domg-lib/proza-message [js]
 │  │  ├─ support/
 │  │  │   -> @domg-lib/react-support [ts]
 │  │  │   -> @domg-lib/test-support [js]
