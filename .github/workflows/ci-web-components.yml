@@ -31,5 +31,5 @@ jobs:
         with:
           registry: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/
           token: ${{ secrets.NPM_TOKEN_DOMG }}
-          package: ./web-components/dist/libs/elements/package.json
+          package: ./dist/libs/elements/package.json
           dry-run: true
