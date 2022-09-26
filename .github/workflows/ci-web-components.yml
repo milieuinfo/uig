@@ -29,7 +29,6 @@ jobs:
       - name: web-components - elements - publish
         uses: honzabilek4/npm-publish@v1.5.1
         with:
-          registry: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/
           token: ${{ secrets.NPM_TOKEN_DOMG }}
-          package: ./dist/libs/elements/package.json
+          package: ./web-components/dist/libs/elements/package.json
           dry-run: true
