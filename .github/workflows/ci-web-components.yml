@@ -26,7 +26,7 @@ jobs:
         run: npx nx build
       - name: web-components - elements - build
         run: npx nx build elements
-      - name: web-components - elements - publish 2
+      - name: web-components - elements - publish
         uses: JS-DevTools/npm-publish@v1
         with:
           registry: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/
