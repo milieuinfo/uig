@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: '16'
       - name: web-components - npm ci
-        run: npm ci
+        run: npm install
         continue-on-error: false
       - name: web-components - test
         run: npx nx test
