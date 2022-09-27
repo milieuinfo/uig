@@ -34,6 +34,7 @@ jobs:
           folder: web-components/dist
           repository-name: milieuinfo/uig-pages
           target-folder: build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
+          token: ${{ secrets.PAT_UIG_PAGES }}
 
       # - name: authenticate to private NPM repository
       #   run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
