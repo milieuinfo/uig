@@ -7,6 +7,8 @@ on:
 jobs:
   ci-web-components:
     runs-on: ubuntu-latest
+    outputs:
+      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
     defaults:
       run:
         shell: bash
