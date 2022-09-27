@@ -7,6 +7,9 @@
     "publishConfig": {
         "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
     },
+    "release": {
+        "branches": ["main", "beta"]
+    },
     "files": [
         "*"
     ]
