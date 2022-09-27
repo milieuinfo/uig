@@ -27,13 +27,13 @@ jobs:
       - name: web-components - elements - build
         run: npx nx build elements
       - name: output the build results output path
-        run: echo "the build results are available at build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_attempt }}"
+        run: echo "the build results are available at build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}"
       - name: 🚀 publish dist folder on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: web-components/dist
           repository-name: milieuinfo/uig-pages
-          target-folder: build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_attempt }}
+          target-folder: build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
 
       # - name: authenticate to private NPM repository
       #   run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
