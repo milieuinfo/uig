@@ -20,7 +20,7 @@ jobs:
           node-version: '16'
       - name: delete lock file
         run: rm package-lock.json
-      - name: web-components - npm ci
+      - name: web-components - npm install
         run: npm install
         continue-on-error: false
       - name: web-components - test
