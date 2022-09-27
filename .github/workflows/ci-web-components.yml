@@ -31,9 +31,9 @@ jobs:
         with:
           folder: dist
           repository-name: milieuinfo/uig-pages
-          target-folder: build/${{ GITHUB_REF_NAME }}/${{ GITHUB_WORKFLOW }}/${{ GITHUB_RUN_ATTEMPT }}
+          target-folder: build/${{ github.ref.name }}/${{ github.workflow }}/${{ github.run.attempt }}
       - name: echo the uig-pages output path
-        run: echo "the build results are available at build/${{ GITHUB_REF_NAME }}/${{ GITHUB_WORKFLOW }}/${{ GITHUB_RUN_ATTEMPT }}"
+        run: echo "the build results are available at build/${{ github.ref.name }}/${{ github.workflow }}/${{ github.run.attempt }}"
 
       # - name: authenticate to private NPM repository
       #   run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
