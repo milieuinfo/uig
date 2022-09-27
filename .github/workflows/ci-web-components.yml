@@ -33,6 +33,7 @@ jobs:
         with:
           folder: web-components/dist
           repository-name: milieuinfo/uig-pages
+          branch: main
           target-folder: build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
           token: ${{ secrets.PAT_UIG_PAGES }}
 
