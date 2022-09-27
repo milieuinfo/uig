@@ -18,8 +18,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: authenticate to private NPM repository
-        run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
+      - name: delete lock file
+        run: rm package-lock.json
       - name: web-components - npm ci
         run: npm install
         continue-on-error: false
@@ -46,6 +46,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT_UIG_PAGES }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN_DOMG }}
         run: npx semantic-release
+      # - name: authenticate to private NPM repository
+      #   run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
       # - name: web-components - elements - publish
       #  working-directory: ./web-components/dist/libs/elements
       #  run: npm run release
