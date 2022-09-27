@@ -6,13 +6,27 @@
 ```
 uig-pages/
 ├─ build/
-│  ├─ applications/
-│  │   -> de 'dist' folder hieronder kopiëren 
-│  ├─ web-components/
+│  ├─ beta/
+│  │  ├─ ci-applications/
+│  │  │  ...
+│  │  ├─ ci-web-components/
+│  │  │  ...
+│  ├─ feature/
+│  │  ├─ UIG-xxx-abc/
+│  │  │  ├─ ci-applications/
+│  │  │  │  ├─ 4/
+│  │  │  │  │   -> de 'dist' folder hieronder kopiëren 
+│  │  │  ├─ ci-web-components/
+│  │  │  │  ├─ 4/
+│  │  │  │  │   -> de 'dist' folder hieronder kopiëren 
+│  ├─ main/
+│  │  ├─ ci-applications/
+│  │  │  ├─ 1/
+│  │  │  │   -> de 'dist' folder hieronder kopiëren 
+│  │  ├─ ci-web-components/
+│  │  │  ├─ 1/
+│  │  │  │   -> de 'dist' folder hieronder kopiëren 
 ```
-
-
-
 
 ## GitHub Actions
 
