@@ -39,11 +39,11 @@ jobs:
           target-folder: build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
           token: ${{ secrets.PAT_UIG_PAGES }}
       - name: semantic-release
-          working-directory: ./web-components/dist/libs/elements
-          env:
-            GITHUB_TOKEN: ${{ secrets.PAT_UIG_PAGES }}
-            NPM_TOKEN: ${{ secrets.NPM_TOKEN_DOMG }}
-          run: npx semantic-release
+        working-directory: ./web-components/dist/libs/elements
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_UIG_PAGES }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_DOMG }}
+        run: npx semantic-release
       # - name: authenticate to private NPM repository
       #   run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
       # - name: web-components - elements - publish
