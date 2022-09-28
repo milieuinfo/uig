@@ -5,7 +5,7 @@
     / No Nx Cloud
 -   npm install -D @nrwl/web
 -   npx nx g @nrwl/web:lib elements --buildable --publishable --importPath=@domg-lib/elements
--   npx nx g @nrwl/web:lib components --buildable --publishable --importPath=@uig/components
+-   npx nx g @nrwl/web:lib components --buildable --publishable --importPath=@domg-lib/components
 -   npx nx g @nrwl/web:lib common/utilities --buildable
 -   npx nx g @nrwl/web:application exhibit
 -   npx nx g @nrwl/web:lib testers --buildable --publishable --importPath=@uig/testers

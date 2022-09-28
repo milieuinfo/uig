@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+@charset "utf-8";
+
+@import '../../../libs/elements/src/lib/vl-elements';
+
+html {
+    font-family: 'Flanders Art Sans', 'Courier New', monospace;
+}

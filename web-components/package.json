@@ -8,6 +8,9 @@
         "test": "nx test"
     },
     "private": true,
+    "peerDependencies": {
+        "tinymce": "^5.10.3"
+    },
     "devDependencies": {
         "@nrwl/cli": "14.7.11",
         "@nrwl/cypress": "14.7.11",
@@ -103,7 +106,9 @@
         "@govflanders/vl-ui-wizard": "^3.12.3",
         "core-js": "^3.6.5",
         "lit": "^2.2.8",
+        "reflect-metadata": "^0.1.13",
         "regenerator-runtime": "0.13.7",
-        "tslib": "^2.3.0"
+        "tslib": "^2.3.0",
+        "tinymce": "^5.10.3"
     }
 }
