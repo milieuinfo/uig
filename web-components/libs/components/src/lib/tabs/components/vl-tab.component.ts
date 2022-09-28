@@ -1,4 +1,4 @@
-import { BaseElementOfType, define } from '@domg-lib/common/utilities';
+import { BaseElementOfType, define } from '@domg-lib/common-utilities';
 
 export class VlTabComponent extends BaseElementOfType(HTMLLIElement) {
     static get is() {

@@ -20,6 +20,7 @@ uig/
 │  ├─ libs/
 │  │  ├─ common/
 │  │  │  ├─ utilities/
+│  │  │  │   -> @domg-lib/common-utilities [ts]
 │  │  ├─ components/
 │  │  │  -> @domg-lib/components (+ header-footer /  http-error-message / proza-message) [ts]
 │  │  ├─ elements/

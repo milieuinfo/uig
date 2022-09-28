@@ -1,4 +1,4 @@
-import { BaseElementOfType, define } from '@domg-lib/common/utilities';
+import { BaseElementOfType, define } from '@domg-lib/common-utilities';
 import { vlFormValidation, vlFormValidationElement } from '@domg-lib/elements';
 import './lib/vl-upload-lib.js';
 import styles from './style/vl-upload.scss';

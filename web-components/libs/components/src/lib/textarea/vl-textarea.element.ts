@@ -1,4 +1,4 @@
-import { awaitUntil, BaseElementOfType, define } from '@domg-lib/common/utilities';
+import { awaitUntil, BaseElementOfType, define } from '@domg-lib/common-utilities';
 import { VlLinkToolbarFactory } from './vl-tinymce-link-toolbar';
 import { vlFormValidation, vlFormValidationElement } from '@domg-lib/elements';
 import 'tinymce/tinymce';
