@@ -18,8 +18,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: delete lock file
-        run: rm package-lock.json
+          cache: 'npm'
+      # - name: delete lock file
+      #  run: rm package-lock.json
       - name: authenticate to private NPM repository
         run: |
           echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/"  > ~/.npmrc
