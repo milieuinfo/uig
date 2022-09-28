@@ -1,4 +1,4 @@
-import { BaseElementOfType, define } from '@uig/common/utilities';
+import { BaseElementOfType, define } from '@domg-lib/common/utilities';
 
 export class VlText extends BaseElementOfType(HTMLSpanElement) {
     static get _observedClassAttributes() {

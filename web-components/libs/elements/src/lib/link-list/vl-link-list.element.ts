@@ -1,4 +1,4 @@
-import { BaseElementOfType, define } from '@uig/common/utilities';
+import { BaseElementOfType, define } from '@domg-lib/common/utilities';
 import './vl-link-list-item.element';
 
 /**

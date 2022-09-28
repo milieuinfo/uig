@@ -1,4 +1,4 @@
-import { BaseElementOfType } from '@uig/common/utilities';
+import { BaseElementOfType } from '@domg-lib/common/utilities';
 
 /**
  * Gebruik de button mixin in combinatie met button elementen.

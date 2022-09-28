@@ -1,4 +1,4 @@
-import { BaseElementOfType, define } from '@uig/common/utilities';
+import { BaseElementOfType, define } from '@domg-lib/common/utilities';
 import './child/vl-doormat-content.element';
 import './child/vl-doormat-title.element';
 import './child/vl-doormat-text.element';

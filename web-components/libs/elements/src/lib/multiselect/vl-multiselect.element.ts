@@ -1,4 +1,4 @@
-import { define } from '@uig/common/utilities';
+import { define } from '@domg-lib/common/utilities';
 import { VlSelect } from '../select/vl-select.element';
 
 export class VlMultiSelect extends VlSelect {

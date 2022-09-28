@@ -1,4 +1,4 @@
-import { define, BaseElementOfType } from '@uig/common/utilities';
+import { define, BaseElementOfType } from '@domg-lib/common/utilities';
 
 /**
  * VlSideNavigationItem

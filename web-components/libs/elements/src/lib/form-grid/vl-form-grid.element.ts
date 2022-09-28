@@ -1,5 +1,5 @@
 import { VlGridElement } from '../grid/vl-grid.element';
-import { define } from "@uig/common/utilities";
+import { define } from "@domg-lib/common/utilities";
 import './vl-form-column.element';
 
 /**

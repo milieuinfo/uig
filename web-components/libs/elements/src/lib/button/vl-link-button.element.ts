@@ -1,4 +1,4 @@
-import { define } from '@uig/common/utilities';
+import { define } from '@domg-lib/common/utilities';
 import { BaseButtonOfType } from './base/base-button.element';
 
 /**

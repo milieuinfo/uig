@@ -1,4 +1,4 @@
-import { BaseElementOfType } from '@uig/common/utilities';
+import { BaseElementOfType } from '@domg-lib/common/utilities';
 
 /**
  * VlTitle

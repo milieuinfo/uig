@@ -1,4 +1,4 @@
-import { define } from '@uig/common/utilities';
+import { define } from '@domg-lib/common/utilities';
 import { InputAddonBaseElementOfType } from './base/input-addon-base.element';
 import './vl-button-input-addon.element';
 

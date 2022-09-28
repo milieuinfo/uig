@@ -1,4 +1,4 @@
-import { CATEGORIES, TYPES } from '@uig/common/utilities';
+import { CATEGORIES, TYPES } from '@domg-lib/common/utilities';
 
 export const formArgs = {
     validate: true,
