@@ -6,7 +6,8 @@
         "e2e": {
             "executor": "@nrwl/cypress:cypress",
             "options": {
-                "cypressConfig": "apps/storybook-e2e/cypress.json"
+                "browser": "chrome",
+                "cypressConfig": "apps/storybook-e2e/cypress.config.js"
             }
         },
         "lint": {
