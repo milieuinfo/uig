@@ -20,6 +20,8 @@ jobs:
           node-version: '16'
       - name: delete lock file
         run: rm package-lock.json
+      - name: authenticate to private NPM repository
+        run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
       - name: web-components - npm install
         run: npm install
         continue-on-error: false
