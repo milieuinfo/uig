@@ -5,8 +5,8 @@
     },
     "mochawesomeReporterOptions": {
         "reportDir": "../../dist/cypress/apps/storybook-e2e/mochawesome-report",
-        "overwrite": false,
-        "html": false,
+        "overwrite": true,
+        "html": true,
         "json": true
     }
 }
