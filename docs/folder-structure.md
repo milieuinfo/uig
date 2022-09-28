@@ -18,6 +18,8 @@ uig/
 │  │   -> @domg-uig/exhibit
 │  │   -> @domg-uig/storybook
 │  ├─ libs/
+│  │  ├─ common/
+│  │  │  ├─ utilities/
 │  │  ├─ components/
 │  │  │  -> @domg-lib/components (+ header-footer /  http-error-message / proza-message) [ts]
 │  │  ├─ elements/
@@ -29,8 +31,7 @@ uig/
 │  │  ├─ support/
 │  │  │   -> @domg-lib/react-support [ts]
 │  │  │   -> @domg-lib/test-support [js]
-│  ├─ resources/
-│  │  ├─ documentation/
-│  │  │   -> .md + .numbers files
+│  ├─ docs/
 │  │  ├─ images/
+│  │   -> .md + .numbers files
 ```
