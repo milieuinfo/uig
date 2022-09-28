@@ -19,6 +19,7 @@ jobs:
         with:
           node-version: '16'
           cache: 'npm'
+          cache-dependency-path: web-components/package-lock.json
       # - name: delete lock file
       #  run: rm package-lock.json
       - name: authenticate to private NPM repository
