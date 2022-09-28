@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+$vl-font-location: 'https://cdn.omgeving.vlaanderen.be/vlaanderen-font-new/LATEST/font/flanders/';
+$vl-icon-font-location: 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/iconfont/3.12.23/';
+
+@import "@govflanders/vl-ui-core/src/scss/core";
+@import "@govflanders/vl-ui-util/src/scss/util";
+
+@import "@govflanders/vl-ui-infoblock/src/scss/infoblock";

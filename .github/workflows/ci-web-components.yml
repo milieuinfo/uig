@@ -28,8 +28,12 @@ jobs:
         continue-on-error: false
       - name: web-components - build
         run: npx nx build
+      - name: web-components - common-utilities - build
+        run: npx nx build common-utilities
       - name: web-components - elements - build
         run: npx nx build elements
+      - name: web-components - components - build
+        run: npx nx build components
       - name: output the build results output path
         run: echo "the build results are available at build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}"
       - name: 🚀 publish dist folder on github-pages
@@ -40,12 +44,6 @@ jobs:
           branch: main
           target-folder: build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
           token: ${{ secrets.PAT_UIG_PAGES }}
-      - name: semantic-release
-        working-directory: ./web-components/dist/libs/elements
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_UIG_PAGES }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN_DOMG }}
-        run: npx semantic-release
       # - name: authenticate to private NPM repository
       #   run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
       # - name: web-components - elements - publish
