@@ -10,10 +10,7 @@
         "importHelpers": true,
         "target": "es2015",
         "module": "esnext",
-        "lib": [
-            "es2017",
-            "dom"
-        ],
+        "lib": ["es2017", "dom"],
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
@@ -21,19 +18,10 @@
             "@domg-lib/common-utilities": [
                 "libs/common/utilities/src/index.ts"
             ],
-            "@domg-lib/components": [
-                "libs/components/src/index.ts"
-            ],
-            "@domg-lib/elements": [
-                "libs/elements/src/index.ts"
-            ],
-            "@domg-lib/test-support": [
-                "libs/support/test-support/src/index.ts"
-            ]
+            "@domg-lib/components": ["libs/components/src/index.ts"],
+            "@domg-lib/elements": ["libs/elements/src/index.ts"],
+            "@domg-lib/test-support": ["libs/support/test-support/src/index.ts"]
         }
     },
-    "exclude": [
-        "node_modules",
-        "tmp"
-    ]
+    "exclude": ["node_modules", "tmp"]
 }
