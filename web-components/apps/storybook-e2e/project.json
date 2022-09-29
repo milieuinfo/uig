@@ -7,17 +7,24 @@
             "executor": "@nrwl/cypress:cypress",
             "options": {
                 "browser": "chrome",
+                "testingType": "e2e",
                 "cypressConfig": "apps/storybook-e2e/cypress.config.js"
             }
         },
         "lint": {
             "executor": "@nrwl/linter:eslint",
-            "outputs": ["{options.outputFile}"],
+            "outputs": [
+                "{options.outputFile}"
+            ],
             "options": {
-                "lintFilePatterns": ["apps/storybook-e2e/**/*.{js,ts}"]
+                "lintFilePatterns": [
+                    "apps/storybook-e2e/**/*.{js,ts}"
+                ]
             }
         }
     },
     "tags": [],
-    "implicitDependencies": ["storybook"]
+    "implicitDependencies": [
+        "storybook"
+    ]
 }

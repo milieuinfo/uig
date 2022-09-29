@@ -1,6 +1,8 @@
-# Useful Git Commands
+# Useful Commands
 
-## Update Git User Name
+## Git
+
+### Update Git User Name
 
 https://mhagemann.medium.com/how-to-change-the-user-for-all-your-git-commits-ffefbacf2652
 
@@ -21,3 +23,15 @@ export GIT_AUTHOR_EMAIL="$NEW_EMAIL"
 fi
 ' --tag-name-filter cat -- --branches --tags
 ```
+
+## Bash
+
+<sub>welk process draait op welke poort ?</sub>
+```
+sudo lsof -i:4600
+```
+```
+sudo lsof -ti:4600
+```
+ 
+

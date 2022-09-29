@@ -40,6 +40,18 @@ jobs:
         run: npx nx build elements
       - name: web-components - components - build
         run: npx nx build components
+      - name: web-components - storybook - e2e-test
+        run: npm run storybook:ci-test
+      - name: Archive dist folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: web-components/dist
+      - name: Archive storybook-e2e-tests
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook-e2e-tests
+          path: /web-components/dist/cypress/apps/storybook-e2e/mochawesome-report
       - name: output the build results output path
         run: echo "the build results are available at build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}"
       - name: 🚀 publish dist folder on github-pages
