@@ -27,7 +27,7 @@ jobs:
           echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/"  > ~/.npmrc
           echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG_ACD_NPM }}" >> ~/.npmrc
       - name: web-components - npm install
-        run: npm install
+        run: npm ci
         continue-on-error: false
       - name: web-components - test
         run: npx nx test
