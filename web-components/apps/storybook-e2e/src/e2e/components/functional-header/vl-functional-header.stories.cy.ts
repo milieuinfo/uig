@@ -1,9 +1,9 @@
 const functionalHeaderUrl =
-    'http://localhost:4600/iframe.html?id=components-vl-functional-header--default&viewMode=story';
+    'http://localhost:4600/iframe.html?id=components-functional-header--functional-header-default&viewMode=story';
 const functionalHeaderWithSlotsUrl =
-    'http://localhost:4600/iframe.html?id=components-vl-functional-header--with-slot-elements&viewMode=story';
+    'http://localhost:4600/iframe.html?id=components-functional-header--functional-header-with-slot-elements&viewMode=story';
 const functionalHeaderWithUserInteractionUrl =
-    'http://localhost:4600/iframe.html?id=components-vl-functional-header--with-user-interaction&viewMode=story';
+    'http://localhost:4600/iframe.html?id=components-functional-header--functional-header-with-user-interaction&viewMode=story';
 
 describe('story vl-functional-header', () => {
     it('should contain a title and sub title', () => {
