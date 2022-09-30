@@ -1,4 +1,4 @@
-const documentUrl = 'http://localhost:4600/iframe.html?id=components-vl-document--default&viewMode=story';
+const documentUrl = 'http://localhost:4600/iframe.html?id=components-document--document-default&viewMode=story';
 
 describe('story vl-document', () => {
     it('should contain a document type and icon', () => {

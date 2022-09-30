@@ -1,34 +1,38 @@
-const contactCardUrl = 'http://localhost:4600/iframe.html?args=&id=components-vl-contact-card--default&viewMode=story';
+const contactCardUrl =
+    'http://localhost:4600/iframe.html?id=components-contact-card--contact-card-default&viewMode=story';
 
 describe('story vl-contact-card', () => {
     it('should contain a title', () => {
-        cy.visit(`${contactCardUrl}`)
-        cy.getDataCy('contact-card')
-        .find('h2')
-            .contains('Departement Onderwijs en Vorming')
+        cy.visit(`${contactCardUrl}`);
+        cy.getDataCy('contact-card').find('h2').contains('Departement Onderwijs en Vorming');
     });
 
     it('should contain an address', () => {
-        cy.visit(`${contactCardUrl}`)
+        cy.visit(`${contactCardUrl}`);
         cy.getDataCy('contact-card')
-        .get('.vl-properties__list')
-        .children()
-        .eq(0)
+            .get('.vl-properties__list')
+            .children()
+            .eq(0)
             .contains('Adres')
-        .next()
+            .next()
             .contains('Hendrik Consciencegebouw')
-        .next()
+            .next()
             .contains('Telefoon')
-        .next().find('.vl-link')
+            .next()
+            .find('.vl-link')
             .contains('02 553 72 02')
-        .parent().parent().next()
+            .parent()
+            .parent()
+            .next()
             .contains('E-mail')
-        .next().find('.vl-link')
+            .next()
+            .find('.vl-link')
             .contains('onderwijs.vlaanderen@vlaanderen.be')
-        .parent().next()
+            .parent()
+            .next()
             .contains('Website')
-        .next().find('.vl-link')
-            .contains('http://onderwijs.vlaanderen.be')
+            .next()
+            .find('.vl-link')
+            .contains('http://onderwijs.vlaanderen.be');
     });
-
 });

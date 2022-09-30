@@ -1,49 +1,51 @@
-const functionalHeaderUrl = 'http://localhost:4600/iframe.html?id=components-vl-functional-header--default&viewMode=story';
-const functionalHeaderWithSlotsUrl = 'http://localhost:4600/iframe.html?id=components-vl-functional-header--with-slot-elements&viewMode=story';
-const functionalHeaderWithUserInteractionUrl = 'http://localhost:4600/iframe.html?id=components-vl-functional-header--with-user-interaction&viewMode=story';
+const functionalHeaderUrl =
+    'http://localhost:4600/iframe.html?id=components-vl-functional-header--default&viewMode=story';
+const functionalHeaderWithSlotsUrl =
+    'http://localhost:4600/iframe.html?id=components-vl-functional-header--with-slot-elements&viewMode=story';
+const functionalHeaderWithUserInteractionUrl =
+    'http://localhost:4600/iframe.html?id=components-vl-functional-header--with-user-interaction&viewMode=story';
 
 describe('story vl-functional-header', () => {
     it('should contain a title and sub title', () => {
-        cy.visit(`${functionalHeaderUrl}`)
+        cy.visit(`${functionalHeaderUrl}`);
         cy.getDataCy('functional-header')
-        .shadow()
-        .find('a.vl-functional-header__title')
-            .contains('School- en studietoelagen')
+            .shadow()
+            .find('a.vl-functional-header__title')
+            .contains('School- en studietoelagen');
 
         cy.getDataCy('functional-header')
-        .shadow()
-        .find('li.vl-functional-header__sub__action')
-            .contains('Voor lager, middelbaar en hoger onderwijs')
+            .shadow()
+            .find('li.vl-functional-header__sub__action')
+            .contains('Voor lager, middelbaar en hoger onderwijs');
     });
 
     it('should contain a title and sub title when using slots', () => {
-        cy.visit(`${functionalHeaderWithSlotsUrl}`)
+        cy.visit(`${functionalHeaderWithSlotsUrl}`);
         cy.getDataCy('functional-header-with-slot-elements')
-        .find('span[slot="title"]')
-            .contains('School- en studietoelagen')
+            .find('span[slot="title"]')
+            .contains('School- en studietoelagen');
 
         cy.getDataCy('functional-header-with-slot-elements')
-        .find('span[slot="sub-title"]')
-            .contains('Voor lager, middelbaar en hoger onderwijs')
+            .find('span[slot="sub-title"]')
+            .contains('Voor lager, middelbaar en hoger onderwijs');
     });
 
     it('should contain a clickable title link', () => {
-        cy.visit(`${functionalHeaderUrl}`)
+        cy.visit(`${functionalHeaderUrl}`);
         cy.getDataCy('functional-header')
-        .shadow()
-        .find('a.vl-functional-header__title')
+            .shadow()
+            .find('a.vl-functional-header__title')
             .should('have.attr', 'href', '#')
-            .should('have.attr', 'tabindex', '0')
+            .should('have.attr', 'tabindex', '0');
     });
 
     it('should contain a clickable action link', () => {
-        cy.visit(`${functionalHeaderWithUserInteractionUrl}`)
+        cy.visit(`${functionalHeaderWithUserInteractionUrl}`);
         cy.getDataCy('functional-header-with-user-interaction')
-        .shadow()
-        .find('.vl-functional-header__actions')
-        .find('.vl-functional-header__action a')
+            .shadow()
+            .find('.vl-functional-header__actions')
+            .find('.vl-functional-header__action a')
             .should('have.attr', 'href', '#')
-            .contains('Koen Peeters')
+            .contains('Koen Peeters');
     });
-
 });
