@@ -1,6 +1,6 @@
 import { awaitUntil, BaseElementOfType, define } from '@domg-lib/common-utilities';
 import { vlFormValidation, vlFormValidationElement, vlPattern } from '@domg-lib/elements';
-import './lib/vl-datepicker-lib.js';
+import './vl-datepicker.lib.js';
 import styles from './style/vl-datepicker.scss';
 
 declare const vl: any;
