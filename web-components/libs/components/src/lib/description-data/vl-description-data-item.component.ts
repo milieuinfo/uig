@@ -1,6 +1,6 @@
 import { html, css, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import styles from '../style/vl-description-data.scss';
+import styles from './style/vl-description-data.scss';
 
 @customElement('vl-description-data-item')
 export class VlDescriptionDataItem extends LitElement {
