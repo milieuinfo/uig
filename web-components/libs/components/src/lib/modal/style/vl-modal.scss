@@ -16,6 +16,5 @@ $vl-icon-font-location: 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/i
 @import '@govflanders/vl-ui-icon/src/scss/icon';
 
 :host([data-vl-allow-overflow]) dialog {
-  overflow: visible;
+    overflow: visible;
 }
-

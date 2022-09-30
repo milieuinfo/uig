@@ -10,12 +10,11 @@ $vl-icon-font-location: 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/i
 // @govflanders component styles
 @import '@govflanders/vl-ui-pill/src/scss/pill';
 
-
 .vl-pill--map {
-  background-color: rgba($vl-page-bg, .8);
+    background-color: rgba($vl-page-bg, 0.8);
 }
 
 .vl-pill__close::before {
-    font-family: "vlaanderen-icon" !important;
-    content: "\f157";
+    font-family: 'vlaanderen-icon' !important;
+    content: '\f157';
 }

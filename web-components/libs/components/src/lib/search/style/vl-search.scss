@@ -8,13 +8,12 @@ $vl-icon-font-location: 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/i
 @import '@govflanders/vl-ui-util/src/scss/util';
 
 // @govflanders component styles
-@import "@govflanders/vl-ui-button/src/scss/button";
-@import "@govflanders/vl-ui-input-field/src/scss/input-field";
-@import "@govflanders/vl-ui-select/src/scss/select";
-@import "@govflanders/vl-ui-search/src/scss/search";
+@import '@govflanders/vl-ui-button/src/scss/button';
+@import '@govflanders/vl-ui-input-field/src/scss/input-field';
+@import '@govflanders/vl-ui-select/src/scss/select';
+@import '@govflanders/vl-ui-search/src/scss/search';
 
-
-slot[name="input"] {
+slot[name='input'] {
     @extend .vl-search__input;
     display: block;
 }
@@ -30,12 +29,12 @@ slot[name="input"] {
         width: var(--vl-search-width, 25rem);
     }
 
-    slot[name="input"] {
+    slot[name='input'] {
         box-sizing: content-box;
     }
 
-    slot[name="input"].is-open + .vl-search__submit {
-        transition: opacity .2s, transform .2s;
+    slot[name='input'].is-open + .vl-search__submit {
+        transition: opacity 0.2s, transform 0.2s;
         z-index: 1000;
         opacity: 1;
         transform: translateX(0%);
@@ -51,9 +50,10 @@ slot[name="input"] {
         box-shadow: 0px 0px 0px 2px inset $vl-input-hover-border-color;
     }
 
-    ::slotted(.is-open), ::slotted(.is-focused) {
-        transition: margin-right .2s;
+    ::slotted(.is-open),
+    ::slotted(.is-focused) {
+        transition: margin-right 0.2s;
         margin-right: 4.7rem !important;
-        border: .1rem solid $vl-input-border-color !important;
+        border: 0.1rem solid $vl-input-border-color !important;
     }
 }

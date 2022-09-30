@@ -13,5 +13,5 @@ $vl-icon-font-location: 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/i
 // @import '../tooltip/styles.scss';
 
 .vl-progress-bar__step[disabled] > button {
-  cursor: default;
+    cursor: default;
 }

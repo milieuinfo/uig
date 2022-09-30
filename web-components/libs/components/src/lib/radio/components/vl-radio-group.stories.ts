@@ -2,10 +2,10 @@ import { html } from 'lit-html';
 import './vl-radio-group.component';
 
 export default {
-  title: 'Components/vl-radio/vl-radio-group',
-  parameters: {
-    controls: { hideNoControlsWarning: true },
-  },
+    title: 'Components/vl-radio/vl-radio-group',
+    parameters: {
+        controls: { hideNoControlsWarning: true },
+    },
 };
 
 export const Default = () => html`

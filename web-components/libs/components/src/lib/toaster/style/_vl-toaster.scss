@@ -11,8 +11,8 @@ $vl-icon-font-location: 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/i
 @import '@govflanders/vl-ui-toaster/src/scss/toaster';
 
 [is='vl-toaster'] {
-  vl-alert {
-    display: block;
-    margin: 1rem;
-  }
+    vl-alert {
+        display: block;
+        margin: 1rem;
+    }
 }
