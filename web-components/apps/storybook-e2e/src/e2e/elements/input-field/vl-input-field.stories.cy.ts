@@ -28,9 +28,7 @@ describe('story vl-input-field', () => {
     });
 
     it('should contain an input field with an disabled state ', () => {
-        cy.visit(
-            'http://localhost:4600/iframe.html?args=&id=elements-input-field--input-field-disabled&viewMode=story'
-        );
+        cy.visit('http://localhost:4600/iframe.html?id=elements-input-field--input-field-disabled&viewMode=story');
         cy.getDataCy('input-field')
             .should('have.class', 'vl-input-field')
             .should('have.class', 'vl-input-field--disabled');

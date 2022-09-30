@@ -1,6 +1,6 @@
 describe('story vl-link', () => {
     it('should contain a link', () => {
-        cy.visit('http://localhost:4600/iframe.html?args=&id=elements-link--link-default&viewMode=story');
+        cy.visit('http://localhost:4600/iframe.html?id=elements-link--link-default&viewMode=story');
         cy.getDataCy('link-default').should('have.class', 'vl-link').contains('Terug naar overzicht');
     });
 

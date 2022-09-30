@@ -1,6 +1,6 @@
 describe('story vl-button-link', () => {
     it('should contain a link styled as a button', () => {
-        cy.visit('http://localhost:4600/iframe.html?args=&id=elements-link--button-link-default&viewMode=story');
+        cy.visit('http://localhost:4600/iframe.html?id=elements-link--button-link-default&viewMode=story');
         cy.getDataCy('button-link-default').should('have.class', 'vl-link').contains('Terug naar overzicht');
     });
 

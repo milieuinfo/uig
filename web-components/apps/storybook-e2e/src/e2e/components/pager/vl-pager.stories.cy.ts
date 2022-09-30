@@ -76,7 +76,7 @@ describe('story vl-pager', () => {
     });
 
     it('should be able to see the range and total for a single page pager', () => {
-        cy.visit('http://localhost:4600/iframe.html?args=&id=components-vl-pager--single-page&viewMode=story');
+        cy.visit('http://localhost:4600/iframe.html?id=components-vl-pager--single-page&viewMode=story');
 
         // Check page range
         cy.getDataCy('pager').shadow().find('#bounds > strong').contains('1-10');

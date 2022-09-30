@@ -1,8 +1,6 @@
 describe('story vl-introduction', () => {
     beforeEach(() =>
-        cy.visit(
-            'http://localhost:4600/iframe.html?args=&id=elements-introduction--introduction-default&viewMode=story'
-        )
+        cy.visit('http://localhost:4600/iframe.html?id=elements-introduction--introduction-default&viewMode=story')
     );
 
     it('should contain an introduction', () => {

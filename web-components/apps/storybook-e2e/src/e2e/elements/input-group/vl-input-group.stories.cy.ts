@@ -1,12 +1,12 @@
 describe('story vl-input-group', () => {
     it('should contain an input group', () => {
-        cy.visit('http://localhost:4600/iframe.html?args=&id=elements-input-group--input-group-default&viewMode=story');
+        cy.visit('http://localhost:4600/iframe.html?id=elements-input-group--input-group-default&viewMode=story');
         cy.getDataCy('input-group').should('have.class', 'vl-input-group');
     });
 
     it('should contain an input group with a button input addon to the right ', () => {
         cy.visit(
-            'http://localhost:4600/iframe.html?args=&id=elements-input-group--input-group-with-input-addon-right&viewMode=story'
+            'http://localhost:4600/iframe.html?id=elements-input-group--input-group-with-input-addon-right&viewMode=story'
         );
         cy.getDataCy('input-group')
             .should('have.class', 'vl-input-group')
@@ -17,7 +17,7 @@ describe('story vl-input-group', () => {
 
     it('should contain an input group with a icon button to the left', () => {
         cy.visit(
-            'http://localhost:4600/iframe.html?args=&id=elements-input-group--input-group-with-button-left&viewMode=story'
+            'http://localhost:4600/iframe.html?id=elements-input-group--input-group-with-button-left&viewMode=story'
         );
         cy.getDataCy('input-group')
             .should('have.class', 'vl-input-group')

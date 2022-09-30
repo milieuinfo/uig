@@ -1,6 +1,6 @@
 describe('story vl-icon', () => {
     it('should contain an icon', () => {
-        cy.visit('http://localhost:4600/iframe.html?args=&id=elements-icon--icon-default&viewMode=story');
+        cy.visit('http://localhost:4600/iframe.html?id=elements-icon--icon-default&viewMode=story');
         cy.getDataCy('icon-default');
     });
 
@@ -31,12 +31,12 @@ describe('story vl-icon', () => {
     });
 
     it('should contain an icon before an element with text', () => {
-        cy.visit('http://localhost:4600/iframe.html?args=&id=elements-icon--icon-before&viewMode=story');
+        cy.visit('http://localhost:4600/iframe.html?id=elements-icon--icon-before&viewMode=story');
         cy.getDataCy('icon-before-element').next('span').contains('Lorem ipsum dolor sit amet');
     });
 
     it('should contain an icon before an element', () => {
-        cy.visit('http://localhost:4600/iframe.html?args=&id=elements-icon--icon-after&viewMode=story');
+        cy.visit('http://localhost:4600/iframe.html?id=elements-icon--icon-after&viewMode=story');
         cy.getDataCy('icon-after-element').prev('span').contains('Lorem ipsum dolor sit amet');
     });
 });

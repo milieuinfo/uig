@@ -1,6 +1,6 @@
 describe('story vl-text', () => {
     it('should contain a text', () => {
-        cy.visit('http://localhost:4600/iframe.html?args=&id=elements-text--text-default&viewMode=story');
+        cy.visit('http://localhost:4600/iframe.html?id=elements-text--text-default&viewMode=story');
         cy.getDataCy('text-default').contains('Text');
     });
 

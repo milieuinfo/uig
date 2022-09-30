@@ -68,7 +68,7 @@ describe('story vl-infoblock', () => {
     });
 
     it('should contain an infoblock with a custom icon', () => {
-        cy.visit('http://localhost:4600/iframe.html?args=&id=components-vl-infoblock--custom-icon&viewMode=story');
+        cy.visit('http://localhost:4600/iframe.html?id=components-vl-infoblock--custom-icon&viewMode=story');
         cy.getDataCy('infoblock')
             .shadow()
             .find('#infoblock_icon')
@@ -77,9 +77,7 @@ describe('story vl-infoblock', () => {
     });
 
     it('should contain an infoblock with a title set through a slot', () => {
-        cy.visit(
-            'http://localhost:4600/iframe.html?args=&id=components-vl-infoblock--with-slot-elements&viewMode=story'
-        );
+        cy.visit('http://localhost:4600/iframe.html?id=components-vl-infoblock--with-slot-elements&viewMode=story');
         cy.getDataCy('infoblock-with-slot-elements').shadow().find('.vl-infoblock__title');
     });
 });
