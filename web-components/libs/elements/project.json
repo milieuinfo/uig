@@ -13,6 +13,12 @@
                 "assets": ["libs/elements/*.md"]
             }
         },
+        "process-scss": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "sass ./libs/elements/src/lib/_vl-elements.scss > ./dist/libs/elements/src/lib/vl-elements.css --load-path ./node_modules"
+            }
+        },
         "lint": {
             "executor": "@nrwl/linter:eslint",
             "outputs": ["{options.outputFile}"],
