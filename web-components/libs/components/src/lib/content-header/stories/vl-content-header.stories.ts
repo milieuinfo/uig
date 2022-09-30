@@ -1,34 +1,14 @@
 import { html } from 'lit-html';
-import './vl-content-header.component';
+import '../vl-content-header.component';
+import { contentHeaderArgs, contentHeaderArgTypes } from './vl-content-header.stories-arg';
 
 export default {
-    title: 'Components/vl-content-header',
-    args: {
-        contextLink: 'Context',
-        titleLink: 'Vlaanderen',
-    },
-    argTypes: {
-        image: {
-            name: 'image (slot)',
-            description: '',
-        },
-        contextLink: {
-            name: 'context-link (slot)',
-            description: '',
-        },
-        titleLink: {
-            name: 'title-link (slot)',
-            description: '',
-        },
-    },
+    title: 'Components/content-header',
+    args: contentHeaderArgs,
+    argTypes: contentHeaderArgTypes,
 };
 
-interface DefaultInterface {
-    contextLink: string;
-    titleLink: string;
-}
-
-export const Default = ({ contextLink, titleLink }: DefaultInterface) => html`
+export const contentHeaderDefault = ({ contextLink, titleLink }: typeof contentHeaderArgs) => html`
     <vl-content-header>
         <img
             is="vl-image"
@@ -52,3 +32,4 @@ export const Default = ({ contextLink, titleLink }: DefaultInterface) => html`
         <a slot="title-link" href="https://www.vlaanderen.be">${titleLink}</a>
     </vl-content-header>
 `;
+contentHeaderDefault.storyName = 'vl-content-header - default';
