@@ -1,15 +1,15 @@
-import { html } from "lit-html";
-import "../infoblock/vl-infoblock.component";
-import "./vl-contact-card.component";
+import { html } from 'lit-html';
+import '../../infoblock/vl-infoblock.component';
+import '../vl-contact-card.component';
 
 export default {
-  title: "Components/vl-contact-card",
-  parameters: {
-    controls: { hideNoControlsWarning: true },
-  },
+    title: 'Components/contact-card',
+    parameters: {
+        controls: { hideNoControlsWarning: true },
+    },
 };
 
-export const Default = () => html`<vl-contact-card data-cy="contact-card">
+export const contactCardDefault = () => html` <vl-contact-card data-cy="contact-card">
     <vl-infoblock slot="info" data-vl-title="Departement Onderwijs en Vorming" data-vl-type="contact"></vl-infoblock>
     <vl-properties slot="properties">
         <dl is="vl-properties-list">
@@ -47,3 +47,4 @@ export const Default = () => html`<vl-contact-card data-cy="contact-card">
         </dl>
     </vl-properties>
 </vl-contact-card>`;
+contactCardDefault.storyName = 'vl-contact-card - default';
