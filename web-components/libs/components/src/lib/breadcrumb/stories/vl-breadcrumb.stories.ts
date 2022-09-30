@@ -1,15 +1,15 @@
 import { html } from 'lit';
-import './vl-breadcrumb.component';
-import './vl-breadcrumb-item.component';
+import '../vl-breadcrumb.component';
+import '../vl-breadcrumb-item.component';
 
 export default {
-    title: 'Components/vl-breadcrumb',
+    title: 'Components/breadcrumb',
     parameters: {
         controls: { hideNoControlsWarning: true },
     },
 };
 
-export const Default = () =>
+export const breadcrumbDefault = () =>
     html`
         <vl-breadcrumb data-cy="breadcrumb">
             <vl-breadcrumb-item data-vl-href="#">Vlaanderen Intern</vl-breadcrumb-item>
@@ -18,3 +18,4 @@ export const Default = () =>
             <vl-breadcrumb-item data-vl-href="#">Componenten</vl-breadcrumb-item>
         </vl-breadcrumb>
     `;
+breadcrumbDefault.storyName = 'vl-breadcrumb - default';
