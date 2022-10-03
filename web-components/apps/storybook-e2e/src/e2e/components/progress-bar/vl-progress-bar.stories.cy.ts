@@ -1,4 +1,5 @@
-const progressBarUrl = 'http://localhost:4600/iframe.html?id=components-vl-progress-bar--default&viewMode=story';
+const progressBarUrl =
+    'http://localhost:4600/iframe.html?id=components-progress-bar--progress-bar-default&viewMode=story';
 
 describe('story vl-progress-bar', () => {
     it('should contain 3 steps', () => {

@@ -1,6 +1,5 @@
-const radioUrl = 'http://localhost:4600/iframe.html?id=components-vl-radio--default&viewMode=story';
-const radioButtonGroupUrl =
-    'http://localhost:4600/iframe.html?id=components-vl-radio-vl-radio-group--default&viewMode=story';
+const radioUrl = 'http://localhost:4600/iframe.html?id=components-radio--radio-default&viewMode=story';
+const radioGroupUrl = 'http://localhost:4600/iframe.html?id=components-radio--radio-group-default&viewMode=story';
 
 describe('story vl-radio', () => {
     it.skip('should contain a label', () => {
@@ -39,7 +38,7 @@ describe('story vl-radio', () => {
     });
 
     it('should contain a radio button group where we can navigate between radio inputs with the keyboard arrow keys', () => {
-        cy.visit(`${radioButtonGroupUrl}`);
+        cy.visit(`${radioGroupUrl}`);
 
         // Click first radio and go to the next with the keyboard
         cy.getDataCy('radio-button-group')
@@ -87,7 +86,7 @@ describe('story vl-radio', () => {
     });
 
     it.skip('should contain a radio button group where you can only select one radio at a time', () => {
-        cy.visit(`${radioButtonGroupUrl}`);
+        cy.visit(`${radioGroupUrl}`);
 
         // Click first radio
         cy.getDataCy('radio-button-group').find('#radio-group-1-radio-1').shadow().find('label.vl-radio').click();

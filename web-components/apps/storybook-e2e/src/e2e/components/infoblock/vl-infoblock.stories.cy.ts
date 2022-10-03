@@ -1,5 +1,4 @@
-const infoblockUrl =
-    'http://localhost:4600/iframe.html?args=&id=components-infoblock--infoblock-contact&viewMode=story';
+const infoblockUrl = 'http://localhost:4600/iframe.html?id=components-infoblock--infoblock-contact&viewMode=story';
 
 describe('story vl-infoblock', () => {
     it('should contain a title', () => {

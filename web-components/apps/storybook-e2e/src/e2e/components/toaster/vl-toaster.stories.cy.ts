@@ -1,5 +1,5 @@
-const toasterUrl = 'http://localhost:4600/iframe.html?id=components-vl-toaster--default&viewMode=story';
-const fadeOutToasterUrl = 'http://localhost:4600/iframe.html?id=components-vl-toaster--fade-out&viewMode=story';
+const toasterUrl = 'http://localhost:4600/iframe.html?id=components-toaster--toaster-default&viewMode=story';
+const toasterFadeOutUrl = 'http://localhost:4600/iframe.html?id=components-toaster--toaster-fade-out&viewMode=story';
 
 describe('story vl-toaster', () => {
     it('should contain a toaster in the top left corner of the page', () => {
@@ -55,7 +55,7 @@ describe('story vl-toaster', () => {
     });
 
     it('should contain a toaster that fades out after a few seconds', () => {
-        cy.visit(`${fadeOutToasterUrl}`);
+        cy.visit(`${toasterFadeOutUrl}`);
 
         cy.getDataCy('button-top-left').click();
 

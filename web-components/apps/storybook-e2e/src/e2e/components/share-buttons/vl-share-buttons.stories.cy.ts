@@ -1,4 +1,5 @@
-const shareButtonsUrl = 'http://localhost:4600/iframe.html?id=components-vl-share-buttons--default&viewMode=story';
+const shareButtonsUrl =
+    'http://localhost:4600/iframe.html?id=components-share-buttons--share-buttons-default&viewMode=story';
 
 describe('story vl-share-buttons', () => {
     it('should contain share buttons', () => {

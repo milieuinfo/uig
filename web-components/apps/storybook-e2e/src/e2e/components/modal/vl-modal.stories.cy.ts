@@ -1,6 +1,6 @@
-const modalUrl = 'http://localhost:4600/iframe.html?id=components-vl-modal--default&viewMode=story';
+const modalUrl = 'http://localhost:4600/iframe.html?id=components-modal--modal-default&viewMode=story';
 const modalWithOtherActionUrl =
-    'http://localhost:4600/iframe.html?id=components-vl-modal--with-other-action&viewMode=story';
+    'http://localhost:4600/iframe.html?id=components-modal--modal-with-other-action&viewMode=story';
 
 const openModal = () => {
     cy.getDataCy('button-modal-toggle').click();

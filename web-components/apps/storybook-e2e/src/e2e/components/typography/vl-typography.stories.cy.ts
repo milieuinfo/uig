@@ -1,7 +1,11 @@
-const typographyParagraphUrl = 'http://localhost:4600/iframe.html?id=components-vl-typography--default&viewMode=story';
-const typographyHeadingsUrl = 'http://localhost:4600/iframe.html?id=components-vl-typography--titles&viewMode=story';
-const typographyMarkupUrl = 'http://localhost:4600/iframe.html?id=components-vl-typography--markup&viewMode=story';
-const typographyTableUrl = 'http://localhost:4600/iframe.html?id=components-vl-typography--table&viewMode=story';
+const typographyParagraphUrl =
+    'http://localhost:4600/iframe.html?id=components-typography--typography-default&viewMode=story';
+const typographyHeadingsUrl =
+    'http://localhost:4600/iframe.html?id=components-typography--typography-titles&viewMode=story';
+const typographyMarkupUrl =
+    'http://localhost:4600/iframe.html?id=components-typography--typography-markup&viewMode=story';
+const typographyTableUrl =
+    'http://localhost:4600/iframe.html?id=components-typography--typography-table&viewMode=story';
 
 describe('story vl-typography', () => {
     it('should contain a styled paragraph', () => {

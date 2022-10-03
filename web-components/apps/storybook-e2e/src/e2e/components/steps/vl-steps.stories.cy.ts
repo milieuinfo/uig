@@ -1,7 +1,8 @@
-const stepsUrl = 'http://localhost:4600/iframe.html?id=components-vl-steps--default&viewMode=story';
+const stepsUrl = 'http://localhost:4600/iframe.html?id=components-steps--steps-default&viewMode=story';
 const stepsWithAccordionsUrl =
-    'http://localhost:4600/iframe.html?id=components-vl-steps--with-accordions&viewMode=story';
-const stepsWithTimelineUrl = 'http://localhost:4600/iframe.html?id=components-vl-steps--with-timeline&viewMode=story';
+    'http://localhost:4600/iframe.html?id=components-steps--steps-with-accordions&viewMode=story';
+const stepsWithTimelineUrl =
+    'http://localhost:4600/iframe.html?id=components-steps--steps-with-timeline&viewMode=story';
 
 describe('story vl-steps', () => {
     it('should contain steps', () => {
