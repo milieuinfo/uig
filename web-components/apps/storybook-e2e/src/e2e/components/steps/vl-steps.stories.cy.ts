@@ -152,6 +152,6 @@ describe('story vl-steps', () => {
             .find('ul.vl-steps')
             .children('.vl-duration-step')
             .first()
-            .contains('Vrije tijd: 1 uur ');
+            .contains('Vrije tijd: 1 uur');
     });
 });
