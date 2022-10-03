@@ -1,8 +1,8 @@
 import { BaseElementOfType, define } from '@domg-lib/common-utilities';
-import './lib/vl-toaster-lib.js';
+import './vl-toaster.lib.js';
 import '@govflanders/vl-ui-util/dist/js/util.js';
 import '@govflanders/vl-ui-core/dist/js/core.js';
-import './style/_vl-toaster.scss';
+import './style/vl-toaster.scss';
 
 declare const vl: any;
 

@@ -1,6 +1,6 @@
 import { BaseElementOfType, define } from '@domg-lib/common-utilities';
 import { vlFormValidation, vlFormValidationElement } from '@domg-lib/elements';
-import './lib/vl-upload-lib.js';
+import './vl-upload.lib.js';
 import styles from './style/vl-upload.scss';
 
 declare const vl: any;

@@ -2,7 +2,7 @@ import { html, css, LitElement, unsafeCSS } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './style/vl-toggle-button.scss';
 
-const ICON_PLACEMENT = {
+export const ICON_PLACEMENT = {
     BEFORE: 'before',
     AFTER: 'after',
 };

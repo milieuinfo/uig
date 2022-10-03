@@ -1,5 +1,5 @@
 import { html, css, LitElement, unsafeCSS } from 'lit';
-import './components/share-button/vl-share-button.component';
+import './vl-share-button.component';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './style/vl-share-buttons.scss';
 import { customElement } from 'lit/decorators.js';

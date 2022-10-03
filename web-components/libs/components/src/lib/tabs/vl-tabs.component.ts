@@ -1,7 +1,7 @@
 import { awaitUntil, BaseElementOfType, define } from '@domg-lib/common-utilities';
-import { VlTabsPaneComponent } from './components/vl-tabs-pane.component';
-import './components/vl-tab.component';
-import './components/vl-tab-section.component';
+import { VlTabsPaneComponent } from './vl-tabs-pane.component';
+import './vl-tab.component';
+import './vl-tab-section.component';
 import '@govflanders/vl-ui-tabs/dist/js/tabs.js';
 import styles from './style/vl-tabs.scss';
 

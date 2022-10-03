@@ -1,7 +1,7 @@
 import { html, css, LitElement, unsafeCSS } from 'lit';
 import styles from './style/vl-wizard.scss';
 import '../progress-bar/vl-progress-bar.component';
-import './components/vl-wizard-pane.component';
+import './vl-wizard-pane.component';
 import { customElement } from 'lit/decorators.js';
 
 @customElement('vl-wizard')

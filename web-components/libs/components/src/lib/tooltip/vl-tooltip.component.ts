@@ -1,6 +1,6 @@
 import { BaseElementOfType, define } from '@domg-lib/common-utilities';
 import '@govflanders/vl-ui-util/dist/js/util.js';
-import './lib/vl-tooltip-lib.js';
+import './vl-tooltip.lib.js';
 import styles from './style/vl-tooltip.scss';
 
 declare const vl: any;

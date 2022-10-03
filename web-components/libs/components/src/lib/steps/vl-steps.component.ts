@@ -1,6 +1,6 @@
 import { BaseElementOfType, define } from '@domg-lib/common-utilities';
-import './components/vl-step.component';
-import './components/vl-duration-step.component';
+import './vl-step.component';
+import './vl-duration-step.component';
 import styles from './style/vl-steps.scss';
 
 /**
