@@ -1,5 +1,5 @@
 import { awaitUntil } from '@domg-lib/common-utilities';
-import '@govflanders/vl-ui-util/dist/js/util.js';
+import '@govflanders-v14/vl-ui-util/dist/js/util.js';
 import './lib/pattern.lib.js';
 
 // TODO: gertjame refactor this.

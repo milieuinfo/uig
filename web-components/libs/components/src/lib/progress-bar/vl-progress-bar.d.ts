@@ -1,1 +1,1 @@
-declare module '@govflanders/vl-ui-progress-bar/dist/js/progress-bar.js';
+declare module '@govflanders-v14/vl-ui-progress-bar/src/js/progress-bar.js';

@@ -1,5 +1,5 @@
 import { BaseElementOfType, define } from '@domg-lib/common-utilities';
-import '@govflanders/vl-ui-util/dist/js/util.js';
+import '@govflanders-v14/vl-ui-util/dist/js/util.js';
 import './vl-tooltip.lib.js';
 import styles from './style/vl-tooltip.scss';
 

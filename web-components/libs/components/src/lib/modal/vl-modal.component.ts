@@ -1,6 +1,6 @@
 import { awaitUntil, BaseElementOfType, define } from '@domg-lib/common-utilities';
-import '@govflanders/vl-ui-util/dist/js/util.js';
-import '@govflanders/vl-ui-core/dist/js/core.js';
+import '@govflanders-v14/vl-ui-util/dist/js/util.js';
+import '@govflanders-v14/vl-ui-core/dist/js/core.js';
 import './vl-modal.lib.js';
 import styles from './style/vl-modal.scss';
 
