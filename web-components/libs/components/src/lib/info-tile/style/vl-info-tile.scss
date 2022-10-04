@@ -8,10 +8,10 @@ $vl-icon-font-location: 'https://cdn.milieuinfo.be/vlaanderen-font/LATEST/font/i
 @import '@govflanders/vl-ui-util/src/scss/util';
 
 // @govflanders component styles
-@import '@govflanders/vl-ui-info-tile/src/scss/info-tile';
-@import '@govflanders/vl-ui-link/src/scss/link';
-@import '@govflanders/vl-ui-toggle/src/scss/toggle';
-@import '@govflanders/vl-ui-accordion/src/scss/accordion';
+@import '@govflanders-v14/vl-ui-info-tile/src/scss/info-tile';
+@import '@govflanders-v14/vl-ui-link/src/scss/link';
+@import '@govflanders-v14/vl-ui-toggle/src/scss/toggle';
+@import '@govflanders-v14/vl-ui-accordion/src/scss/accordion';
 
 :host([data-vl-toggleable]) {
     .vl-info-tile {
