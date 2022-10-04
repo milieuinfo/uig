@@ -74,6 +74,7 @@
         "@govflanders-v14/vl-ui-multiselect": "npm:@govflanders/vl-ui-multiselect@14.0.2",
         "@govflanders-v14/vl-ui-pill": "npm:@govflanders/vl-ui-pill@14.0.2",
         "@govflanders-v14/vl-ui-properties": "npm:@govflanders/vl-ui-properties@14.0.2",
+        "@govflanders-v14/vl-ui-search": "npm:@govflanders/vl-ui-search@14.0.2",
         "@govflanders-v14/vl-ui-search-filter": "npm:@govflanders/vl-ui-search-filter@14.0.2",
         "@govflanders-v14/vl-ui-search-results": "npm:@govflanders/vl-ui-search-results@14.0.2",
         "@govflanders-v14/vl-ui-select": "npm:@govflanders/vl-ui-select@14.0.2",
