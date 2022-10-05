@@ -1,0 +1,12 @@
+@charset "utf-8";
+@import "../../../node_modules/@govflanders/vl-ui-core/src/scss/core";
+@import "../../../node_modules/@govflanders/vl-ui-core-4.1.24/src/scss/generic/iconfont";
+@import '../../../node_modules/@govflanders/vl-ui-util/src/scss/util';
+
+:host {
+    display: block;
+}
+
+vl-header-cookie, vl-header-authentication-cookie, vl-authentication-cookie, vl-jsessionid-cookie, vl-sticky-session-cookie, ::slotted(vl-cookie:not(:last-of-type)) {
+    margin-bottom: 1.8rem;
+}

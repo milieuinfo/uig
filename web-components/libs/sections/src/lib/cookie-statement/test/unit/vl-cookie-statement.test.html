@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <script src="/node_modules/web-component-tester/browser.js"></script>
+  <script src="/node_modules/sinon/pkg/sinon.js"></script>
+
+  <script type="module" src="../../../../../lib/legacy/cookie-statement/index.js"></script>
+  <title>vl-cookie-statement test</title>
+</head>
+
+<body>
+  <test-fixture id="vl-cookie-statement-fixture">
+    <template>
+      <vl-cookie-statement></vl-cookie-statement>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-cookie-statement-customized-fixture">
+    <template>
+      <vl-cookie-statement data-vl-version="2.0" data-vl-date="3 december 1988"></vl-cookie-statement>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('vl-cookie-statement', () => {
+      test('heeft default een versie en datum', () => {
+        const element = fixture('vl-cookie-statement-fixture');
+        const version = element.shadowRoot.querySelector('#introduction-version');
+        const date1 = element.shadowRoot.querySelector('#introduction-date');
+        assert.equal(version.innerText, '1.0.0');
+        assert.equal(date1.innerText, '3 maart 2021');
+      });
+
+      test('de versie en datum kunnen geconfigureerd worden', () => {
+        const element = fixture('vl-cookie-statement-customized-fixture');
+        const version = element.shadowRoot.querySelector('#introduction-version');
+        const date = element.shadowRoot.querySelector('#introduction-date');
+        assert.equal(version.innerText, element.dataset.vlVersion);
+        assert.equal(date.innerText, element.dataset.vlDate);
+      });
+    });
+  </script>
+</body>
+
+</html>

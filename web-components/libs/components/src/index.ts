@@ -20,7 +20,7 @@ export * from './lib/pill/vl-pill.component';
 export * from './lib/pill/vl-button-pill.component';
 export * from './lib/progress-bar/vl-progress-bar.component';
 export * from './lib/radio/vl-radio.component';
-// export * from './lib/radio/components/vl-radio-group.component';
+export * from './lib/radio/vl-radio-group.component';
 export * from './lib/share-buttons/vl-share-button.component';
 export * from './lib/share-buttons/vl-share-buttons.component';
 export * from './lib/search/vl-search.component';

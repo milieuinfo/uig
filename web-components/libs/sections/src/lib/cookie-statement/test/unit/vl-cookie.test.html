@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <script src="/node_modules/web-component-tester/browser.js"></script>
+  <script src="/node_modules/sinon/pkg/sinon.js"></script>
+
+  <script type="module" src="../../../../../lib/legacy/cookie-statement/index.js"></script>
+  <title>vl-cookie test</title>
+</head>
+
+<body>
+  <test-fixture id="vl-cookie-fixture">
+    <template>
+      <vl-cookie 
+        data-vl-title="Captcha contactformulier" 
+        data-vl-name="NID" 
+        data-vl-purpose="reCaptcha is een beveiligingsmaatregel die controleert of u een legitieme bezoeker bent, om te voorkomen dat een bot of script het formulier misbruikt om spam mee te versturen."
+        data-vl-domain="google.com"
+        data-vl-processor="Google"
+        data-vl-validity="Permanente cookie met een geldigheid van 6 maanden">
+      </vl-cookie>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-sticky-session-cookie-fixture">
+    <template>
+      <vl-sticky-session-cookie></vl-sticky-session-cookie>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-jsessionid-cookie-fixture">
+    <template>
+      <vl-jsessionid-cookie></vl-jsessionid-cookie>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-header-cookie-fixture">
+    <template>
+      <vl-header-cookie></vl-header-cookie>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-header-authentication-cookie-fixture">
+    <template>
+      <vl-header-authentication-cookie></vl-header-authentication-cookie>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-authentication-cookie-fixture">
+    <template>
+      <vl-authentication-cookie></vl-authentication-cookie>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('vl-cookie', () => {
+      test('toont de cookie titel', () => {
+        const cookie = fixture('vl-cookie-fixture');
+        const title = cookie.shadowRoot.querySelector('h3');
+        assert.equal(title.textContent, cookie.dataset.vlTitle);
+      });
+
+      test('toont de cookie gegevens op basis van data attributen', () => {
+        const cookie = fixture('vl-cookie-fixture');
+        const values = cookie.shadowRoot.querySelectorAll('[is="vl-property-value"]');
+        assert.equal(values[0].textContent, cookie.dataset.vlName);
+        assert.equal(values[1].textContent, cookie.dataset.vlPurpose);
+        assert.equal(values[2].textContent, 'Cookie');
+        assert.equal(values[3].textContent, cookie.dataset.vlDomain);
+        assert.equal(values[4].textContent, cookie.dataset.vlProcessor);
+        assert.equal(values[5].textContent, cookie.dataset.vlValidity);
+      });
+
+      test('toont bij cookie extends de cookie titel', () => {
+        ['sticky-session', 'jsessionid', 'header', 'header-authentication', 'authentication'].forEach((id) => {
+          const cookie = fixture(`vl-${id}-cookie-fixture`);
+          const title = cookie.shadowRoot.querySelector('h3');
+          assert.isDefined(title.textContent);
+        });
+      });
+
+      test('toont bij cookie extends de cookie gegevens op basis van constructie parameters', () => {
+        ['sticky-session', 'jsessionid', 'header', 'header-authentication', 'authentication'].forEach((id) => {
+          const cookie = fixture(`vl-${id}-cookie-fixture`);
+          const values = cookie.shadowRoot.querySelectorAll('[is="vl-property-value"]');
+          assert.isDefined(values[0].textContent);
+          assert.isDefined(values[1].textContent);
+          assert.isDefined(values[2].textContent);
+          assert.isDefined(values[3].textContent);
+          assert.isDefined(values[4].textContent);
+          assert.isDefined(values[5].textContent);
+        });
+      });
+
+      test('toont de cookie naam als een lijst indien er meerdere namen van toepassing zijn', () => {
+        const cookie = fixture('vl-sticky-session-cookie-fixture');
+        const values = cookie.shadowRoot.querySelectorAll('[is="vl-property-value"]');
+        const list = values[0].querySelector('vl-typography').shadowRoot.querySelector('ul');
+        const listItems = list.querySelectorAll('li');
+        assert.lengthOf(listItems, 2);
+        assert.isDefined(listItems[0].textContent);
+        assert.isDefined(listItems[1].textContent);
+      });
+    });
+  </script>
+</body>
+
+</html>

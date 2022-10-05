@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+  <head>
+    <meta charset="utf-8" />
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/sinon/pkg/sinon.js"></script>
+    <script type="module" src="../../../../../lib/legacy/cookie-consent/index.js"></script>
+    <title>vl-cookie-consent-opt-in test</title>
+  </head>
+
+<body>
+  <test-fixture id="vl-cookie-consent-opt-in-fixture">
+    <template>
+      <vl-cookie-consent-opt-in></vl-cookie-consent-opt-in>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-cookie-consent-opt-in-label-fixture">
+      <template>
+        <vl-cookie-consent-opt-in data-vl-label="Sociale media"></vl-cookie-consent-opt-in>
+      </template>
+    </test-fixture>
+
+  <test-fixture id="vl-cookie-consent-opt-in-description-fixture">
+    <template>
+      <vl-cookie-consent-opt-in data-vl-label="Sociale media" data-vl-description="Sociale media beschrijving"></vl-cookie-consent-opt-in>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-cookie-consent-opt-in-checked-fixture">
+    <template>
+      <vl-cookie-consent-opt-in data-vl-checked></vl-cookie-consent-opt-in>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-cookie-consent-opt-in-mandatory-fixture">
+    <template>
+      <vl-cookie-consent-opt-in data-vl-mandatory></vl-cookie-consent-opt-in>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('vl-cookie-consent-opt-in', () => {
+      const should = chai.should();
+
+      test('bevat een checkbox', () => {
+        const cookieConsent = fixture('vl-cookie-consent-opt-in-fixture');
+        const checkbox = cookieConsent.shadowRoot.querySelector('vl-checkbox');
+        should.exist(checkbox);
+      });
+
+      test('bevat een checkbox met label indien het label attribuut aanwezig is', () => {
+        const cookieConsent = fixture('vl-cookie-consent-opt-in-fixture');
+        const checkbox = cookieConsent.shadowRoot.querySelector('vl-checkbox');
+        should.equal(checkbox.getAttribute('data-vl-label'), cookieConsent.getAttribute('data-vl-label'));
+      });
+
+      test('bevat een beschrijving indien het beschrijving attribuut aanwezig is', () => {
+        const cookieConsent = fixture('vl-cookie-consent-opt-in-description-fixture');
+        const description = cookieConsent.shadowRoot.querySelector('#description');
+        should.exist(description);
+        assert.equal(description.getAttribute('is'), 'vl-form-annotation');
+        assert.isTrue(description.hasAttribute('block'));
+      });
+
+      test('zal de checkbox standaard aanvinken indien het checked attribuut aanwezig is', () => {
+        const cookieConsent = fixture('vl-cookie-consent-opt-in-checked-fixture');
+        const checkbox = cookieConsent.shadowRoot.querySelector('vl-checkbox');
+        assert.isTrue(checkbox.checked);
+      });
+
+      test('zal de checkbox standaard aanvinken en op disabled zetten indien het mandatory attribuut aanwezig is', () => {
+        const cookieConsent = fixture('vl-cookie-consent-opt-in-mandatory-fixture');
+        const checkbox = cookieConsent.shadowRoot.querySelector('vl-checkbox');
+        assert.isTrue(checkbox.hasAttribute('checked'));
+        assert.isTrue(checkbox.hasAttribute('disabled'));
+      });
+
+      test('kan de checked waarde opvragen', () => {
+        const cookieConsent = fixture('vl-cookie-consent-opt-in-fixture');
+        const cookieConsentChecked = fixture('vl-cookie-consent-opt-in-checked-fixture');
+        assert.isFalse(cookieConsent.checked);
+        assert.isTrue(cookieConsentChecked.checked);
+      });
+    });
+  </script>
+</body>
+
+</html>

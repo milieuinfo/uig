@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <script src="/node_modules/web-component-tester/browser.js"></script>
+  <script src="/node_modules/sinon/pkg/sinon.js"></script>
+
+  <script type="module" src="../../../../../lib/legacy/cookie-statement/index.js"></script>
+  <title>vl-sticky-session-cookie test</title>
+</head>
+
+<body>
+  <test-fixture id="vl-sticky-session-cookie-fixture">
+    <template>
+      <vl-sticky-session-cookie></vl-sticky-session-cookie>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('vl-sticky-session-cookie', () => {
+      test('toont de cookie titel', () => {
+        const cookie = fixture('vl-sticky-session-cookie-fixture');
+        const title = cookie.shadowRoot.querySelector('h3');
+        assert.isDefined(title.textContent);
+      });
+
+      test('toont de cookie gegevens op basis van constructie parameters', () => {
+        const cookie = fixture('vl-sticky-session-cookie-fixture');
+        const values = cookie.shadowRoot.querySelectorAll('[is="vl-property-value"]');
+        assert.isDefined(values[0].textContent);
+        assert.isDefined(values[1].textContent);
+        assert.isDefined(values[2].textContent);
+        assert.isDefined(values[3].textContent);
+        assert.isDefined(values[4].textContent);
+        assert.isDefined(values[5].textContent);
+      });
+    });
+  </script>
+</body>
+
+</html>

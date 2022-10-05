@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <title>vl-ui-cookie-consent test</title>
+    <script type="module" src="../../../../../../build/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../../../lib/components/body/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../lib/components/button/styles.css" />
+  </head>
+
+  <body is="vl-body">
+      <button id="button-open-cookie-consent" is="vl-button" onclick="document.querySelector('#cookie-consent').open();">
+        Open cookie-consent
+      </button>
+      <vl-cookie-consent id="cookie-consent" data-vl-auto-open-disabled></vl-cookie-consent>
+      <button
+        id="button-open-cookie-consent"
+        is="vl-button"
+        onclick="document.querySelector('#cookie-consent').open();"
+      >
+        Open cookie-consent
+      </button>
+      <vl-cookie-consent id="cookie-consent" data-vl-auto-open-disabled></vl-cookie-consent>
+
+      <button
+        id="button-open-cookie-consent-without-functional-opt-in"
+        is="vl-button"
+        onclick="document.querySelector('#cookie-consent-without-functional-opt-in').open();"
+      >
+        Open cookie-consent
+      </button>
+      <vl-cookie-consent
+        id="cookie-consent-without-functional-opt-in"
+        data-vl-auto-open-disabled
+        data-vl-auto-opt-in-functional-disabled
+      ></vl-cookie-consent>
+
+      <button
+        id="button-open-cookie-consent-with-extra-opt-in"
+        is="vl-button"
+        onclick="document.querySelector('#cookie-consent-with-extra-opt-in').open();"
+      >
+        Open cookie-consent
+      </button>
+      <vl-cookie-consent id="cookie-consent-with-extra-opt-in" data-vl-auto-open-disabled>
+        <vl-cookie-consent-opt-in
+          id="socialmedia"
+          data-vl-label="Sociale media"
+          data-vl-description="Beschrijving van de sociale media cookies."
+        ></vl-cookie-consent-opt-in>
+      </vl-cookie-consent>
+
+      <button
+        id="button-open-cookie-consent-with-extra-checked-opt-in"
+        is="vl-button"
+        onclick="document.querySelector('#cookie-consent-with-extra-checked-opt-in').open();"
+      >
+        Open cookie-consent
+      </button>
+      <vl-cookie-consent id="cookie-consent-with-extra-checked-opt-in" data-vl-auto-open-disabled>
+        <vl-cookie-consent-opt-in
+          id="socialmedia"
+          data-vl-label="Sociale media"
+          data-vl-description="Beschrijving van de sociale media cookies."
+          data-vl-checked
+        ></vl-cookie-consent-opt-in>
+      </vl-cookie-consent>
+
+      <button
+        id="button-open-cookie-consent-with-extra-mandatory-opt-in"
+        is="vl-button"
+        onclick="document.querySelector('#cookie-consent-with-extra-mandatory-opt-in').open();"
+      >
+        Open cookie-consent
+      </button>
+      <vl-cookie-consent
+        id="cookie-consent-with-extra-mandatory-opt-in"
+        data-vl-auto-open-disabled
+        data-vl-opt-in-functional
+      >
+        <vl-cookie-consent-opt-in
+          id="socialmedia"
+          data-vl-label="Sociale media"
+          data-vl-description="Beschrijving van de sociale media cookies."
+          data-vl-mandatory
+        ></vl-cookie-consent-opt-in>
+      </vl-cookie-consent>
+
+      <button
+        id="button-open-cookie-consent-with-extra-dynamic-opt-in"
+        is="vl-button"
+        onclick="document.querySelector('#cookie-consent-with-extra-dynamic-opt-in').open();"
+      >
+        Open cookie-consent
+      </button>
+      <button
+        id="button-add-cookie-consent-opt-in"
+        is="vl-button"
+        onclick="document.querySelector('#cookie-consent-with-extra-dynamic-opt-in').addOptIn({
+                  name: 'socialmedia',
+                  label: 'Sociale media',
+                  description: 'Sociale media beschrijving',
+                  value: true,
+                  mandatory: false,
+                  callbacks: {
+                      activated: () => {},
+                      deactivated: () => {}
+                  }
+              });"
+      >
+        Voeg sociale media opt-in toe
+      </button>
+      <vl-cookie-consent id="cookie-consent-with-extra-dynamic-opt-in" data-vl-auto-open-disabled></vl-cookie-consent>
+
+      <button
+        id="button-open-cookie-consent-with-custom-text"
+        is="vl-button"
+        onclick="document.querySelector('#cookie-consent-with-custom-text').open();"
+      >
+        Open cookie-consent
+      </button>
+      <vl-cookie-consent
+        id="cookie-consent-with-custom-text"
+        data-vl-auto-open-disabled
+        data-vl-owner="UIG"
+        data-vl-link="https://webcomponenten.omgeving.vlaanderen.be"
+      ></vl-cookie-consent>
+  </body>
+</html>
