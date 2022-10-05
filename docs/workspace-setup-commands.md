@@ -22,6 +22,7 @@ This document describes the steps to set up the monorepo workspace.
 - npx nx g @nrwl/web:lib common/utilities --buildable --importPath=@domg-lib/common-utilities
 - npx nx g @nrwl/web:lib elements --buildable --publishable --importPath=@domg-lib/elements
 - npx nx g @nrwl/web:lib components --buildable --publishable --importPath=@domg-lib/components
+- npx nx g @nrwl/web:lib sections --buildable --publishable --importPath=@domg-lib/sections
 - npx nx g @nrwl/web:lib support/test-support --buildable --publishable --importPath=@domg-lib/test-support
 - npx nx g @nrwl/web:application exhibit
 - npx nx g @nrwl/web:application storybook

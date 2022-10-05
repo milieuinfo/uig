@@ -22,11 +22,12 @@ uig/
 │  │  │  ├─ utilities/
 │  │  │  │   -> @domg-lib/common-utilities [ts]
 │  │  ├─ components/
-│  │  │  -> @domg-lib/components (+ header-footer /  http-error-message / proza-message) [ts]
+│  │  │  -> @domg-lib/components (http-error-message / proza-message) [ts]
 │  │  ├─ elements/
 │  │  │   -> @domg-lib/elements [ts]
-│  │  ├─ fat/
-│  │  │   -> @domg-lib/fat-header-footer [ts] (code zit onder components)
+│  │  ├─ header-footer (+accessibility / privacy / cookie ...)
+│  │  │   -> @domg-lib/header-footer [ts]
+│  │  │   -> @domg-lib/fat-header-footer [ts]
 │  │  ├─ map/
 │  │  │   -> @domg-lib/map [js]
 │  │  ├─ support/

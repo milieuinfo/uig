@@ -21,11 +21,7 @@
             "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
         },
         "test": {
-            "inputs": [
-                "default",
-                "^production",
-                "{workspaceRoot}/jest.preset.js"
-            ]
+            "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
         },
         "e2e": {
             "inputs": ["default", "^production"]
