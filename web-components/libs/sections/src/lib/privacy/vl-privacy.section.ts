@@ -1,17 +1,7 @@
+import '@domg-lib/elements';
+import '@domg-lib/components';
 import { html, LitElement } from 'lit';
-import '../functional-header';
-import '../grid';
-import '../titles';
-import '../introduction';
-import '../typography';
-import '../document';
-import '../link';
-import '../icon';
-import '../contact-card';
-import '../infoblock';
-import '../properties';
-import '../side-navigation';
-import styles from './style/_vl-privacy.scss';
+import styles from './style/vl-privacy.scss';
 
 const props = {
     version: 'data-vl-version',
@@ -30,8 +20,8 @@ export class VlPrivacy extends LitElement {
 
     constructor() {
         super();
-        this[version] = '1.0.0';
-        this[date] = '3 maart 2021';
+        (this as any)[version] = '1.0.0';
+        (this as any)[date] = '3 maart 2021';
     }
 
     render() {
@@ -53,8 +43,8 @@ export class VlPrivacy extends LitElement {
                         <div is="vl-column" data-vl-size="10">
                             <p is="vl-introduction">
                                 <span>Versie</span>
-                                <span id="introduction-version">${this[version]}</span> -
-                                <span id="introduction-date">${this[date]}</span>
+                                <span id="introduction-version">${(this as any)[version]}</span> -
+                                <span id="introduction-date">${(this as any)[date]}</span>
                             </p>
                         </div>
                         <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
