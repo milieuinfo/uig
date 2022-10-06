@@ -1,8 +1,8 @@
 import { html } from 'lit';
-import { setupStatement } from './setup-statement.accessibility';
-import { inaccessibleContent } from './inaccessible-content.accessibility';
-import { sideNavigation } from './side-navigation.accessibility';
-import { complianceStatus } from './compliance-status.accessibility';
+import { setupStatement } from './setup-statement.section';
+import { inaccessibleContent } from './inaccessible-content.section';
+import { sideNavigation } from './side-navigation.section';
+import { complianceStatus } from './compliance-status.section';
 
 export const content = (props: any) => {
     const { application, compliance } = props;

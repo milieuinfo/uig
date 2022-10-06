@@ -1,24 +1,13 @@
 import { html, LitElement, css, unsafeCSS } from 'lit';
 import '@domg-lib/elements';
 import '@domg-lib/components';
-// import '../functional-header';
-// import '../grid';
-// import '../titles';
-// import '../introduction';
-// import '../icon';
-// import '../typography';
-// import '../link';
-// import '../side-navigation';
-// import '../properties';
-// import '../infoblock';
-// import '../contact-card';
 import { ComplianceStatus, EvaluationStatus } from './model/status.model';
-import { header } from './child/header.accessibility';
-import { title } from './child/title.accessibility';
-import { content } from './child/content.accessibility';
+import { header } from './child/header.section';
+import { title } from './child/title.section';
+import { content } from './child/content.section';
 import styles from './style/vl-accessibility.scss';
 
-export class VlAccessibility extends LitElement {
+export class VlAccessibilitySection extends LitElement {
     static get styles() {
         return [
             css`
@@ -89,4 +78,4 @@ export class VlAccessibility extends LitElement {
     }
 }
 
-customElements.define('vl-accessibility', VlAccessibility);
+customElements.define('vl-accessibility', VlAccessibilitySection);

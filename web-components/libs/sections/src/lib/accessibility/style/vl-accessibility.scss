@@ -1,30 +1,4 @@
-// ==========================================================================
-// Vlaanderen UI -- Accessibility
-// ==========================================================================
 @charset "utf-8";
 
-$vl-font-location: 'https://cdn.omgeving.vlaanderen.be/domg/govflanders-font/15.0.1/flanders/';
-$vl-icon-font-location: 'https://cdn.omgeving.vlaanderen.be/domg/govflanders-font/15.0.1/iconfont/';
-
-// @govflanders global styles
-@import '@govflanders-v14/vl-ui-core/src/scss/core';
-@import '@govflanders-v14/vl-ui-util/src/scss/util';
-
-// @govflanders component styles
-// TODO deze imports zouden niet nodig moeten zijn - komen al binnen op de nieuwe 'normale' manier
-// @import '@govflanders-v14/vl-ui-link/src/scss/link';
-// @import '@govflanders-v14/vl-ui-pager/src/scss/pager';
-
-// ==========================================================================
-// Components
-// ==========================================================================
+// styling for the shadow dom
 @import '../../../../../elements/src/lib/_vl-elements.scss';
-
-//@import '../side-navigation/styles.scss';
-//@import '../grid/styles.scss';
-//@import '../introduction/styles.scss';
-//@import '../icon/styles.scss';
-//@import '../link/styles.scss';
-//@import '../properties/styles.scss';
-
-//@import '../titles/styles.scss';

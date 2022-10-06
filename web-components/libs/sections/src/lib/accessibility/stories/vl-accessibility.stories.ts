@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import '../vl-accessibility';
+import '../vl-accessibility.section';
 import { accessibilityArgs, accessibilityArgTypes } from './vl-accessibility.stories-arg';
 
 // TODO kspeltin: deze commentaar was dode code, moet die ergens opgenomen worden ?
