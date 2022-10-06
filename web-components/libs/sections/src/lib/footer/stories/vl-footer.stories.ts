@@ -13,9 +13,9 @@ export const footerDefault = ({ identifier, development }: typeof footerArgs) =>
 };
 footerDefault.storyName = 'vl-footer - default';
 
-export const footerBodySimulation = ({ identifier, development }: typeof footerArgs) => {
+export const footerInBody = ({ identifier, development }: typeof footerArgs) => {
     return html` <div is="vl-body">
         <vl-footer data-vl-identifier=${identifier} ?data-vl-development=${development}></vl-footer>
     </div>`;
 };
-footerBodySimulation.storyName = 'vl-footer - body simulation';
+footerInBody.storyName = 'vl-footer - in body';
