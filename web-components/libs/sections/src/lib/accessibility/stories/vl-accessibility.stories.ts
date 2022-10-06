@@ -21,6 +21,7 @@ export default {
     parameters: {
         layout: 'fullscreen',
     },
+
     args: accessibilityArgs,
     argTypes: accessibilityArgTypes,
 };

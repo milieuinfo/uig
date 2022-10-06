@@ -1,15 +1,11 @@
-import { vlElement, define } from '../../../utils/core';
-import '../../../components/button';
-import '../../../components/form-grid';
-import '../../modal';
-import { analytics } from './child/analytics';
-import './cookie-consent-opt-in';
+import '@domg-lib/elements';
+import '@domg-lib/components';
+import './vl-cookie-consent-opt-in.section';
+import { analytics } from './util/analytics.util';
+import styles from './style/vl-cookie-consent.scss';
+import { BaseElementOfType, define } from '@domg-lib/common-utilities';
 
-import buttonStyles from '../../../components/button/styles.scss';
-import formGridStyles from '../../../components/form-grid/styles.scss';
-import modalStyles from '../../modal/styles.scss';
-
-export class VlCookieConsent extends vlElement(HTMLElement) {
+export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
     static get _observedAttributes() {
         return ['analytics', 'owner', 'link'];
     }
@@ -17,9 +13,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
     constructor() {
         super(`
       <style>
-        ${buttonStyles}
-        ${formGridStyles}
-        ${modalStyles}
+        ${styles}
       </style>
 
       <vl-modal data-vl-title="Cookie-toestemming" data-vl-not-cancellable>
@@ -55,7 +49,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
         this._processOptIns();
         this._element.appendChild(this._getButtonTemplate());
         if (!this._isAutoOpenDisabled) {
-            this._open();
+            (this as any)._open();
         }
     }
 
@@ -86,10 +80,10 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
         this._deleteCookie(this._cookieConsentCookieName);
         this._deleteCookie(this._cookieConsentDateCookieName);
         Object.values(this._optIns).forEach((optIn) => {
-            this._deleteCookie(optIn.name);
+            this._deleteCookie((optIn as any).name);
             this._resetOptInValue(optIn);
-            if (optIn.callback && optIn.callback.deactivated) {
-                optIn.callback.deactivated();
+            if ((optIn as any).callback && (optIn as any).callback.deactivated) {
+                (optIn as any).callback.deactivated();
             }
         });
     }
@@ -107,7 +101,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
      * @param {function} optIn.callback.deactivated - Functie die aangeroepen wordt wanneer de gebruiker de cookie-consent bevestigt en de opt-in gedactiveerd werd.
      * @return {void}
      */
-    addOptIn(optIn) {
+    addOptIn(optIn: any) {
         this._processOptIn(optIn);
     }
 
@@ -116,7 +110,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
      * @param {string} name - De opt-in optie naam.
      * @param {function} callback - Callback functie.
      */
-    addOptInActivatedCallback(name, callback) {
+    addOptInActivatedCallback(name: string, callback: any) {
         if (this._optIns[name]) {
             this._optIns[name].callback.activated = callback;
         }
@@ -127,7 +121,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
      * @param {string} name - De opt-in optie naam.
      * @param {function} callback - Callback functie.
      */
-    addOptInDeactivatedCallback(name, callback) {
+    addOptInDeactivatedCallback(name: string, callback: any) {
         if (this._optIns[name]) {
             this._optIns[name].callback.deactivated = callback;
         }
@@ -138,7 +132,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
      * @param {string} name - De opt-in optie naam.
      * @return {boolean}
      */
-    isOptInActive(name) {
+    isOptInActive(name: string) {
         return this._optIns[name] ? this._optIns[name].value : false;
     }
 
@@ -175,7 +169,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
     }
 
     _getButtonTemplate() {
-        const filteredOptIns = Object.values(this._optIns).filter((optIn) => optIn.name !== 'functional');
+        const filteredOptIns = Object.values(this._optIns).filter((optIn: any) => optIn.name !== 'functional');
         const text = filteredOptIns.length > 0 ? 'Bewaar keuze' : 'Ik begrijp het';
         const template = this._template(`
       <button is="vl-button" slot="button">${text}</button>
@@ -186,7 +180,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
         return template;
     }
 
-    _getOptInTemplate(optIn) {
+    _getOptInTemplate(optIn: any) {
         if (optIn) {
             const checked = optIn.value || optIn.mandatory ? `${VlCookieConsent.attributePrefix}checked` : '';
             const mandatory = optIn.mandatory ? `${VlCookieConsent.attributePrefix}mandatory` : '';
@@ -195,7 +189,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
           <vl-cookie-consent-opt-in ${VlCookieConsent.attributePrefix}label="${optIn.label}" ${VlCookieConsent.attributePrefix}description="${optIn.description}" ${checked} ${mandatory}></vl-cookie-consent-opt-in>
         </div>
       `);
-            template.querySelector('vl-cookie-consent-opt-in').addEventListener('input', (event) => {
+            template.querySelector('vl-cookie-consent-opt-in').addEventListener('input', (event: any) => {
                 const checked = event && event.currentTarget ? event.currentTarget.checked : false;
                 optIn.value = checked;
             });
@@ -203,7 +197,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
         }
     }
 
-    _open(forced) {
+    _open(forced: boolean) {
         if (
             forced ||
             !this._getCookieConsentCookie() ||
@@ -214,7 +208,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
         }
     }
 
-    _resetOptInValue(optIn) {
+    _resetOptInValue(optIn: any) {
         const match = [...this._optInElementen].find((optIn) => {
             return (optIn.id = optIn.name);
         });
@@ -224,7 +218,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
     }
 
     _processOptIns() {
-        this._optInElementen.forEach((optIn) => {
+        this._optInElementen.forEach((optIn: any) => {
             this._processOptIn({
                 name: optIn.id,
                 label: optIn.getAttribute(VlCookieConsent.attributePrefix + 'label'),
@@ -235,7 +229,14 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
         });
     }
 
-    _processOptIn({ name, label, description, value, mandatory, callback: { activated, deactivated } = {} }) {
+    _processOptIn({
+        name,
+        label,
+        description,
+        value,
+        mandatory,
+        callback: { activated = null, deactivated = null } = {},
+    }: any) {
         if (!this._bevatOptIn(name)) {
             const storedValue = this._getCookie(name);
             const optIn = (this._optIns[name] = {
@@ -257,7 +258,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
     }
 
     _submitOptIns() {
-        Object.values(this._optIns).forEach((optIn) => {
+        Object.values(this._optIns).forEach((optIn: any) => {
             if (optIn.callback) {
                 if (optIn.value || optIn.mandatory) {
                     if (optIn.callback.activated) {
@@ -273,7 +274,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
         });
     }
 
-    _bevatOptIn(name) {
+    _bevatOptIn(name: string) {
         return !!this._optIns[name];
     }
 
@@ -294,7 +295,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
         }
     }
 
-    _getCookie(name) {
+    _getCookie(name: string) {
         name = this._cookiePrefix + name + '=';
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
@@ -320,11 +321,11 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
         return this._getCookie(this._cookieConsentDateCookieName);
     }
 
-    _setCookie(name, value) {
+    _setCookie(name: string, value: any) {
         document.cookie = this._cookiePrefix + name + '=' + value + ';Max-Age=2147483647;path=/;SameSite=Strict;';
     }
 
-    _deleteCookie(name) {
+    _deleteCookie(name: string) {
         document.cookie = this._cookiePrefix + name + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;';
     }
 
@@ -339,7 +340,7 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
         );
     }
 
-    _analyticsChangedCallback(oldValue, newValue) {
+    _analyticsChangedCallback(oldValue: any, newValue: any) {
         if (newValue != undefined) {
             if (!this._isFunctionalOptInDisabled) {
                 this._addAnalytics();
@@ -351,11 +352,11 @@ export class VlCookieConsent extends vlElement(HTMLElement) {
         }
     }
 
-    _ownerChangedCallback(oldValue, newValue) {
-        this._ownerElements.forEach((element) => (element.innerText = newValue));
+    _ownerChangedCallback(oldValue: any, newValue: any) {
+        this._ownerElements.forEach((element: any) => (element.innerText = newValue));
     }
 
-    _linkChangedCallback(oldValue, newValue) {
+    _linkChangedCallback(oldValue: string, newValue: string) {
         this._linkElement.innerText = newValue;
         this._linkElement.href = newValue;
     }
