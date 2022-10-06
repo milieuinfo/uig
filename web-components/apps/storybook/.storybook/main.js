@@ -59,6 +59,7 @@ module.exports = {
         '../../../libs/components/src/lib/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/elements/src/lib/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/sections/src/lib/accessibility/**/*.stories.@(js|jsx|ts|tsx)',
+        '../../../libs/sections/src/lib/cookie-statement/**/*.stories.@(js|jsx|ts|tsx)',
     ],
     // staticDirs: ['../../../'], TODO: dit geeft problemen bij een storybook-build -> logisch zou de complete root naar een lager path kopieren !!!
     addons: ['@storybook/addon-links', '@storybook/addon-essentials'],

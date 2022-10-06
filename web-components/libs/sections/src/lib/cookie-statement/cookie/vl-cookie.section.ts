@@ -1,15 +1,11 @@
-import { vlElement, define } from '../../../utils/core';
-import '../../../components/properties';
-import '../../../components/typography';
-import styles from '../style/_vl-cookie-statement.scss';
-import propertiesStyles from '../../../components/properties/styles.scss';
+import { BaseElementOfType, define } from '@domg-lib/common-utilities';
+import styles from '../style/vl-cookie-statement.scss';
 
-export class VlCookie extends vlElement(HTMLElement) {
-    constructor({ title, name, purpose, domain, processor, validity } = {}) {
+export class VlCookie extends BaseElementOfType(HTMLElement) {
+    constructor({ title, name, purpose, domain, processor, validity }: any = {}) {
         super(`
         <style>
           ${styles}
-          ${propertiesStyles}
         </style>
     `);
 

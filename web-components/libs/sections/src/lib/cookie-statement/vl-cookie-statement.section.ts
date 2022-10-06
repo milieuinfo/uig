@@ -1,43 +1,22 @@
-import { vlElement, define } from '../../../utils/core';
-import '../../../components/functional-header';
-import '../../../components/grid';
-import '../../../components/titles';
-import '../../../components/introduction';
-import '../../../components/typography';
-import '../../../components/contact-card';
-import '../../../components/infoblock';
-import '../../../components/properties';
-import '../../../components/link';
-import '../../../components/icon';
-import '../../../components/side-navigation';
-import './vl-header-cookie';
-import './vl-header-authentication-cookie';
-import './vl-authentication-cookie';
-import './vl-sticky-session-cookie';
-import './vl-jsessionid-cookie';
+import '@domg-lib/elements';
+import '@domg-lib/components';
+import { BaseElementOfType, define } from '@domg-lib/common-utilities';
+import './cookie/vl-authentication-cookie.section';
+import './cookie/vl-cookie.section';
+import './cookie/vl-header-authentication-cookie.section';
+import './cookie/vl-header-cookie.section';
+import './cookie/vl-jsessionid-cookie.section';
+import './cookie/vl-sticky-session-cookie.section';
+import styles from './style/vl-cookie-statement.scss';
 
-import styles from '../style/_vl-cookie-statement.scss';
-import gridStyles from '../../../components/grid/styles.scss';
-import introductionStyles from '../../../components/introduction/styles.scss';
-import linkStyles from '../../../components/link/styles.scss';
-import iconStyles from '../../../components/icon/styles.scss';
-import propertiesStyles from '../../../components/properties/styles.scss';
-import sideNavigationStyles from '../../../components/side-navigation/styles.scss';
-
-export class VlCookieStatement extends vlElement(HTMLElement) {
+export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
-        <style>
-            ${styles}
-            ${gridStyles}
-            ${introductionStyles}
-            ${linkStyles}
-            ${iconStyles}
-            ${propertiesStyles}
-            ${sideNavigationStyles}
-        </style>
-        <vl-functional-header data-vl-title="Departement Omgeving" data-vl-sub-title="Cookieverklaring" data-vl-link="https://omgeving.vlaanderen.be"></vl-functional-header>
-    `);
+            <style>
+                ${styles}
+            </style>
+            <vl-functional-header data-vl-title="Departement Omgeving" data-vl-sub-title="Cookieverklaring" data-vl-link="https://omgeving.vlaanderen.be"></vl-functional-header>
+        `);
 
         const version = this.dataset.vlVersion || '1.0.0';
         const date = this.dataset.vlDate || '3 maart 2021';

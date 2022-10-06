@@ -1,6 +1,6 @@
-import { html, LitElement, css, unsafeCSS } from 'lit';
 import '@domg-lib/elements';
 import '@domg-lib/components';
+import { html, LitElement, css, unsafeCSS } from 'lit';
 import { ComplianceStatus, EvaluationStatus } from './model/status.model';
 import { header } from './child/header.section';
 import { title } from './child/title.section';
