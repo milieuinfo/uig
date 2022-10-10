@@ -116,6 +116,7 @@
         "lit": "^2.2.8",
         "reflect-metadata": "^0.1.13",
         "regenerator-runtime": "0.13.7",
+        "swipe-detect": "^1.0.1",
         "tinymce": "^5.10.3",
         "tslib": "^2.3.0"
     }

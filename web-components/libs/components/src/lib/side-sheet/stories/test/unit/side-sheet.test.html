@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+    <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+
+    <script type="module" src="../../../../../lib/index.js"></script>
+    <script src="/node_modules/sinon/pkg/sinon.js"></script>
+</head>
+
+<body>
+  <test-fixture id="vl-side-sheet-fixture">
+    <template>
+      <vl-side-sheet></vl-side-sheet>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('vl-side-sheet', () => {
+      const should = chai.should();
+
+      test('kan programmatisch geopend worden', () => {
+        const sidesheet = fixture('vl-side-sheet-fixture');
+        sidesheet.open();
+        assert.isTrue(sidesheet.isOpen);
+      });
+
+      test('kan programmatisch gesloten worden', () => {
+        const sidesheet = fixture('vl-side-sheet-fixture');
+        sidesheet.open();
+        assert.isTrue(sidesheet.isOpen);
+        sidesheet.close();
+        assert.isFalse(sidesheet.isOpen);
+      });
+
+      test('kan via de toggle functie programmatisch geopend of gesloten worden afhankelijk van de huidige status', () => {
+        const sidesheet = fixture('vl-side-sheet-fixture');
+        sidesheet.toggle();
+        assert.isTrue(sidesheet.isOpen);
+        sidesheet.toggle();
+        assert.isFalse(sidesheet.isOpen);
+      });
+
+      test('kan geopend en gesloten worden via de toggle button', () => {
+        const sidesheet = fixture('vl-side-sheet-fixture');
+        sidesheet._toggleButton.click();
+        assert.isTrue(sidesheet.isOpen);
+        sidesheet._toggleButton.click();
+        assert.isFalse(sidesheet.isOpen);
+      });
+
+      test('class attributen worden omgezet in classes', () => {
+        ['left', 'right', 'absolute'].forEach((attribute) => {
+          const sidesheet = fixture('vl-side-sheet-fixture');
+          assert.isFalse(sidesheet.classList.contains(`vl-side-sheet--${attribute}`));
+          sidesheet.setAttribute(`data-vl-${attribute}`, '');
+          assert.isTrue(sidesheet.classList.contains(`vl-side-sheet--${attribute}`));
+        });
+      });
+
+      test('de close callback wordt uitgevoerd bij het sluiten van de side sheet', () => {
+        const sidesheet = fixture('vl-side-sheet-fixture');
+        const callback = sinon.spy();
+        sidesheet.onClose(callback);
+        sidesheet.open();
+        assert.isTrue(sidesheet.isOpen);
+        sidesheet._toggleButton.click();
+        assert.isFalse(sidesheet.isOpen);
+        assert.isTrue(callback.calledOnce);
+      });
+
+      test('absolute variant bevat geen region content element', () => {
+        const sidesheet = fixture('vl-side-sheet-fixture');
+        should.exist(sidesheet._regionElement);
+        sidesheet.setAttribute('data-vl-absolute', '');
+        should.not.exist(sidesheet._regionElement);
+      });
+
+      test('het toggle button icoon is afhankelijk van de positie en het al dan niet geopend zijn', () => {
+        const sidesheet = fixture('vl-side-sheet-fixture');
+        const icon = sidesheet._toggleButtonIcon;
+        assert.equal(icon.getAttribute('data-vl-icon'), 'nav-left');
+        sidesheet.open();
+        assert.equal(icon.getAttribute('data-vl-icon'), 'nav-right');
+        sidesheet.close();
+        sidesheet.setAttribute('data-vl-left', '');
+        assert.equal(icon.getAttribute('data-vl-icon'), 'nav-right');
+        sidesheet.open();
+        assert.equal(icon.getAttribute('data-vl-icon'), 'nav-left');
+        sidesheet.close();
+        sidesheet.removeAttribute('data-vl-left');
+        assert.equal(icon.getAttribute('data-vl-icon'), 'nav-left');
+        sidesheet.open();
+        assert.equal(icon.getAttribute('data-vl-icon'), 'nav-right');
+      });
+
+      test('het aria-expanded attribuut zal correct gezet worden bij het openen en sluiten van het paneel', () => {
+        const sidesheet = fixture('vl-side-sheet-fixture');
+        sidesheet.open();
+        assert.equal(sidesheet._toggleButton.getAttribute('aria-expanded'), 'true');
+        sidesheet.close();
+        assert.equal(sidesheet._toggleButton.getAttribute('aria-expanded'), 'false');
+        sidesheet.toggle();
+        assert.equal(sidesheet._toggleButton.getAttribute('aria-expanded'), 'true');
+      });
+
+      test('de toggle knop tekst kan aangepast worden', () => {
+        const sidesheet = fixture('vl-side-sheet-fixture');
+        assert.equal(sidesheet._toggleButtonTextElement.textContent, 'Zijpaneel');
+        const text = 'Toggle text';
+        sidesheet.setAttribute('data-vl-toggle-text', text);
+        assert.equal(sidesheet._toggleButtonTextElement.textContent, text);
+      });
+    });
+  </script>
+</body>
+
+</html>
