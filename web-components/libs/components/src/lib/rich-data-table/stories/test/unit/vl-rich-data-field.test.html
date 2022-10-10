@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <script src="/node_modules/web-component-tester/browser.js"></script>
+
+        <script src="/node_modules/sinon/pkg/sinon.js"></script>
+
+        <script type="module" src="../../../../../lib/legacy/rich-data-table/index.js"></script>
+    </head>
+
+    <body>
+        <test-fixture id="vl-rich-data-field-fixture">
+            <template>
+                <vl-rich-data-field data-vl-selector="foo" data-vl-label="Foo"></vl-rich-data-field>
+            </template>
+        </test-fixture>
+
+        <test-fixture id="vl-rich-data-field-fixture-sortable">
+            <template>
+                <vl-rich-data-field
+                    data-vl-selector="foo"
+                    data-vl-label="Foo"
+                    data-vl-name="Foo"
+                    data-vl-sortable
+                ></vl-rich-data-field>
+            </template>
+        </test-fixture>
+
+        <test-fixture id="vl-rich-data-field-fixture-nested-property">
+            <template>
+                <vl-rich-data-field data-vl-selector="foo.bar" data-vl-label="Foo"></vl-rich-data-field>
+            </template>
+        </test-fixture>
+
+        <test-fixture id="vl-rich-data-field-fixture-nested-property-array">
+            <template>
+                <vl-rich-data-field data-vl-selector="foo.0.bar" data-vl-label="Foo"></vl-rich-data-field>
+            </template>
+        </test-fixture>
+
+        <test-fixture id="vl-rich-data-field-content-template-fixture">
+            <template>
+                <vl-rich-data-field data-vl-label="Foo">
+                    <template slot="content">
+                        <span>foo</span>
+                    </template>
+                </vl-rich-data-field>
+            </template>
+        </test-fixture>
+
+        <test-fixture id="vl-rich-data-field-dynamic-content-template-fixture">
+            <template>
+                <vl-rich-data-field data-vl-label="Foo">
+                    <template slot="content">
+                        <span>${item.foo.bar}</span>
+                    </template>
+                </vl-rich-data-field>
+            </template>
+        </test-fixture>
+
+        <test-fixture id="vl-rich-data-field-label-template-fixture">
+            <template>
+                <vl-rich-data-field data-vl-selector="foo">
+                    <template slot="label">
+                        <span>Foo</span>
+                    </template>
+                </vl-rich-data-field>
+            </template>
+        </test-fixture>
+
+        <test-fixture id="vl-rich-data-field-label-template-fixture-sortable">
+            <template>
+                <vl-rich-data-field data-vl-selector="foo" data-vl-sortable data-vl-name="Foo">
+                    <template slot="label">
+                        <span>Foo</span>
+                    </template>
+                </vl-rich-data-field>
+            </template>
+        </test-fixture>
+
+        <test-fixture id="vl-rich-data-field">
+            <template>
+                <vl-rich-data-field></vl-rich-data-field>
+            </template>
+        </test-fixture>
+
+        <script>
+            suite('vl-rich-data-field', () => {
+                const sandbox = sinon.createSandbox();
+
+                setup((done) => {
+                    customElements.whenDefined('vl-rich-data-field').then(() => done());
+                });
+
+                test('men kan de template van de waarde van een field opvragen voor een bepaalde rij data', () => {
+                    const dataRow = {
+                        foo: 'bar',
+                    };
+                    const field = fixture('vl-rich-data-field-fixture');
+                    assert.equal(field.valueTemplate(dataRow).outerHTML, '<td data-title="Foo">bar</td>');
+                    assert.equal(field.valueTemplate({}).outerHTML, '<td data-title="Foo">undefined</td>');
+                });
+
+                test('men kan de template van de waarde van een field met een geneste object structuur opvragen voor een bepaalde rij data', () => {
+                    const dataRow = {
+                        foo: {
+                            bar: 'foobar',
+                        },
+                    };
+                    const field = fixture('vl-rich-data-field-fixture-nested-property');
+                    assert.equal(field.valueTemplate(dataRow).outerHTML, '<td data-title="Foo">foobar</td>');
+                    assert.equal(field.valueTemplate({}).outerHTML, '<td data-title="Foo">null</td>');
+                });
+
+                test('men kan de template van de waarde van een field met een geneste object structuur met een array index opvragen voor een bepaalde rij data', () => {
+                    const dataRow = {
+                        foo: [
+                            {
+                                bar: 'foobar',
+                            },
+                        ],
+                    };
+                    const field = fixture('vl-rich-data-field-fixture-nested-property-array');
+                    assert.equal(field.valueTemplate(dataRow).outerHTML, '<td data-title="Foo">foobar</td>');
+                    assert.equal(field.valueTemplate({}).outerHTML, '<td data-title="Foo">null</td>');
+                });
+
+                test('indien er geen selector attribuut aanwezig is, zal de template content slot gebruikt worden om de kolom te visualiseren', () => {
+                    const field = fixture('vl-rich-data-field-content-template-fixture');
+                    assert.equal(
+                        field.valueTemplate().outerHTML.replace(/\s\s+/g, ''),
+                        '<td data-title="Foo"><span>foo</span></td>'
+                    );
+                });
+
+                test('indien er geen selector attribuut en geen template content slot aanwezig is, zal de renderer functie gebruikt worden', () => {
+                    const field = fixture('vl-rich-data-field');
+                    const spy = sandbox.spy();
+                    const data = {
+                        id: 1,
+                    };
+                    field.renderer = spy;
+                    field.valueTemplate(data);
+                    const td = document.createElement('td');
+                    assert(
+                        spy.calledWith(
+                            sinon.match((value) => value.outerHTML == td.outerHTML),
+                            sinon.match(data)
+                        )
+                    );
+                });
+
+                test('in de template content slot kan er gebruik gemaakt worden van de field data om de kolom te visualiseren', () => {
+                    const dataRow = {
+                        foo: {
+                            bar: 'foobar',
+                        },
+                    };
+                    const field = fixture('vl-rich-data-field-dynamic-content-template-fixture');
+                    assert.equal(
+                        field.valueTemplate(dataRow).outerHTML.replace(/\s\s+/g, ''),
+                        '<td data-title="Foo"><span>foobar</span></td>'
+                    );
+                });
+
+                test('men kan de template van de label van een field opvragen voor een bepaalde rij data', () => {
+                    const field = fixture('vl-rich-data-field-fixture');
+                    assert.equal(field.headerTemplate().outerHTML, '<th>Foo</th>');
+                });
+
+                test('de template van de label van een field wrapt de volledige kolom in een anchor tag als de kolom sorteerbaar is', () => {
+                    const field = fixture('vl-rich-data-field-fixture-sortable');
+                    assert.equal(
+                        field.headerTemplate().outerHTML.replace(/\s\s+/g, ''),
+                        '<th data-vl-sortable=""><a>Foo<vl-rich-data-sorter data-vl-for="Foo"></vl-rich-data-sorter></a></th>'
+                    );
+                });
+
+                test('indien er geen label attribuut aanwezig is, zal de template label slot gebruikt worden om de header te visualiseren', () => {
+                    const field = fixture('vl-rich-data-field-label-template-fixture');
+                    assert.equal(field.headerTemplate().outerHTML.replace(/\s\s+/g, ''), '<th><span>Foo</span></th>');
+                });
+
+                test('indien er geen label attribuut aanwezig is, zal de template label slot gebruikt worden voor een sortable field om de header te visualiseren', () => {
+                    const field = fixture('vl-rich-data-field-label-template-fixture-sortable');
+                    assert.equal(
+                        field.headerTemplate().outerHTML.replace(/\s\s+/g, ''),
+                        '<th data-vl-sortable=""><a><span>Foo</span><vl-rich-data-sorter data-vl-for="Foo"></vl-rich-data-sorter></a></th>'
+                    );
+                });
+
+                test('indien er zowel geen label attribuut als geen template label slot aanwezig is, bevat de header template geen text content', () => {
+                    const field = fixture('vl-rich-data-field');
+                    assert.equal(field.headerTemplate().outerHTML.replace(/\s\s+/g, ''), '<th></th>');
+                });
+
+                test('indien er geen label attribuut aanwezig is, zal dit ook niet als data-title gezet worden op de value cell', () => {
+                    const field = fixture('vl-rich-data-field-label-template-fixture');
+                    assert.equal(field.valueTemplate({ foo: 'foobar' }).outerHTML, '<td>foobar</td>');
+                });
+
+                test('het aanpassen van de selector zorgt voor het afvuren van een event', (done) => {
+                    const field = fixture('vl-rich-data-field-fixture');
+                    const selector = 'bar';
+                    field.addEventListener('change', (event) => {
+                        assert.deepEqual(event.detail.properties, ['selector']);
+                        assert.equal(field.selector, selector);
+                        done();
+                    });
+                    field.dataset.vlSelector = selector;
+                });
+
+                test('het aanpassen van de label zorgt voor het afvuren van een event', (done) => {
+                    const field = fixture('vl-rich-data-field-fixture');
+                    const selector = 'Bar';
+                    field.addEventListener('change', (event) => {
+                        assert.deepEqual(event.detail.properties, ['label']);
+                        assert.equal(field.label, selector);
+                        done();
+                    });
+                    field.dataset.vlLabel = selector;
+                });
+
+                test('het aanpassen van de renderer functie zorgt voor het afvuren van een event', (done) => {
+                    const field = fixture('vl-rich-data-field-fixture');
+                    field.addEventListener('change', (event) => {
+                        assert.deepEqual(event.detail.properties, ['renderer']);
+                        done();
+                    });
+                    field.renderer = () => {};
+                });
+            });
+        </script>
+    </body>
+</html>

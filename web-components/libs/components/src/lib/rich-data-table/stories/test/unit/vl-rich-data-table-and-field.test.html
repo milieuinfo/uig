@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <script src="/node_modules/web-component-tester/browser.js"></script>
+        <script src="/node_modules/sinon/pkg/sinon.js"></script>
+
+        <script type="module" src="../../../../../lib/legacy/rich-data-table/index.js"></script>
+    </head>
+
+    <body>
+        <test-fixture id="vl-rich-data-table-fixture">
+            <template>
+                <vl-rich-data-table
+                    data-vl-data='{"data": [{"id": 0, "name": "Foo", "extendedName": "Foobar"}, {"id": 1, "name": "Bar", "extendedName": "Barfoo"}]}'
+                >
+                    <vl-rich-data-field id="id-field" data-vl-label="ID" data-vl-selector="id"></vl-rich-data-field>
+                    <vl-rich-data-field id="name-field" data-vl-label="Naam" data-vl-selector="name">
+                        <template slot="label">Naam</template>
+                    </vl-rich-data-field>
+                </vl-rich-data-table>
+            </template>
+        </test-fixture>
+        <test-fixture id="vl-rich-data-table-without-headers-fixture">
+            <template>
+                <vl-rich-data-table
+                    data-vl-data='{"data": [{"id": 0, "name": "Foo", "extendedName": "Foobar"}, {"id": 1, "name": "Bar", "extendedName": "Barfoo"}]}'
+                >
+                    <vl-rich-data-field id="id-field" data-vl-selector="id"></vl-rich-data-field>
+                    <vl-rich-data-field id="name-field" data-vl-selector="name"></vl-rich-data-field>
+                </vl-rich-data-table>
+            </template>
+        </test-fixture>
+
+        <script>
+            suite('vl-rich-data-table en vl-rich-data-field', () => {
+                test('de tabel toont de kolomnamen en data', () => {
+                    const richTable = fixture('vl-rich-data-table-fixture');
+
+                    tableShouldHaveHeaders(richTable, 'ID', 'Naam');
+                    tableShouldHaveDataRows(richTable, ['0', 'Foo'], ['1', 'Bar']);
+                });
+
+                test('een aanpassing van de data wordt zichtbaar in de tabel', () => {
+                    const richTable = fixture('vl-rich-data-table-fixture');
+                    richTable.data = { data: [{ id: 3, name: 'Foobar' }] };
+
+                    tableShouldHaveHeaders(richTable, 'ID', 'Naam');
+                    tableShouldHaveDataRows(richTable, ['3', 'Foobar']);
+                });
+
+                test('een aanpassing van de label van een field wordt zichtbaar in de tabel', () => {
+                    const richTable = fixture('vl-rich-data-table-fixture');
+                    const idField = richTable.querySelector('#id-field');
+                    idField.dataset.vlLabel = 'Identifier';
+
+                    tableShouldHaveHeaders(richTable, 'Identifier', 'Naam');
+                    tableShouldHaveDataRows(richTable, ['0', 'Foo'], ['1', 'Bar']);
+                });
+
+                test('een aanpassing van de selector van een field wordt zichtbaar in de tabel', () => {
+                    const richTable = fixture('vl-rich-data-table-fixture');
+                    const nameField = richTable.querySelector('#name-field');
+                    nameField.dataset.vlSelector = 'extendedName';
+
+                    tableShouldHaveHeaders(richTable, 'ID', 'Naam');
+                    tableShouldHaveDataRows(richTable, ['0', 'Foobar'], ['1', 'Barfoo']);
+                });
+
+                test('een field verwijderen zal ervoor zorgen dat deze kolom ook niet langer in de tabel getoond wordt', (done) => {
+                    const richTable = fixture('vl-rich-data-table-fixture');
+                    const idField = richTable.querySelector('#id-field');
+                    idField.remove();
+
+                    setTimeout(() => {
+                        tableShouldHaveHeaders(richTable, 'Naam');
+                        tableShouldHaveDataRows(richTable, ['Foo'], ['Bar']);
+                        done();
+                    });
+                });
+
+                test('een field toevoegen zal ervoor zorgen dat deze kolom in de tabel getoond wordt', (done) => {
+                    const richTable = fixture('vl-rich-data-table-fixture');
+                    const extendedNameField = document.createElement('vl-rich-data-field');
+                    extendedNameField.dataset.vlLabel = 'Uitgebreide naam';
+                    extendedNameField.dataset.vlSelector = 'extendedName';
+                    richTable.appendChild(extendedNameField);
+
+                    setTimeout(() => {
+                        tableShouldHaveHeaders(richTable, 'ID', 'Naam', 'Uitgebreide naam');
+                        tableShouldHaveDataRows(richTable, ['0', 'Foo', 'Foobar'], ['1', 'Bar', 'Barfoo']);
+                        done();
+                    });
+                });
+
+                test('de tabel toont geen headers indien alle velden geen labels hebben', () => {
+                    const richTable = fixture('vl-rich-data-table-without-headers-fixture');
+
+                    tableShouldNotHaveHeaders(richTable);
+                    tableShouldHaveDataRows(richTable, ['0', 'Foo'], ['1', 'Bar']);
+                });
+
+                test('de tabel toont headers indien minstens 1 veld een label heeft', () => {
+                    const richTable = fixture('vl-rich-data-table-without-headers-fixture');
+                    const idField = richTable.querySelector('#id-field');
+                    idField.dataset.vlLabel = 'Identifier';
+
+                    tableShouldHaveHeaders(richTable, 'Identifier', '');
+                    tableShouldHaveDataRows(richTable, ['0', 'Foo'], ['1', 'Bar']);
+                });
+
+                const tableShouldNotHaveHeaders = (table) => {
+                    const headers = table.__tableHeaderRow.querySelectorAll('th');
+                    assert.lengthOf(headers, 0);
+                    assert.isTrue(table.__tableHeader.hasAttribute('hidden'));
+                };
+
+                const tableShouldHaveHeaders = (table, ...expectedHeaders) => {
+                    const headers = table.__tableHeaderRow.querySelectorAll('th');
+                    assert.lengthOf(headers, expectedHeaders.length);
+                    headers.forEach((header, index) => {
+                        const expectedHeader = expectedHeaders[index];
+                        assert.equal(header.textContent, expectedHeader);
+                    });
+                };
+
+                const tableShouldHaveDataRows = (table, ...expectedRows) => {
+                    const rows = table.__tableBody.querySelectorAll('tr');
+                    assert.lengthOf(rows, expectedRows.length);
+                    rows.forEach((row, index) => {
+                        const expectedRow = expectedRows[index];
+                        const cells = row.querySelectorAll('td');
+                        assert.lengthOf(cells, expectedRow.length);
+                        cells.forEach((cell, index) => {
+                            const expectedCell = expectedRow[index];
+                            assert.equal(cell.textContent, expectedCell);
+                        });
+                    });
+                };
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <script src="/node_modules/web-component-tester/browser.js"></script>
+
+        <script src="/node_modules/sinon/pkg/sinon.js"></script>
+
+        <script type="module" src="../../../../../lib/legacy/rich-data-table/index.js"></script>
+    </head>
+
+    <body>
+        <test-fixture id="vl-rich-data-sorter-fixture">
+            <template>
+                <vl-rich-data-sorter data-vl-for="foobar"></vl-rich-data-sorter>
+            </template>
+        </test-fixture>
+        <test-fixture id="vl-rich-data-sorter-priority-fixture">
+            <template>
+                <vl-rich-data-sorter
+                    data-vl-for="foobar"
+                    data-vl-direction="asc"
+                    data-vl-priority="2"
+                ></vl-rich-data-sorter>
+            </template>
+        </test-fixture>
+
+        <script>
+            suite('vl-rich-data-sorter', () => {
+                const assertDirectionIcon = (sorter, expectedDirection) => {
+                    const directionIcon = sorter.__directionElement;
+                    assert.equal(directionIcon.getAttribute('is'), 'vl-icon');
+
+                    let iconType = null;
+                    if (expectedDirection === 'asc') {
+                        iconType = 'arrow-down';
+                    } else if (expectedDirection === 'desc') {
+                        iconType = 'arrow-up';
+                    }
+                    assert.equal(directionIcon.getAttribute('icon'), iconType);
+                };
+
+                const assertPriority = (sorter, priority) => {
+                    const priorityLabel = sorter.__priorityElement;
+                    assert.equal(priorityLabel.textContent, priority === undefined ? '' : priority);
+                };
+
+                test('de sorter toont het juiste icoon', () => {
+                    const sorter = fixture('vl-rich-data-sorter-fixture');
+                    assertDirectionIcon(sorter, undefined);
+
+                    sorter.direction = 'asc';
+                    assertDirectionIcon(sorter, 'asc');
+
+                    sorter.direction = 'desc';
+                    assertDirectionIcon(sorter, 'desc');
+                });
+
+                test('de sorter toont de juiste priority', () => {
+                    const sorter = fixture('vl-rich-data-sorter-fixture');
+                    assertPriority(sorter, undefined);
+
+                    const prioritySorter = fixture('vl-rich-data-sorter-priority-fixture');
+                    assertPriority(prioritySorter, '2');
+                });
+
+                test('de sorter toont de geen priority meer indien de sortering af werd gezet', () => {
+                    const prioritySorter = fixture('vl-rich-data-sorter-priority-fixture');
+                    assertPriority(prioritySorter, '2');
+
+                    prioritySorter.direction = undefined;
+                    assertPriority(prioritySorter, undefined);
+                });
+
+                test('bij het overgaan naar de volgende sorteringsrichting, zal de direction worden aangepast', () => {
+                    const sorter = fixture('vl-rich-data-sorter-fixture');
+
+                    assert.equal(sorter.direction, undefined);
+
+                    sorter.nextDirection();
+                    assert.equal(sorter.direction, 'asc');
+
+                    sorter.nextDirection();
+                    assert.equal(sorter.direction, 'desc');
+
+                    sorter.nextDirection();
+                    assert.equal(sorter.direction, undefined);
+                });
+
+                test('bij het overgaan naar de volgende sorteringsrichting, zal de zichtbaarheid van de container worden aangepast', () => {
+                    const sorter = fixture('vl-rich-data-sorter-fixture');
+
+                    assert.isTrue(sorter.__containerElement.classList.contains('vl-u-visually-hidden'));
+
+                    sorter.nextDirection();
+                    assert.isFalse(sorter.__containerElement.classList.contains('vl-u-visually-hidden'));
+
+                    sorter.nextDirection();
+                    assert.isFalse(sorter.__containerElement.classList.contains('vl-u-visually-hidden'));
+
+                    sorter.nextDirection();
+                    assert.isTrue(sorter.__containerElement.classList.contains('vl-u-visually-hidden'));
+                });
+
+                test('bij het overgaan naar de volgende sorteringsrichting, wordt er een event uitgestuurd', (done) => {
+                    const sorter = fixture('vl-rich-data-sorter-priority-fixture');
+
+                    assert.equal(sorter.direction, 'asc');
+
+                    sorter.addEventListener('change', (event) => {
+                        assert.equal(sorter.direction, 'desc');
+                        assert.equal(event.detail.direction, 'desc');
+                        assert.equal(event.detail.priority, 2);
+                        done();
+                    });
+
+                    sorter.nextDirection();
+                });
+            });
+        </script>
+    </body>
+</html>
