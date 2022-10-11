@@ -1,6 +1,7 @@
 import { html } from 'lit-html';
 import { spotlightArgs, spotlightArgTypes } from './vl-spotlight.stories-arg';
 import { SIZE } from '../vl-spotlight.model';
+import '../vl-spotlight.component';
 
 export default {
     title: 'components/spotlight',
