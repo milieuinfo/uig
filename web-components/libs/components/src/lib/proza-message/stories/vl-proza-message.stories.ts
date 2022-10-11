@@ -1,11 +1,9 @@
 import { html } from 'lit-html';
-// import withMock from 'storybook-addon-mock';
 import { VlProzaMessage } from '../vl-proza-message.component';
 import { prozaMessageMockData } from './vl-proza-message.stories-data';
 
 export default {
     title: 'components/proza-message',
-    // decorators: [withMock],
     parameters: {
         controls: { hideNoControlsWarning: true },
         mockData: prozaMessageMockData,
