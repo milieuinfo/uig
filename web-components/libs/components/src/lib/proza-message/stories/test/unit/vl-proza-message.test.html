@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/sinon/pkg/sinon.js"></script>
+    <script src="/node_modules/sinon-chai/lib/sinon-chai.js"></script>
+    <script type="module" src="../../../../../lib/legacy/proza-message/src"></script>
+</head>
+
+<body>
+<test-fixture id="vl-proza-message-fixture">
+    <template>
+        <vl-proza-message id="message-1" data-vl-domain="foo" data-vl-code="bar"></vl-proza-message>
+    </template>
+</test-fixture>
+
+<test-fixture id="vl-proza-messages-fixture">
+    <template>
+        <div>
+            <vl-proza-message id="message-1" data-vl-domain="foo" data-vl-code="bar"></vl-proza-message>
+            <vl-proza-message id="message-2" data-vl-domain="foo" data-vl-code="bar"></vl-proza-message>
+        </div>
+    </template>
+</test-fixture>
+
+<test-fixture id="vl-proza-message-inside-button">
+    <template>
+        <button is="vl-button">
+            <vl-proza-message id="message-1" data-vl-domain="foo" data-vl-code="bar"></vl-proza-message>
+        </button>
+    </template>
+</test-fixture>
+
+<script type="module">
+    import fetchMock from 'fetch-mock/esm/client.js';
+    import { VlProzaMessage, VlProzaMessagePreloader } from '../../../../../lib/index.js';
+    import { awaitUntil } from '../../../../utils/core/index.js';
+
+    suite('vl-proza-message', () => {
+      const should = chai.should();
+      const sandbox = sinon.createSandbox();
+
+      setup(async () => {
+        fetchMock.get('proza/domein/foo/bar', {code: 'bar', tekst: 'foobar'});
+        fetchMock.get('proza/domein/foo/bereik', {
+          code: 'bereik',
+          tekst: 'Van ${parameter.van} tot ${parameter.tot}',
+        });
+        fetchMock.get('proza/domein/foo/toegelatenoperaties', {update: false});
+        await customElements.whenDefined('vl-proza-message');
+      });
+
+      teardown(() => {
+        sandbox.restore();
+        fetchMock.restore();
+        delete VlProzaMessage.__cache;
+        delete VlProzaMessagePreloader.__cache;
+      });
+
+      const prozaMessageUpdatableClass = (message) => message.shadowRoot.querySelector('.vl-proza-message--updatable');
+
+      test('toont een bericht', async () => {
+        const proza = fixture('vl-proza-messages-fixture');
+        await fetchMock.flush(true);
+        await awaitUntil(() =>
+            proza.querySelector('#message-1')._typographyElement.textContent === 'foobar' &&
+            proza.querySelector('#message-2')._typographyElement.textContent === 'foobar'
+          );
+        });
+
+      test('bevat GEEN edit & refresh knop als de wijzig operatie NIET toegelaten is', async() => {
+        const proza = fixture('vl-proza-message-fixture');
+        await fetchMock.flush(true);
+        should.not.exist(proza._editButton);
+        should.not.exist(proza._refreshButton);
+        should.not.exist(prozaMessageUpdatableClass(proza));
+      });
+
+      test('er wordt een error gelogd indien er iets fout loopt bij het ophalen van een proza bericht', async () => {
+        sandbox.spy(console, 'error');
+        fetchMock.mock('proza/domein/foo/bar', 404, {overwriteRoutes: true});
+        fixture('vl-proza-message-fixture');
+        await fetchMock.flush(true)
+        assert(console.error.called);
+      });
+
+      test('er wordt een error gelogd indien er iets fout loopt bij het ophalen van de toegelaten-operaties', async () => {
+        sandbox.spy(console, 'error');
+        fetchMock.mock('proza/domein/foo/toegelatenoperaties', 404, {overwriteRoutes: true});
+        fixture('vl-proza-message-fixture');
+        await fetchMock.flush(true)
+        assert(console.error.called);
+      });
+
+        test('haalt het bericht en de toegelaten operaties maar 1 keer op indien deze al in de cache zitten', async () => {
+          const proza = fixture('vl-proza-messages-fixture');
+          await Promise
+            .all([...proza.querySelectorAll('vl-proza-message')]
+            .map((element) => awaitUntil(() => element._typographyElement)));
+          await fetchMock.flush(true);
+          assert.lengthOf(fetchMock.calls('proza/domein/foo/bar'), 1);
+          assert.lengthOf(fetchMock.calls('proza/domein/foo/toegelatenoperaties'), 1);
+        });
+
+        test('het aanpassen van het data-vl-code attribuut zal ervoor zorgen dat het bericht voor die code getoond wordt', async () => {
+          const proza = fixture('vl-proza-message-fixture');
+          fetchMock.restore();
+          fetchMock.mock('proza/domein/foo/bar', {code: 'bar', tekst: 'foobar'});
+          fetchMock.mock('proza/domein/foo/foo', {code: 'foo', tekst: 'foofoo'});
+          proza.dataset.vlCode = 'foo';
+          await fetchMock.flush(true)
+          await awaitUntil(() => proza._typographyElement.textContent === 'foofoo');
+        });
+
+        test('het aanpassen van het data-vl-domain attribuut zal ervoor zorgen dat het bericht voor dat domein getoond wordt', async () => {
+          const proza = fixture('vl-proza-message-fixture');
+          fetchMock.restore();
+          fetchMock.mock('proza/domein/foo/bar', {code: 'bar', tekst: 'foobar'});
+          fetchMock.mock('proza/domein/bar/bar', {code: 'bar', tekst: 'barbar'});
+          proza.dataset.vlDomain = 'bar';
+          await fetchMock.flush(true);
+          await awaitUntil(() => proza._typographyElement.textContent === 'barbar');
+        });
+
+        test('zal op basis van de inhoud van het proza bericht het block attribuut automatisch toevoegen indien nodig', (done) => {
+            const construct = (message, callback) => {
+                delete VlProzaMessage.__cache;
+                delete VlProzaMessagePreloader.__cache;
+                const proza = fixture('vl-proza-message-fixture');
+                fetchMock.get('proza/domein/foo/bar', {code: 'bar', tekst: message}, {overwriteRoutes: true});
+                fetchMock.flush(true).then(() => awaitUntil(() => proza._wysiwygElement.innerHTML === message).then(() => callback(proza)));
+            };
+
+            construct('message', (proza) => {
+                assert.isNull(proza.getAttribute('data-vl-block'));
+                construct('<span>message</span>', (proza) => {
+                    assert.isNull(proza.getAttribute('data-vl-block'));
+                    construct('<p>message</p>', (proza) => {
+                        assert.isNotNull(proza.getAttribute('data-vl-block'));
+                        construct('<table></table>', (proza) => {
+                            assert.isNotNull(proza.getAttribute('data-vl-block'));
+                            construct('<span style="display: block;">message</span>', (proza) => {
+                                assert.isNotNull(proza.getAttribute('data-vl-block'));
+                                construct('<span style="display: inline-block;">message</span>', (proza) => {
+                                    assert.isNotNull(proza.getAttribute('data-vl-block'));
+                                    construct('<span style="display: flex;">message</span>', (proza) => {
+                                        assert.isNotNull(proza.getAttribute('data-vl-block'));
+                                        construct('<span style="display: grid;">message</span>', (proza) => {
+                                            assert.isNotNull(proza.getAttribute('data-vl-block'));
+                                            done();
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+            done();
+        });
+
+
+        test('het parameters attribuut zal doorgegeven worden aan het vl-typography element', async() => {
+          const message = fixture('vl-proza-message-fixture');
+          await awaitUntil(() => message._typographyElement);
+          await fetchMock.flush(true);
+          assert.isUndefined(message._typographyElement.dataset.vlParameters);
+          const parameters = '{"key1": "key1", "key2": "key2"}';
+          message.setAttribute('data-vl-parameters', parameters);
+          assert.equal(message._typographyElement.dataset.vlParameters, parameters);
+        });
+
+        test('via getMessage kan een bericht opgevraagd worden', async () => {
+            assert.equal(await VlProzaMessage.getMessage('foo', 'bar'), 'foobar');
+        });
+
+        test('via getMessage kan een bericht met parameters opgevraagd worden', async () => {
+            assert.equal(await VlProzaMessage.getMessage('foo', 'bereik', {van: 50, tot: 1000}), 'Van 50 tot 1000');
+        });
+
+        test('getMessage haalt het bericht maar 1 keer op indien deze al in de cache zitten', async () => {
+            await VlProzaMessage.getMessage('foo', 'bar');
+            await VlProzaMessage.getMessage('foo', 'bar');
+            assert.lengthOf(fetchMock.calls('proza/domein/foo/bar'), 1);
+        });
+
+      suite('als de wijzig operatie toegelaten is' , () => {
+          setup(() => {
+              fetchMock.mock('proza/domein/foo/toegelatenoperaties', {update: true}, {overwriteRoutes: true});
+          });
+          test('bevat deze een edit & refresh knop', async () => {
+              const proza = fixture('vl-proza-message-fixture');
+              await fetchMock.flush(true);
+              should.exist(proza._editButton);
+              should.exist(proza._refreshButton);
+              should.exist(prozaMessageUpdatableClass(proza));
+          });
+          test('bij het drukken op de edit knop, word er geredirect naar het proza domein', async () => {
+            sandbox.stub(window, 'open');
+            const proza = fixture('vl-proza-message-fixture');
+            await fetchMock.flush(true);
+            proza._editButton.click();
+            assert.isTrue(window.open.calledOnce);
+            assert.equal(window.open.getCall(-1).firstArg, '/proza/domeinen/foo/codes/bar');
+            assert.equal(window.open.getCall(-1).lastArg, '_blank');
+          });
+          test('bij het drukken op de refresh knop, word de nieuwste proza-message ophaalt', async () => {
+            const proza = fixture('vl-proza-message-fixture');
+            await fetchMock.flush(true);
+            await awaitUntil(() => proza._typographyElement.textContent === 'foobar');
+            fetchMock.get('proza/domein/foo/bar', {code: 'bar', tekst: 'barfoo'}, {overwriteRoutes: true});
+            await fetchMock.flush(true);
+            proza._refreshButton.click();
+            await awaitUntil(() => proza._typographyElement.textContent === 'barfoo');
+            assert.equal(await VlProzaMessage.getMessage('foo', 'bar'), 'barfoo' )
+          });
+          test('word de click event van de edit knop gestopt', async () => {
+              sandbox.stub(window, 'open');
+              const element = fixture('vl-proza-message-inside-button');
+              await fetchMock.flush(true)
+              const proza = element.querySelector('#message-1');
+              element.addEventListener('click', () => {
+                  throw new Error('click event werd niet gestopt!');
+              });
+              proza._editButton.click();
+          });
+          test('word de click event van de refresh knop gestopt', async () => {
+              const element = fixture('vl-proza-message-inside-button');
+              await fetchMock.flush(true)
+              const proza = element.querySelector('#message-1');
+              element.addEventListener('click', () => {
+                  throw new Error('click event werd niet gestopt!');
+              });
+              proza._refreshButton.click();
+          });
+      });
+    });
+</script>
+</body>
+
+</html>

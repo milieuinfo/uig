@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/sinon/pkg/sinon.js"></script>
+    <script type="module" src="../../../../../lib/legacy/proza-message/src"></script>
+    <title>vl-proza-message-preloader test</title>
+  </head>
+
+  <body>
+    <test-fixture id="vl-proza-message-preloader-fixture">
+      <template>
+        <vl-proza-message-preloader id="preloader" data-vl-domain="foo"></vl-proza-message-preloader>
+      </template>
+    </test-fixture>
+
+    <script type="module">
+      import fetchMock from 'fetch-mock/esm/client.js';
+      import { VlProzaMessagePreloader } from '../../../../../lib/legacy/proza-message/src';
+
+      suite('vl-proza-message-preloader', () => {
+        setup(() => {
+          fetchMock.mock('proza/domein/foo', [
+            {
+              code: 'bar',
+              tekst: 'foobar',
+            },
+            {
+              code: 'foo',
+              tekst: 'foofoo',
+            },
+          ]);
+        });
+
+        setup((done) => {
+          console.log('setup wc - before');
+          customElements.whenDefined('vl-proza-message').then(() => {
+            console.log('setup wc - after');
+            done();
+          });
+        });
+
+        teardown(() => {
+          console.log('teardown - before');
+          fetchMock.restore();
+          delete VlProzaMessagePreloader.__cache;
+          console.log('teardown - after');
+        });
+
+        test('berichten zijn beschikbaar', (done) => {
+          fixture('vl-proza-message-preloader-fixture');
+          VlProzaMessagePreloader.getMessage('foo', 'bar').then((message) => {
+            assert.equal(message, 'foobar');
+
+            VlProzaMessagePreloader.getMessage('foo', 'foo').then((message) => {
+              assert.equal(message, 'foofoo');
+              done();
+            });
+          });
+        });
+
+        test('het opvragen van een bericht geeft een rejected Promise terug indien het domein niet preloaded werd', (done) => {
+          VlProzaMessagePreloader.getMessage('foo', 'bar')
+            .then(() => {
+              assert(false);
+              done();
+            })
+            .catch((error) => {
+              assert.equal(error.message, 'Berichten voor domein foo zijn niet preloaded');
+              done();
+            });
+        });
+
+        test('het opvragen van een bericht geeft een rejected Promise terug indien het domein preloaded werd maar de code niet teruggevonden kan worden', (done) => {
+          fixture('vl-proza-message-preloader-fixture');
+          VlProzaMessagePreloader.getMessage('foo', 'abc')
+            .then(() => {
+              assert(false);
+              done();
+            })
+            .catch((error) => {
+              assert.equal(error.message, 'Bericht voor {domein: foo, code: abc} niet gevonden');
+              done();
+            });
+        });
+
+        test('het aanpassen van het data-vl-domein attribuut zal ervoor zorgen dat dat domein ingeladen wordt', (done) => {
+          fetchMock.mock('proza/domein/bar', [
+            {
+              code: 'foo',
+              tekst: 'barfoo',
+            },
+          ]);
+
+          const preloader = fixture('vl-proza-message-preloader-fixture');
+          preloader.dataset.vlDomain = 'bar';
+          VlProzaMessagePreloader.getMessage('bar', 'foo').then((message) => {
+            assert.equal(message, 'barfoo');
+            done();
+          });
+        });
+
+        test('kan de proza codes opzoeken aan de hand van een prefix', async () => {
+          fetchMock.mock('proza/domein/bar', [
+            {
+              code: 'foo',
+              tekst: 'barfoo',
+            },
+            {
+              code: 'bar',
+              tekst: 'barfoo',
+            },
+            {
+              code: 'foobar',
+              tekst: 'barfoo',
+            },
+          ]);
+          const preloader = fixture('vl-proza-message-preloader-fixture');
+          preloader.dataset.vlDomain = 'bar';
+          const codes = await VlProzaMessagePreloader.getProzaCodes('bar', 'foo');
+          assert.deepEqual(codes, ['foo', 'foobar']);
+        });
+
+        test('als er geen messages zijn met de opgegeven prefix, zullen er geen codes terugkomen bij het opvragen met prefix', async () => {
+          fetchMock.mock('proza/domein/bar', [
+            {
+              code: 'foo',
+              tekst: 'barfoo',
+            },
+            {
+              code: 'bar',
+              tekst: 'barfoo',
+            },
+          ]);
+          const preloader = fixture('vl-proza-message-preloader-fixture');
+          preloader.dataset.vlDomain = 'bar';
+          const codes = await VlProzaMessagePreloader.getProzaCodes('bar', 'other');
+          assert.deepEqual(codes, []);
+        });
+
+        test('kan de proza codes opzoeken aan de hand van een prefix zonder preloader component', async () => {
+          fetchMock.mock(
+            'proza/domein/bar',
+            [
+              {
+                code: 'foo',
+                tekst: 'barfoo',
+              },
+              {
+                code: 'bar',
+                tekst: 'barfoo',
+              },
+              {
+                code: 'foobar',
+                tekst: 'barfoo',
+              },
+            ],
+            { delay: 500 },
+          );
+          const codes = await VlProzaMessagePreloader.getProzaCodes('bar', 'foo');
+          assert.deepEqual(codes, ['foo', 'foobar']);
+        });
+      });
+    </script>
+  </body>
+</html>

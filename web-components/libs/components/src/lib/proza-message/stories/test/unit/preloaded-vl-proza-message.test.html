@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="/node_modules/web-component-tester/browser.js"></script>
+    <script src="/node_modules/sinon-chai/lib/sinon-chai.js"></script>
+    <script src="/node_modules/sinon/pkg/sinon.js"></script>
+    <script type="module" src="../../../../../lib/legacy/proza-message/src"></script>
+</head>
+
+<body>
+<test-fixture id="preloader-vl-proza-message-fixture">
+  <template>
+    <div>
+      <vl-proza-message-preloader id="preloader" data-vl-domain="foo"></vl-proza-message-preloader>
+      <vl-proza-message id="message-1" data-vl-domain="foo" data-vl-code="bar"></vl-proza-message>
+      <vl-proza-message id="message-2" data-vl-domain="foo" data-vl-code="foo"></vl-proza-message>
+    </div>
+  </template>
+</test-fixture>
+<test-fixture id="vl-proza-message-fixture">
+  <template>
+    <div>
+      <vl-proza-message id="message-1" data-vl-domain="foo" data-vl-code="bar"></vl-proza-message>
+    </div>
+  </template>
+</test-fixture>
+
+<script type="module">
+    import fetchMock from 'fetch-mock/esm/client.js';
+    import { VlProzaMessage, VlProzaMessagePreloader } from '../../../../../lib/legacy/proza-message/src';
+    import { awaitUntil } from '../../../../utils/core/index.js';
+
+    suite('vl-proza-message preloaded', () => {
+      const sandbox = sinon.createSandbox();
+
+      setup((done) => {
+        fetchMock.mock('proza/domein/foo', [{
+          code: 'bar',
+          tekst: 'foobar',
+        }, {
+          code: 'foo',
+          tekst: 'foofoo',
+        }]);
+        fetchMock.mock('proza/domein/foo/toegelatenoperaties', {update: true});
+        customElements.whenDefined('vl-proza-message').then(() => done());
+      });
+
+      teardown(() => {
+        sandbox.restore();
+        fetchMock.restore();
+        delete VlProzaMessage.__cache;
+        delete VlProzaMessagePreloader.__cache;
+      });
+
+      test('haalt het bericht en de toegelaten operaties maar 1 keer op indien deze al in de preload cache zitten', async () => {
+        fixture('preloader-vl-proza-message-fixture');
+        await fetchMock.flush(true)
+        assert.lengthOf(fetchMock.calls('proza/domein/foo'), 1);
+        assert.lengthOf(fetchMock.calls('proza/domein/foo/toegelatenoperaties'), 1);
+      });
+
+      test('een bericht wordt individueel opgehaald indien het niet in de preload cache gevonden kan worden', (done) => {
+        sandbox.spy(console, 'warn');
+        fetchMock.mock('proza/domein/foo', [
+          {
+            code: 'bar',
+            tekst: 'foobar',
+          },
+        ], {overwriteRoutes: true});
+        fetchMock.mock('proza/domein/foo/foo', {code: 'foo', tekst: 'foofoo'});
+
+        const proza = fixture('preloader-vl-proza-message-fixture');
+        fetchMock.flush(true).then(() => {
+          awaitUntil(() => {
+            return proza.querySelector('#message-1')._wysiwygElement.textContent === 'foobar' && proza.querySelector('#message-2')._wysiwygElement.textContent === 'foofoo';
+          }).then(() => {
+            assert(console.warn.called);
+            done();
+          });
+        });
+        done();
+      });
+
+      test('een bericht wordt individueel opgehaald indien het preloaden fout is gelopen', (done) => {
+        sandbox.spy(console, 'warn');
+        fetchMock.mock('proza/domein/foo', 404, {overwriteRoutes: true});
+        fetchMock.mock('proza/domein/foo/bar', {code: 'bar', tekst: 'foobar'});
+        fetchMock.mock('proza/domein/foo/foo', {code: 'foo', tekst: 'foofoo'});
+
+        const proza = fixture('preloader-vl-proza-message-fixture');
+        fetchMock.flush(true).then(() => {
+          awaitUntil(() => {
+            return proza.querySelector('#message-1')._wysiwygElement.textContent === 'foobar' && proza.querySelector('#message-2')._wysiwygElement.textContent === 'foofoo';
+          }).then(() => {
+            assert(console.warn.called);
+            done();
+          });
+        });
+        done();
+      });
+
+      test('de proza message cache krijgt voorrang op de preloader message cache', (done) => {
+        sandbox.spy(console, 'warn');
+        fetchMock.mock('proza/domein/foo', [{code: 'bar', tekst: 'preloaded'}], {overwriteRoutes: true});
+        fetchMock.mock('proza/domein/foo/bar', {code: 'bar', tekst: 'individueel'});
+        const proza = fixture('vl-proza-message-fixture');
+        fetchMock.flush(true).then(() => {
+          awaitUntil(() => {
+            return proza.querySelector('#message-1')._wysiwygElement.textContent === 'individueel';
+          }).then(() => {
+            const preloader = document.createElement('vl-proza-message-preloader');
+            preloader.setAttribute('data-vl-domain', 'foo');
+            proza.appendChild(preloader);
+            fetchMock.flush(true).then(() => {
+              const message2 = proza.querySelector('#message-1').cloneNode();
+              message2.setAttribute('id', 'message-2');
+              proza.appendChild(message2);
+              fetchMock.flush(true).then(() => {
+                awaitUntil(() => {
+                  return proza.querySelector('#message-2')._wysiwygElement.textContent === 'individueel';
+                }).then(() => done());
+              });
+            });
+          });
+        });
+        done();
+      });
+
+      test('VlProzaMessage#getMessage haalt het bericht niet nog een keer op indien deze al in de preload cache zitten', async () => {
+        fixture('preloader-vl-proza-message-fixture');
+        await fetchMock.flush(true);
+        await VlProzaMessage.getMessage('foo', 'bar');
+
+        assert.lengthOf(fetchMock.calls('proza/domein/foo'), 1);
+        assert.lengthOf(fetchMock.calls('proza/domein/foo/bar'), 0);
+      });
+    });
+</script>
+</body>
+
+</html>
