@@ -56,6 +56,7 @@
         "typescript": "~4.8.2"
     },
     "dependencies": {
+        "@govflanders-v14/vl-ui-autocomplete": "npm:@govflanders/vl-ui-autocomplete@14.0.2",
         "@govflanders-v14/vl-ui-accordion": "npm:@govflanders/vl-ui-accordion@14.0.2",
         "@govflanders-v14/vl-ui-action-group": "npm:@govflanders/vl-ui-action-group@14.0.2",
         "@govflanders-v14/vl-ui-alert": "npm:@govflanders/vl-ui-alert@14.0.2",
