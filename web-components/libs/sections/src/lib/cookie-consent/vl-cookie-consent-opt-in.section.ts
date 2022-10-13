@@ -1,6 +1,3 @@
-// import '../../checkbox';
-// import '../../../components/form-message';
-// import formMessageStyles from '../../../components/form-message/styles.scss';
 import { BaseElementOfType, define } from '@domg-lib/common-utilities';
 import styles from './style/vl-cookie-consent.scss';
 

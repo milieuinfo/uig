@@ -7,7 +7,7 @@ import { title } from './child/title.section';
 import { content } from './child/content.section';
 import styles from './style/vl-accessibility.scss';
 
-export class VlAccessibilitySection extends LitElement {
+export class VlAccessibility extends LitElement {
     static get styles() {
         return [
             css`
@@ -78,4 +78,4 @@ export class VlAccessibilitySection extends LitElement {
     }
 }
 
-customElements.define('vl-accessibility', VlAccessibilitySection);
+customElements.define('vl-accessibility', VlAccessibility);

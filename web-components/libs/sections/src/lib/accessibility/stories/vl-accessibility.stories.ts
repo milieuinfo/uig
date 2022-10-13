@@ -43,6 +43,7 @@ export const accessibilityDefault = ({
         data-vl-compliance=${compliance}
         data-vl-evaluation=${evaluation}
         .limitations=${limitations}
+        data-cy="accessibility"
     ></vl-accessibility>`;
 };
 accessibilityDefault.storyName = 'vl-accessibility - default';
