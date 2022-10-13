@@ -1,5 +1,5 @@
 const codePreviewUrl =
-    'http://localhost:4600/iframe.html?id=components-code-preview--code-preview-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-code-preview--code-preview-default&viewMode=story';
 
 describe('story vl-code-preview', () => {
     it('should contain a code section', () => {

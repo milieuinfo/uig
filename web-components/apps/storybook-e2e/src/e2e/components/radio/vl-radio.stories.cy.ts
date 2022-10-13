@@ -1,5 +1,5 @@
-const radioUrl = 'http://localhost:4600/iframe.html?id=components-radio--radio-default&viewMode=story';
-const radioGroupUrl = 'http://localhost:4600/iframe.html?id=components-radio--radio-group-default&viewMode=story';
+const radioUrl = 'http://localhost:8080/iframe.html?id=components-radio--radio-default&viewMode=story';
+const radioGroupUrl = 'http://localhost:8080/iframe.html?id=components-radio--radio-group-default&viewMode=story';
 
 describe('story vl-radio', () => {
     it.skip('should contain a label', () => {

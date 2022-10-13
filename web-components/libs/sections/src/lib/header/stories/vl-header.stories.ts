@@ -8,29 +8,6 @@ export default {
     argTypes: headerArgTypes,
 };
 
-export const headerDefault = ({
-    identifier,
-    development,
-    loginUrl,
-    loginRedirectUrl,
-    logoutUrl,
-    switchCapacityUrl,
-    authenticatedUserUrl,
-}: typeof headerArgs) => {
-    return html`
-        <vl-header
-            data-vl-identifier=${identifier}
-            ?data-vl-development=${development}
-            data-vl-login-url=${loginUrl}
-            data-vl-login-redirect-url=${loginRedirectUrl}
-            data-vl-logout-url=${logoutUrl}
-            data-vl-switch-capacity-url=${switchCapacityUrl}
-            data-vl-authenticated-user-url=${authenticatedUserUrl}
-        ></vl-header>
-    `;
-};
-headerDefault.storyName = 'vl-header - default';
-
 export const headerInBody = ({
     identifier,
     development,
@@ -42,6 +19,7 @@ export const headerInBody = ({
 }: typeof headerArgs) => {
     return html` <div is="vl-body">
         <vl-header
+            data-cy="header"
             data-vl-identifier=${identifier}
             ?data-vl-development=${development}
             data-vl-login-url=${loginUrl}

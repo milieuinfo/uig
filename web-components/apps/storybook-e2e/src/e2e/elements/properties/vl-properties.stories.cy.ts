@@ -1,4 +1,4 @@
-const propertiesUrl = 'http://localhost:4600/iframe.html?id=elements-properties--properties-default&viewMode=story';
+const propertiesUrl = 'http://localhost:8080/iframe.html?id=elements-properties--properties-default&viewMode=story';
 
 describe('story vl-properties', () => {
     it('should be able to see properties and their values', () => {

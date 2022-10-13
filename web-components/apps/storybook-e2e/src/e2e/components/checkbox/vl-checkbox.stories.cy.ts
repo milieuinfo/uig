@@ -1,5 +1,5 @@
-const checkboxUrl = 'http://localhost:4600/iframe.html?id=components-checkbox--checkbox-default&viewMode=story';
-const switchUrl = 'http://localhost:4600/iframe.html?id=components-checkbox--checkbox-switch&viewMode=story';
+const checkboxUrl = 'http://localhost:8080/iframe.html?id=components-checkbox--checkbox-default&viewMode=story';
+const switchUrl = 'http://localhost:8080/iframe.html?id=components-checkbox--checkbox-switch&viewMode=story';
 
 describe('story vl-checkbox', () => {
     it('should contain a label', () => {

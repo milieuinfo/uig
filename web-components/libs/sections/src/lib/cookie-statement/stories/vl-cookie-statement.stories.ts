@@ -10,7 +10,7 @@ export default {
 
 export const cookieStatementDefault = () => {
     return html`
-        <vl-cookie-statement data-vl-version="1.0" data-vl-date="15 oktober 2020">
+        <vl-cookie-statement data-cy="cookie-statement" data-vl-version="1.0" data-vl-date="15 oktober 2020">
             <vl-cookie
                 data-vl-title="Captcha contactformulier"
                 data-vl-name="NID"

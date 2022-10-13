@@ -1,4 +1,4 @@
-const alertUrl = 'http://localhost:4600/iframe.html?id=components-alert--alert-default&viewMode=story';
+const alertUrl = 'http://localhost:8080/iframe.html?id=components-alert--alert-default&viewMode=story';
 
 describe('story vl-alert', () => {
     it('should contain a title', () => {

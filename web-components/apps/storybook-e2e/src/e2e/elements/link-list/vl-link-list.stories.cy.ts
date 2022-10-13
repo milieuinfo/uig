@@ -1,4 +1,4 @@
-const linkListUrl = 'http://localhost:4600/iframe.html?id=elements-link-list--link-list-default&viewMode=story';
+const linkListUrl = 'http://localhost:8080/iframe.html?id=elements-link-list--link-list-default&viewMode=story';
 
 describe('story vl-link-list', () => {
     it('should contain a link list', () => {

@@ -1,5 +1,5 @@
-const toasterUrl = 'http://localhost:4600/iframe.html?id=components-toaster--toaster-default&viewMode=story';
-const toasterFadeOutUrl = 'http://localhost:4600/iframe.html?id=components-toaster--toaster-fade-out&viewMode=story';
+const toasterUrl = 'http://localhost:8080/iframe.html?id=components-toaster--toaster-default&viewMode=story';
+const toasterFadeOutUrl = 'http://localhost:8080/iframe.html?id=components-toaster--toaster-fade-out&viewMode=story';
 
 describe('story vl-toaster', () => {
     it('should contain a toaster in the top left corner of the page', () => {

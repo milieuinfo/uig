@@ -1,5 +1,5 @@
 const actionGroupUrl =
-    'http://localhost:4600/iframe.html?id=elements-action-group--action-group-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=elements-action-group--action-group-default&viewMode=story';
 
 describe('story elements / action-group / vl-action-group - default', () => {
     it('should contain an action group', () => {

@@ -6,7 +6,7 @@
         "start": "nx serve",
         "build": "nx build",
         "test": "nx test",
-        "storybook:ci-test": "start-server-and-test 'npx nx storybook storybook' http://localhost:4600 'npx nx e2e storybook-e2e'"
+        "storybook:ci-test": "start-server-and-test 'npx nx storybook storybook' http://localhost:8080 'npx nx e2e storybook-e2e'"
     },
     "private": true,
     "peerDependencies": {

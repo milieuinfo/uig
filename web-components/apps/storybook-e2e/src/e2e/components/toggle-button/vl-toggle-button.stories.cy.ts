@@ -1,7 +1,7 @@
 const toggleButtonUrl =
-    'http://localhost:4600/iframe.html?id=components-toggle-button--toggle-button-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-toggle-button--toggle-button-default&viewMode=story';
 const toggleButtonWithIconUrl =
-    'http://localhost:4600/iframe.html?id=components-toggle-button--toggle-button-with-icon&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-toggle-button--toggle-button-with-icon&viewMode=story';
 
 describe('story vl-toggle-button', () => {
     it('should contain text', () => {

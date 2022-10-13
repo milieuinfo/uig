@@ -1,6 +1,6 @@
-const loaderUrl = 'http://localhost:4600/iframe.html?id=components-loader--loader-default&viewMode=story';
+const loaderUrl = 'http://localhost:8080/iframe.html?id=components-loader--loader-default&viewMode=story';
 const loaderWithCustomTextUrl =
-    'http://localhost:4600/iframe.html?id=components-loader--loader-with-custom-content&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-loader--loader-with-custom-content&viewMode=story';
 
 describe('story vl-loader', () => {
     it('should contain a loading text', () => {

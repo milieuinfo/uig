@@ -1,5 +1,5 @@
 const dataTableDefaultUrl =
-    'http://localhost:4600/iframe.html?id=elements-data-table--data-table-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=elements-data-table--data-table-default&viewMode=story';
 
 describe('story elements / data-table / vl-data-table - default', () => {
     it('should contain a data table', () => {

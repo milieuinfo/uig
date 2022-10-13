@@ -1,4 +1,4 @@
-const tabsUrl = 'http://localhost:4600/iframe.html?id=components-tabs--tabs-default&viewMode=story';
+const tabsUrl = 'http://localhost:8080/iframe.html?id=components-tabs--tabs-default&viewMode=story';
 
 describe('story vl-tabs', () => {
     it('should contain three tabs with titles', () => {

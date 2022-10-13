@@ -648,8 +648,8 @@
                         offsetLeft;
 
                     do {
-                        offsetTop = element.offsetTop;
-                        offsetLeft = element.offsetLeft;
+                        offsetTop = element?.offsetTop;
+                        offsetLeft = element?.offsetLeft;
 
                         if (!isNaN(offsetTop)) {
                             result.top += offsetTop;
@@ -659,7 +659,7 @@
                             result.left += offsetLeft;
                         }
 
-                        element = element.tagName === 'body' ? element.parentElement : element.offsetParent;
+                        element = element?.tagName === 'body' ? element?.parentElement : element?.offsetParent;
                     } while (element);
 
                     return result;
@@ -681,7 +681,7 @@
                     dims = this.dimensions; // Container of sticky sidebar dimensions.
 
                     dims.containerTop = this._offsetRelative(this.container).top;
-                    dims.containerHeight = this.container.clientHeight;
+                    dims.containerHeight = this.container?.clientHeight;
                     dims.containerBottom = dims.containerTop + dims.containerHeight; // Sidebar dimensions.
 
                     dims.sidebarHeight = this.sidebarInner.offsetHeight;
@@ -1081,12 +1081,12 @@
                 value: function dress(wrapper) {
                     var _this2 = this;
 
-                    var id = vl.util.uniqueId(),
-                        correspondingRegion = wrapper.closest('.'.concat(regionClass$1)),
-                        scrollSpyContentWrapper = correspondingRegion.querySelector('['.concat(ssContentAtt, ']'));
+                    var id = vl.util.uniqueId();
+                    var correspondingRegion = wrapper.closest('.'.concat(regionClass$1));
+                    var scrollSpyContentWrapper = correspondingRegion?.querySelector('['.concat(ssContentAtt, ']'));
 
                     if (!vl.util.exists(scrollSpyContentWrapper)) {
-                        scrollSpyContentWrapper = correspondingRegion.querySelector('.'.concat(ssContentClass));
+                        scrollSpyContentWrapper = correspondingRegion?.querySelector('.'.concat(ssContentClass));
                     }
 
                     this.scrollSpyWrapper = wrapper;

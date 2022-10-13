@@ -1,4 +1,4 @@
-const pillUrl = 'http://localhost:4600/iframe.html?id=components-pill--pill-default&viewMode=story';
+const pillUrl = 'http://localhost:8080/iframe.html?id=components-pill--pill-default&viewMode=story';
 
 describe('story vl-pill', () => {
     it('should contain a text', () => {

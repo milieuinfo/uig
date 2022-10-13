@@ -7,7 +7,7 @@
         "storybook": {
             "executor": "nx:run-commands",
             "options": {
-                "command": "start-storybook -p 4600 -c apps/storybook/.storybook --quiet"
+                "command": "start-storybook -p 8080 -c apps/storybook/.storybook --quiet"
             }
         },
         "build-storybook": {

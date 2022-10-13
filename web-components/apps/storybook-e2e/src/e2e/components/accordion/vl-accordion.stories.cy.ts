@@ -1,8 +1,8 @@
-const accordionUrl = 'http://localhost:4600/iframe.html?id=components-accordion--accordion-default&viewMode=story';
+const accordionUrl = 'http://localhost:8080/iframe.html?id=components-accordion--accordion-default&viewMode=story';
 const accordionWithTitleSlotUrl =
-    'http://localhost:4600/iframe.html?id=components-accordion--accordion-with-title-slot&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-accordion--accordion-with-title-slot&viewMode=story';
 const dynamicAccordionUrl =
-    'http://localhost:4600/iframe.html?id=components-accordion--accordion-dynamic-toggle&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-accordion--accordion-dynamic-toggle&viewMode=story';
 
 const accordionToggle = () => {
     cy.getDataCy('accordion').shadow().find('button.vl-toggle').click();

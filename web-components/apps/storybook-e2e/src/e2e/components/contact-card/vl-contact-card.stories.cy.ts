@@ -1,5 +1,5 @@
 const contactCardUrl =
-    'http://localhost:4600/iframe.html?id=components-contact-card--contact-card-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-contact-card--contact-card-default&viewMode=story';
 
 describe('story vl-contact-card', () => {
     it('should contain a title', () => {

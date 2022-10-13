@@ -1,4 +1,4 @@
-const inputFieldUrl = 'http://localhost:4600/iframe.html?id=elements-input-field--input-field-default&viewMode=story';
+const inputFieldUrl = 'http://localhost:8080/iframe.html?id=elements-input-field--input-field-default&viewMode=story';
 
 describe('story vl-input-field', () => {
     it('should contain an input field', () => {
@@ -28,7 +28,7 @@ describe('story vl-input-field', () => {
     });
 
     it('should contain an input field with an disabled state ', () => {
-        cy.visit('http://localhost:4600/iframe.html?id=elements-input-field--input-field-disabled&viewMode=story');
+        cy.visit('http://localhost:8080/iframe.html?id=elements-input-field--input-field-disabled&viewMode=story');
         cy.getDataCy('input-field')
             .should('have.class', 'vl-input-field')
             .should('have.class', 'vl-input-field--disabled');

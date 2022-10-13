@@ -1,6 +1,6 @@
-const pagerUrl = 'http://localhost:4600/iframe.html?id=components-pager--pager-default&viewMode=story';
+const pagerUrl = 'http://localhost:8080/iframe.html?id=components-pager--pager-default&viewMode=story';
 const pagerSinglePageUrl =
-    'http://localhost:4600/iframe.html?args=&id=components-pager--pager-single-page&viewMode=story';
+    'http://localhost:8080/iframe.html?args=&id=components-pager--pager-single-page&viewMode=story';
 
 describe('story vl-pager', () => {
     it('should be able to go to the next page', () => {

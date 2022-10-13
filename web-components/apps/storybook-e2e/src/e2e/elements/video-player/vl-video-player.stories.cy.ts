@@ -1,5 +1,5 @@
 const videoPlayerUrl =
-    'http://localhost:4600/iframe.html?id=elements-video-player--video-player-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=elements-video-player--video-player-default&viewMode=story';
 
 describe('story vl-video-player', () => {
     it('should contain a video player', () => {

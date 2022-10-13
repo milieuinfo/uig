@@ -1,4 +1,4 @@
-const infoTileUrl = 'http://localhost:4600/iframe.html?id=components-info-tile--info-tile-default&viewMode=story';
+const infoTileUrl = 'http://localhost:8080/iframe.html?id=components-info-tile--info-tile-default&viewMode=story';
 
 describe('story vl-info-tile', () => {
     it('should contain a title', () => {

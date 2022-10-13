@@ -1,4 +1,4 @@
-const selectUrl = 'http://localhost:4600/iframe.html?id=elements-select--select-default&viewMode=story';
+const selectUrl = 'http://localhost:8080/iframe.html?id=elements-select--select-default&viewMode=story';
 
 describe('story vl-select', () => {
     it('should contain an option to select', () => {

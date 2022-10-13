@@ -1,5 +1,5 @@
 const searchFilterUrl =
-    'http://localhost:4600/iframe.html?id=elements-search-filter--search-filter-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=elements-search-filter--search-filter-default&viewMode=story';
 
 describe('story vl-search-filter', () => {
     it('should contain an intro', () => {
