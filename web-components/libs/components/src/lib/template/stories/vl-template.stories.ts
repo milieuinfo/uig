@@ -32,7 +32,7 @@ const mainHtml = html`
         <a slot="context-link" href="https://uig-webcomponents.omgeving.vlaanderen.be/">uig-webcomponents</a>
         <a slot="title-link" href="https://uig-webcomponents.omgeving.vlaanderen.be/">${version}</a>
     </vl-content-header>
-    <section is="vl-region">
+    <section data-cy="template-content" is="vl-region">
         <div is="vl-layout">
             <div id="grid" is="vl-grid" is-stacked slot="main">
                 <h1 is="vl-h1">vl-template</h1>
