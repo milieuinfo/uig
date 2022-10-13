@@ -9,6 +9,6 @@ export default {
 };
 
 export const privcyDefault = ({ version, date }: typeof privacyArgs) => {
-    return html` <vl-privacy data-vl-version=${version} data-vl-date=${date}></vl-privacy>`;
+    return html` <vl-privacy data-cy="privacy" data-vl-version=${version} data-vl-date=${date}></vl-privacy>`;
 };
 privcyDefault.storyName = 'vl-privacy - default';
