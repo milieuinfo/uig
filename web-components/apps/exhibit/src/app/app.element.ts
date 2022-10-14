@@ -41,6 +41,7 @@ export class AppElement extends HTMLElement {
                     <exhibit-autocomplete></exhibit-autocomplete>
                     <exhibit-spotlight></exhibit-spotlight>
                     <exhibit-http-error-message></exhibit-http-error-message>
+<!--                    <exhibit-proza-message></exhibit-proza-message>-->
 <!--                    <exhibit-contact-card></exhibit-contact-card>-->
 <!--                    <exhibit-properties></exhibit-properties>-->
 <!--                    <exhibit-infoblock></exhibit-infoblock>-->
