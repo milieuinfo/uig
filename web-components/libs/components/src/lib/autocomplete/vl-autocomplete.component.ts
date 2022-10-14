@@ -138,6 +138,9 @@ export class VlAutocomplete extends LitElement {
                 this._highlightedEl.classList.add('vl-autocomplete__cta--focus');
             }
         }
+        console.log('autocomplete - updated - before parse:', this.items);
+        // this.items = JSON.parse(this.items as any);
+        // console.log('autocomplete - updated - after parse:', this.items);
     }
 
     disconnectedCallback() {
