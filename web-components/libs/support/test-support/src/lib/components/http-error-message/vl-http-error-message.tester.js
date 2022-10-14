@@ -1,8 +1,9 @@
-import { VlElement, By } from '../../../../utils/test';
-import { VlTypography } from '../../../typography/test/e2e/typography';
-import { VlButton } from '../../../button/test/e2e/button';
+import { By } from '../../util/tester.setup';
+import { VlElementTester } from '../../base/vl-element.tester';
+import { VlTypographyTester } from '../typography/vl-typography.tester';
+import { VlButtonTester } from '../../elements/button/vl-button.tester';
 
-export default class VlHttpErrorMessage extends VlElement {
+export default class VlHttpErrorMessageTester extends VlElementTester {
     async getTitle() {
         return (await this._getTitle()).getText();
     }
@@ -25,12 +26,12 @@ export default class VlHttpErrorMessage extends VlElement {
 
     async _getTypography() {
         const element = await this.shadowRoot.findElement(By.css('#text'));
-        return new VlTypography(this.driver, element);
+        return new VlTypographyTester(this.driver, element);
     }
 
     async _getAction() {
         const element = await this.findElement(By.css('[is="vl-link-button"]'));
-        return new VlButton(this.driver, element);
+        return new VlButtonTester(this.driver, element);
     }
 
     async getImage() {
@@ -50,10 +51,13 @@ export default class VlHttpErrorMessage extends VlElement {
     }
 
     async _getNormalImage() {
-        return new VlElement(this.driver, await this.shadowRoot.findElement(By.css('#image-normal')));
+        return new VlElementTester(this.driver, await this.shadowRoot.findElement(By.css('#image-normal')));
     }
 
-    async _getSmallImage() {
-        return new VlElement(this.driver, await this.shadowRoot.findElement(By.css('#image-small')));
+    async _getSmallImage(vlElementTester) {
+        vlElementTester =
+            vlElementTester ||
+            new VlElementTester(this.driver, await this.shadowRoot.findElement(By.css('#image-small')));
+        return vlElementTester;
     }
 }
