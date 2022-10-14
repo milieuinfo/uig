@@ -12,12 +12,24 @@ export class AutocompleteElement extends HTMLElement {
 
     constructor() {
         super();
+        const title = 'Autocomplete';
+        const autocompleteHtml = `
+            <div class="container">
+                <h2 is="vl-h2" data-vl-alt data-vl-no-space-bottom>${title}</h2>
+                <br />
+            </div>
+        `;
+        const htmlContent = document.createElement('div');
+        htmlContent.classList.add('wrapper');
+        htmlContent.innerHTML = autocompleteHtml;
+        const container = htmlContent.getElementsByClassName('container')[0];
         const autocomplete = document.createElement('vl-autocomplete');
         autocomplete.setAttribute('data-vl-min-chars', '1');
         autocomplete.setAttribute('placeholder', 'Hint: typ Gent');
         autocomplete['items'] = complexItems;
-        const shadowRoot = this.attachShadow({ mode: 'open' });
-        shadowRoot.appendChild(autocomplete);
+        container.appendChild(autocomplete);
+        // const shadowRoot = this.attachShadow({ mode: 'open' });
+        this.appendChild(htmlContent);
     }
 
     // connectedCallback() {
