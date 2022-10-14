@@ -10,6 +10,7 @@ export class AutocompleteElement extends LitElement {
             `,
         ];
     }
+
     // public static observedAttributes = [];
 
     // connectedCallback() {
@@ -62,7 +63,14 @@ export class AutocompleteElement extends LitElement {
                 <div class="container">
                     <h2 is="vl-h2" data-vl-alt data-vl-no-space-bottom>${title}</h2>
                     <br />
-                    <vl-autocomplete data-vl-min-chars="1" .items=${complexItems} placeholder="Hint: typ Gent">
+                    <vl-autocomplete
+                        data-vl-min-chars="1"
+                        data-vl-max-suggestions="5"
+                        data-vl-caption-format="title-subtitle-vertical"
+                        data-vl-group-by="title"
+                        .items=${complexItems}
+                        placeholder="Hint: typ Gent"
+                    >
                     </vl-autocomplete>
                 </div>
             </div>
