@@ -1,5 +1,6 @@
 export * from './lib/accordion/vl-accordion.component';
 export * from './lib/alert/vl-alert.component';
+export * from './lib/autocomplete/vl-autocomplete.component';
 export * from './lib/breadcrumb/vl-breadcrumb.component';
 export * from './lib/breadcrumb/vl-breadcrumb-item.component';
 export * from './lib/checkbox/vl-checkbox.component';
@@ -24,8 +25,10 @@ export * from './lib/radio/vl-radio-group.component';
 export * from './lib/share-buttons/vl-share-button.component';
 export * from './lib/share-buttons/vl-share-buttons.component';
 export * from './lib/search/vl-search.component';
+export * from './lib/spotlight/vl-spotlight.component';
 export * from './lib/steps/vl-steps.component';
 export * from './lib/tabs/vl-tabs.component';
+export * from './lib/template/vl-template.component';
 export * from './lib/toggle-button/vl-toggle-button.component';
 export * from './lib/typography/vl-typography.component';
 export * from './lib/textarea/vl-textarea.element';

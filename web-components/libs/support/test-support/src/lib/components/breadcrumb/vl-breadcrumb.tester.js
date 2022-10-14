@@ -1,7 +1,7 @@
 import { VlElementTester } from '../../base/vl-element.tester';
 import { By } from '../../util/tester.setup';
 
-export class VlBreadcrumb extends VlElementTester {
+export class VlBreadcrumbTester extends VlElementTester {
     async getLink(number) {
         const links = await this.getLinks();
         return links[number - 1];

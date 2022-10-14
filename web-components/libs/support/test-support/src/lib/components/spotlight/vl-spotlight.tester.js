@@ -1,6 +1,6 @@
-import { VlElement, By } from '../../../../utils/test';
+import { VlElementTester } from '../../base/vl-element.tester';
 
-export class VlTestSpotlight extends VlElement {
+export class VlSpotlightTester extends VlElementTester {
     async hasClassName(className) {
         const input = await this.getElementInShadow(this, 'article');
         const classValue = await input.getAttribute('class');

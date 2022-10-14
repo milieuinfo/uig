@@ -5,6 +5,7 @@ import '@domg-lib/components';
 // app components
 import './app/app.element.ts';
 import './app/alert/alert.element';
+import './app/autocomplete/autocomplete.element';
 import './app/action-group/action-group.element';
 import './app/accordion/accordion.element';
 import './app/breadcrumb/breadcrumb.element';
@@ -42,6 +43,7 @@ import './app/pill/pill.element';
 import './app/properties/properties.element';
 import './app/progress-bar/progress-bar.element';
 import './app/side-navigation/side-navigation.element';
+import './app/spotlight/spotlight.element';
 import './app/titles/titles.element';
 import './app/text/text.element';
 import './app/toggle-button/toggle-button.element';

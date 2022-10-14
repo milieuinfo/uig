@@ -1,5 +1,5 @@
-import { By } from '../../../../utils/test';
 import { VlElementTester } from '../../base/vl-element.tester';
+import { By } from '../../util/tester.setup';
 
 export class VlTemplate extends VlElementTester {
     async getHeaderSlotElements() {

@@ -1,7 +1,9 @@
 import { html, css, LitElement, unsafeCSS } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import styles from './style/vl-spotlight.scss';
 import { SIZE } from './vl-spotlight.model';
 
+@customElement('vl-spotlight')
 export class VlSpotlight extends LitElement {
     static get styles() {
         return [
@@ -132,4 +134,8 @@ export class VlSpotlight extends LitElement {
     }
 }
 
-customElements.define('vl-spotlight', VlSpotlight);
+declare global {
+    interface HTMLElementTagNameMap {
+        'vl-spotlight': VlSpotlight;
+    }
+}
