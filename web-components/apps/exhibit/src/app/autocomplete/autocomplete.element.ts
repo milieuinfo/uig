@@ -10,8 +10,7 @@ const complexItems = [
 export class AutocompleteElement extends HTMLElement {
     public static observedAttributes = [];
 
-    constructor() {
-        super();
+    connectedCallback() {
         const title = 'Autocomplete';
         const autocompleteHtml = `
             <div class="container">
@@ -19,6 +18,9 @@ export class AutocompleteElement extends HTMLElement {
                 <br />
             </div>
         `;
+        // TODO: de manier waarop de component hier opgebouwd wordt is niet ok, maar dit is de enige manier
+        //  waarop ik hem werkend krijg
+        //  -> de 'items' moeten bij creatie via javascript toegevoegd worden of het werkt niet
         const htmlContent = document.createElement('div');
         htmlContent.classList.add('wrapper');
         htmlContent.innerHTML = autocompleteHtml;
@@ -28,25 +30,8 @@ export class AutocompleteElement extends HTMLElement {
         autocomplete.setAttribute('placeholder', 'Hint: typ Gent');
         autocomplete['items'] = complexItems;
         container.appendChild(autocomplete);
-        // const shadowRoot = this.attachShadow({ mode: 'open' });
         this.appendChild(htmlContent);
     }
-
-    // connectedCallback() {
-    //     this.innerHTML = `
-    //         <div class="wrapper">
-    //             <div class="container">
-    //                 <h2 is="vl-h2" data-vl-alt data-vl-no-space-bottom>${title}</h2>
-    //                 <br>
-    //                 <vl-autocomplete
-    //                     data-vl-min-chars="1"
-    //                     items=${complexItemsParsed}
-    //                     placeholder="Hint: typ Gent">
-    //                 </vl-autocomplete>
-    //             </div>
-    //         </div>
-    //   `;
-    // }
 }
 
 customElements.define('exhibit-autocomplete', AutocompleteElement);
