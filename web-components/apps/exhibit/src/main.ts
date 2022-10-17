@@ -5,6 +5,7 @@ import '@domg-lib/components';
 // app components
 import './app/app.element.ts';
 import './app/alert/alert.element';
+import './app/annotation/annotation.element';
 import './app/autocomplete/autocomplete.element';
 import './app/action-group/action-group.element';
 import './app/accordion/accordion.element';

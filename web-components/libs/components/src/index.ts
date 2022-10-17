@@ -1,5 +1,6 @@
 export * from './lib/accordion/vl-accordion.component';
 export * from './lib/alert/vl-alert.component';
+export * from './lib/annotation/vl-annotation.component';
 export * from './lib/autocomplete/vl-autocomplete.component';
 export * from './lib/breadcrumb/vl-breadcrumb.component';
 export * from './lib/breadcrumb/vl-breadcrumb-item.component';

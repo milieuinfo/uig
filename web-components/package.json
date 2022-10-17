@@ -60,6 +60,7 @@
         "@govflanders-v14/vl-ui-accordion": "npm:@govflanders/vl-ui-accordion@14.0.2",
         "@govflanders-v14/vl-ui-action-group": "npm:@govflanders/vl-ui-action-group@14.0.2",
         "@govflanders-v14/vl-ui-alert": "npm:@govflanders/vl-ui-alert@14.0.2",
+        "@govflanders-v14/vl-ui-annotation": "npm:@govflanders/vl-ui-annotation@14.0.2",
         "@govflanders-v14/vl-ui-autocomplete": "npm:@govflanders/vl-ui-autocomplete@14.0.2",
         "@govflanders-v14/vl-ui-breadcrumb": "npm:@govflanders/vl-ui-breadcrumb@14.0.2",
         "@govflanders-v14/vl-ui-button": "npm:@govflanders/vl-ui-button@14.0.2",

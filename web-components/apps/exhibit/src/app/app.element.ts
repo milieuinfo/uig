@@ -39,6 +39,7 @@ export class AppElement extends HTMLElement {
                     <h1 is="vl-h1" data-vl-alt data-vl-no-space-bottom>Componenten Overzicht UIG</h1>
                     <exhibit-alert></exhibit-alert>
                     <exhibit-autocomplete></exhibit-autocomplete>
+                    <exhibit-annotation></exhibit-annotation>
                     <exhibit-rich-data></exhibit-rich-data>
                     <exhibit-rich-data-table></exhibit-rich-data-table>
                     <exhibit-spotlight></exhibit-spotlight>
