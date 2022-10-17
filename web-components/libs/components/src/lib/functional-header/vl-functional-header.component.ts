@@ -28,28 +28,39 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
       <header class="vl-functional-header">
         <div class="vl-layout">
           <div class="vl-functional-header__row">
-            <div class="vl-functional-header__content">
-              <div class="vl-title">
-                <a id="title" class="vl-functional-header__title" tabindex="0">
-                  <slot name="title"></slot>
-                </a>
-              </div>
+            <div class="uig-functional-header__content">
+                <div class="vl-functional-header__content">
+                    <slot name="top-left"></slot>
+                </div>
+                <div class="vl-functional-header__content">
+                    <div class="vl-title">
+                        <a id="title" class="vl-functional-header__title" tabindex="0">
+                            <slot name="title"></slot>
+                        </a>
+                    </div>
+                </div>
             </div>
+            <slot name="top-right"></slot>
             <div id="actions" class="vl-functional-header__actions">
-              <ul></ul>
+                <ul></ul>
             </div>
           </div>
-          <div class="vl-functional-header__sub">
-            <ul class="vl-functional-header__sub__actions">
-              <li class="vl-functional-header__sub__action">
-                <a id="back-link" is="vl-link" tabindex="0" href="${document.referrer}">
-                  <span is="vl-icon" data-vl-icon="arrow-left-fat" data-vl-before></span><slot id="back-link-text" name="back"><span>Terug</span></slot>
-                </a>
-              </li>
-              <li id="sub-title" class="vl-functional-header__sub__action">
-                <slot name="sub-title"></slot>
-              </li>
-            </ul>
+          <div class="vl-functional-header__sub" id="sub-header">
+            <slot name="sub-header">
+              <ul class="vl-functional-header__sub__actions">
+                  <li class="vl-functional-header__sub__action">
+                      <slot name="back-link">
+                          <a id="back-link" is="vl-link" tabindex="0" href="${document.referrer}">
+                              <span is="vl-icon" data-vl-icon="arrow-left-fat" data-vl-before></span>
+                              <slot id="back-link-text" name="back"><span>Terug</span></slot>
+                          </a>
+                      </slot>
+                  </li>
+                  <li id="sub-title" class="vl-functional-header__sub__action">
+                      <slot name="sub-title"></slot>
+                  </li>
+              </ul>
+            </slot>
           </div>
         </div>
       </header>
@@ -85,18 +96,40 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
         return this._shadow.querySelector('#actions');
     }
 
+    get _subHeaderElement() {
+        return this._shadow.querySelector('#sub-header');
+    }
+
+    get _defaultSubHeaderElement() {
+        return this._shadow.querySelector('#default-sub-header');
+    }
+
     get _actionsListElement() {
         return this._actionsElement.querySelector('ul');
+    }
+
+    get _subHeaderListElement() {
+        return this._subHeaderElement.querySelector('ul');
+    }
+
+    get _subTitleListElements() {
+        return this._subTitleListElement.querySelectorAll('li');
     }
 
     _getActionTemplate(element: Element) {
         return this._template(`
       <li class="vl-functional-header__action">
-        <p>
-          ${element.outerHTML}
-        </p>
+        <p>${element.outerHTML}</p>
       </li>
     `);
+    }
+
+    _getSubHeaderTemplate(element: Element) {
+        return this._getSubHeaderTemplateWithValue(element.outerHTML);
+    }
+
+    _getSubHeaderTemplateWithValue(text: string) {
+        return this._template(`<li class="vl-functional-header__sub__action">${text}</li>`);
     }
 
     _titleChangedCallback(oldValue: string, newValue: string) {
@@ -107,7 +140,7 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
         this._subTitleElement.innerText = newValue;
     }
 
-    _linkChangedCallback(oldValeu: string, newValue: string) {
+    _linkChangedCallback(oldValue: string, newValue: string) {
         this._titleElement.href = newValue;
     }
 
@@ -134,6 +167,19 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
 
     __processSlotElements() {
         this.__processSlotActions();
+    }
+
+    __processSlotSubHeader() {
+        this._subHeaderListElement.innerHTML = '';
+        const subHeader = this.querySelector('[slot="sub-header"]');
+        if (subHeader) {
+            [...subHeader.children]
+                .map((action) => this._getSubHeaderTemplate(action))
+                .forEach((action) => this._subHeaderListElement.append(action));
+            this._defaultSubHeaderElement.hidden = true;
+        } else {
+            this._subHeaderElement.hidden = true;
+        }
     }
 
     __processSlotActions() {

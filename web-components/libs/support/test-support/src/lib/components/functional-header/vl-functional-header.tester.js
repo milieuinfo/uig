@@ -15,8 +15,20 @@ export class VlFunctionalHeaderTester extends VlElementTester {
         return this._getSlotNodes('title');
     }
 
+    async getTopLeftSlotNodes() {
+        return this._getSlotNodes('top-left');
+    }
+
     async getSubTitleSlotNodes() {
         return this._getSlotNodes('sub-title');
+    }
+
+    async getSubHeaderSlotNodes() {
+        return this._getSlotNodes('sub-header');
+    }
+
+    async getTopRightSlotNodes() {
+        return this._getSlotNodes('top-right');
     }
 
     async getActionNodes() {

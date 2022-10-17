@@ -9,3 +9,8 @@ $vl-icon-font-location: 'https://cdn.omgeving.vlaanderen.be/domg/govflanders-fon
 
 // @govflanders component styles
 @import '@govflanders-v14/vl-ui-functional-header/src/scss/functional-header';
+
+.uig-functional-header__content {
+    display: flex;
+    flex-flow: column;
+}
