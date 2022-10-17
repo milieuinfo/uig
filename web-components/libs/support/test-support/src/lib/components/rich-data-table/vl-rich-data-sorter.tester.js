@@ -1,7 +1,8 @@
-import { VlElement, By } from '../../../../utils/test';
-import { VlIcon } from '../../../../components/icon/test/e2e/icon';
+import { VlElementTester } from '../../base/vl-element.tester';
+import { VlIconTester } from '../../elements/icon/vl-icon.tester';
+import { By } from '../../util/tester.setup';
 
-export class VlRichDataSorter extends VlElement {
+export class VlRichDataSorterTester extends VlElementTester {
     async isDescending() {
         return this._hasDirectionIcon('arrow-up');
     }
@@ -27,7 +28,7 @@ export class VlRichDataSorter extends VlElement {
 
     async _getDirectionIcon() {
         const element = await this.shadowRoot.findElement(By.css('#direction'));
-        return new VlIcon(this.driver, element);
+        return new VlIconTester(this.driver, element);
     }
 
     async _getDirectionIconType() {

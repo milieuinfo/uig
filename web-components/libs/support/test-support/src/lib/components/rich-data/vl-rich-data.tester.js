@@ -1,26 +1,27 @@
-import { VlElement, By } from '../../../../utils/test';
-import VlPager from '../../../../components/pager/test/e2e/pager';
-import VlSearchFilter from '../../../../components/search-filter/test/e2e/search-filter';
-import { VlSelect } from '../../../../components/select/test/e2e/select';
+import { VlElementTester } from '../../base/vl-element.tester';
+import VlSearchFilterTester from '../search-filter/vl-search-filter.tester';
+import { VlSelectTester } from '../../elements/select/vl-select.tester';
+import VlPagerTester from '../pager/vl-pager.tester';
+import { By } from '../../util/tester.setup';
 
-export class VlRichData extends VlElement {
+export class VlRichDataTester extends VlElementTester {
     async getContentSlotElements() {
         return this._getSlotElements('content');
     }
 
     async getSearchFilter() {
         const searchFilter = await this.findElement(By.css('[is="vl-search-filter"]'));
-        return new VlSearchFilter(this.driver, searchFilter);
+        return new VlSearchFilterTester(this.driver, searchFilter);
     }
 
     async getSorter() {
         const assignedElements = await this._getSorterSlotElements();
-        return new VlSelect(this.driver, assignedElements[0]);
+        return new VlSelectTester(this.driver, assignedElements[0]);
     }
 
     async getPager() {
         const assignedElements = await this._getPagerSlotElements();
-        return new VlPager(this.driver, assignedElements[0]);
+        return new VlPagerTester(this.driver, assignedElements[0]);
     }
 
     async getNumberOfSearchResults() {
@@ -57,7 +58,7 @@ export class VlRichData extends VlElement {
     }
 
     async contentIsVisible() {
-        const element = await new VlElement(
+        const element = await new VlElementTester(
             this.driver,
             await this.shadowRoot.findElement(By.css('slot[name="content"]'))
         );
@@ -65,7 +66,7 @@ export class VlRichData extends VlElement {
     }
 
     async noContentIsVisible() {
-        const element = await new VlElement(
+        const element = await new VlElementTester(
             this.driver,
             await this.shadowRoot.findElement(By.css('slot[name="no-content"]'))
         );

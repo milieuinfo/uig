@@ -44,6 +44,8 @@ import './app/pill/pill.element';
 import './app/properties/properties.element';
 import './app/progress-bar/progress-bar.element';
 import './app/proza-message/proza-message.element';
+import './app/rich-data/rich-data.element';
+import './app/rich-data-table/rich-data-table.element';
 import './app/side-navigation/side-navigation.element';
 import './app/spotlight/spotlight.element';
 import './app/titles/titles.element';

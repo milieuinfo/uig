@@ -1,9 +1,9 @@
-import { By } from '../../../../utils/test';
-import { VlRichData } from '../../../rich-data/test/e2e/rich-data';
-import { VlDataTable } from '../../../../components/data-table/test/e2e/data-table';
-import { VlRichDataSorter } from './rich-data-sorter';
+import { VlRichDataTester } from '../rich-data/vl-rich-data.tester';
+import { By } from '../../util/tester.setup';
+import { VlRichDataSorterTester } from './vl-rich-data-sorter.tester';
+import { VlDataTableTester } from '../../elements/data-table/vl-data-table.tester';
 
-export class VlRichDataTable extends VlRichData {
+export class VlRichDataTableTester extends VlRichDataTester {
     async toggleSortOfColumn(field) {
         const sorter = await this.getSorter(field);
         const parent = await sorter.findElement(By.xpath('..'));
@@ -12,7 +12,7 @@ export class VlRichDataTable extends VlRichData {
 
     async getSorter(field) {
         const element = await this.shadowRoot.findElement(By.css(`vl-rich-data-sorter[data-vl-for="${field}"]`));
-        return new VlRichDataSorter(this.driver, element);
+        return new VlRichDataSorterTester(this.driver, element);
     }
 
     async isCollapsedMedium() {
@@ -53,6 +53,6 @@ export class VlRichDataTable extends VlRichData {
 
     async _getTable() {
         const element = await this.shadowRoot.findElement(By.css('[is="vl-data-table"]'));
-        return new VlDataTable(this.driver, element);
+        return new VlDataTableTester(this.driver, element);
     }
 }
