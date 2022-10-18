@@ -5,7 +5,7 @@ services:
         container_name: web-components-build
         command: sh web-components/ci/build.sh
         volumes:
-            - ~/.npmrc:/root/.npmrc:ro
+            - ${HOME:-.}/.npmrc:/root/.npmrc:ro
             - ./..:/web-components
             - /web-components/node_modules
 
