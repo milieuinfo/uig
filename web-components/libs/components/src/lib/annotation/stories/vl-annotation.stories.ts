@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import '../vl-annotation.element';
+import '../vl-annotation.component';
 import { annotationArgs, annotationArgTypes } from './vl-annotation.stories-arg';
 
 export default {

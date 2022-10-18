@@ -1,0 +1,16 @@
+https://svn.milieuinfo.be/productie/svn/configserver/oe/cumuli-erkenningen.yml
+
+docker run -it -v $PWD:/e2e -w /e2e cypress/included:9.4.1 `npx nx e2e alliance-e2e`
+docker run -it -v $PWD:/e2e -w /e2e --entrypoint=cypress cypress/included:3.2.0 help
+
+docker run -it -v $PWD:/e2e -w /e2e/apps/alliance-e2e cypress/included:10.7.0 help
+
+docker run -a stdin --init -it --rm --name my-running-script -v "$PWD":/usr/src/app -w /usr/src/app node:16 `sh build.sh > build.log`
+
+
+
+docker run --rm -v "$PWD":/tmp -w /tmp node:16 'sh build.sh >&2'
+
+docker run --rm -v "$PWD":/tmp -w /tmp node:16 sh build.sh >&2
+
+docker run --rm -v "$PWD/script":/script -w /script node:16 sh build.sh >&2
