@@ -1,4 +1,4 @@
-const {defineConfig} = require('cypress')
+const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
     fileServerFolder: '.',
@@ -10,12 +10,11 @@ module.exports = defineConfig({
     chromeWebSecurity: false,
     reporter: '../../node_modules/cypress-multi-reporters',
     reporterOptions: {
-        configFile: 'reporter-config.json'
+        configFile: 'reporter-config.json',
     },
     e2e: {
-        setupNodeEvents(on, config) {
-        },
-        specPattern: './src/e2e/**/*.cy.{js,jsx,ts,tsx}',
+        setupNodeEvents(on, config) {},
+        specPattern: './src/e2e/sections/**/*.cy.{js,jsx,ts,tsx}',
         supportFile: './src/support/e2e.ts',
     },
-})
+});
