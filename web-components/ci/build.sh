@@ -1,5 +1,7 @@
 #git clone -b feature/UIG-2122-setup https://github.com/milieuinfo/uig.git
 #
+docker rm -v web-components-build
+
 cd web-components
 #rm -rf dist
 #
