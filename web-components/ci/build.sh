@@ -1,8 +1,10 @@
 #git clone -b feature/UIG-2122-setup https://github.com/milieuinfo/uig.git
 #
+echo "docker rm -v web-components-build"
 docker rm -v web-components-build
 
 cd web-components
+rm package-lock.json
 #rm -rf dist
 #
 echo "npm install"
