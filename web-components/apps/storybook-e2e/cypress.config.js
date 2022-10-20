@@ -14,7 +14,7 @@ module.exports = defineConfig({
     },
     e2e: {
         setupNodeEvents(on, config) {},
-        specPattern: './src/e2e/sections/**/*.cy.{js,jsx,ts,tsx}',
+        specPattern: './src/e2e/**/*.cy.{js,jsx,ts,tsx}',
         supportFile: './src/support/e2e.ts',
     },
 });
