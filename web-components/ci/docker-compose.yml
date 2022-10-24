@@ -16,12 +16,3 @@ services:
 #        volumes:
 #            - ./..:/web-components
 #            - /web-components/node_modules
-
-
-    build	20-Oct-2022 11:14:26	[36mweb-components-build |[0m npm ERR! code ECONNRESET
-    build	20-Oct-2022 11:14:26	[36mweb-components-build |[0m npm ERR! syscall read
-    build	20-Oct-2022 11:14:26	[36mweb-components-build |[0m npm ERR! errno ECONNRESET
-build	20-Oct-2022 11:14:26	[36mweb-components-build |[0m npm ERR! network Invalid response body while trying to fetch https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/node-fetch: read ECONNRESET
-    build	20-Oct-2022 11:14:26	[36mweb-components-build |[0m npm ERR! network This is a problem related to network connectivity.
-    build	20-Oct-2022 11:14:26	[36mweb-components-build |[0m npm ERR! network In most cases you are behind a proxy or have bad network settings.
-    b

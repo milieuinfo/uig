@@ -34,6 +34,9 @@ Deze folder is, net zoals de applications folder, zelf de root van een Nx-monore
 
 ## Structuur
 
+Er wordt branch based gewerkt, de volgende default branches bestaan: main / beta.
+Daarnaast worden er feature branches aangemaakt die na een PR terug verwijderd worden.
+
 ```
 uig/
 ├─ applications/ [nx]
@@ -42,8 +45,10 @@ uig/
 ├─ cdn-assets/
 │  │   -> @domg-ext/govflanders-font
 │  │   -> @domg-ext/tinymce-theme
-├─ docs/
-│   -> markdown documentation 
+├─ resources/
+│  ├─ docs/
+│  │   -> markdown documentation 
+│  ├─ images/
 ├─ web-components/ [nx]
 │  ├─ apps/
 │  │   -> @domg-uig/exhibit
@@ -56,15 +61,15 @@ uig/
 │  │  │  -> @domg-lib/components (http-error-message / proza-message) [ts]
 │  │  ├─ elements/
 │  │  │   -> @domg-lib/elements [ts]
-│  │  ├─ header-footer (+accessibility / privacy / cookie ...)
-│  │  │   -> @domg-lib/header-footer [ts]
-│  │  │   -> @domg-lib/fat-header-footer [ts]
+│  │  ├─ sections (accessibility / cookie / privacy / ...)
+│  │  │   -> @domg-lib/sections [ts]
+│  │  │   -> @domg-lib/fat-sections [ts]
 │  │  ├─ map/
 │  │  │   -> @domg-lib/map [js]
 │  │  ├─ support/
 │  │  │   -> @domg-lib/react-support [ts]
 │  │  │   -> @domg-lib/test-support [js]
+├─ resources/
 │  ├─ docs/
-│  │  ├─ images/
 │  │   -> .md + .numbers files
 ```

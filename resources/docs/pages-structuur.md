@@ -18,13 +18,13 @@ uig-pages/
 ├─ build-bamboo/ [de sub-folders zijn de root projecten]
 │  ├─ applications
 │  ├─ web-components [de sub-folders zijn de branches]
+│  │  ├─ beta/
+│  │  ├─ feature-xxx/
 │  │  ├─ main/ [de sub-folders zijn de build numbers - enkel de laatste 10 worden bijgehouden]
 │  │  │  ├─ 46/ [hieronder wordt de inhoud van de dist folder gekopieerd]
 │  │  │  │  ├─ apps/
 │  │  │  │  ├─ cypress/
 │  │  │  │  ├─ libs
-│  │  ├─ beta/
-│  │  ├─ feature-xxx/
 ├─ build-github/ [de folder structuur is identiek aan build-bamboo, maar de build bron is github]
 ├─ docs/ [bevat enkel de meest recente docs folders uit de main branch]
 │  ├─ uig/
@@ -42,4 +42,3 @@ uig-pages/
 │  ├─ _site/
 │  │  -> de gegenereerde website die gepublieerd wordt onder https://milieuinfo.github.io/uig-pages/
 ```
-
