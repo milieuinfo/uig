@@ -29,6 +29,8 @@ jobs:
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
+        with:
+          path: ./web-components
       - name: web-components - npm install
         run: npm ci
         continue-on-error: false
