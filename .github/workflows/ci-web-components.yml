@@ -45,6 +45,8 @@ jobs:
         run: npx nx build components
       - name: web-components - storybook - e2e-test
         run: npm run storybook:ci-test
+      - name: web-components - storybook - build
+        run: npx nx build-storybook storybook
       #      - name: Archive dist folder
       #        uses: actions/upload-artifact@v3
       #        with:
