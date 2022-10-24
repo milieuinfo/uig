@@ -26,6 +26,9 @@ jobs:
         run: |
           echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/"  > ~/.npmrc
           echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG_ACD_NPM }}" >> ~/.npmrc
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
       - name: web-components - npm install
         run: npm ci
         continue-on-error: false
@@ -42,25 +45,46 @@ jobs:
         run: npx nx build components
       - name: web-components - storybook - e2e-test
         run: npm run storybook:ci-test
-      - name: Archive dist folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: web-components/dist
-      - name: Archive storybook-e2e-tests
-        uses: actions/upload-artifact@v3
-        with:
-          name: storybook-e2e-tests
-          path: /web-components/dist/cypress/apps/storybook-e2e/mochawesome-report
+      #      - name: Archive dist folder
+      #        uses: actions/upload-artifact@v3
+      #        with:
+      #          name: dist
+      #          path: web-components/dist
+      #      - name: Archive Exhibit
+      #        uses: actions/upload-artifact@v3
+      #        with:
+      #          name: exhibit
+      #          path: /web-components/dist/apps/exhibit
+      #      - name: Archive Storybook
+      #        uses: actions/upload-artifact@v3
+      #        with:
+      #          name: storybook
+      #          path: /web-components/dist/apps/storybook
       - name: output the build results output path
-        run: echo "the build results are available at build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}"
+        run: echo "the build results are available at build-bamboo/web-components/${{ github.ref_name }}/${{ github.run_number }}"
       - name: 🚀 publish dist folder on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: web-components/dist
           repository-name: milieuinfo/uig-pages
           branch: main
-          target-folder: build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
+          target-folder: build-bamboo/web-components/${{ github.ref_name }}/${{ github.run_number }}
+          token: ${{ secrets.PAT_UIG_PAGES }}
+      - name: publish the Exhibit App on github-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: web-components/dist/apps/exhibit
+          repository-name: milieuinfo/uig-pages
+          branch: main
+          target-folder: /build-apps/${{ steps.package-version.outputs.current-version}}/exhibit
+          token: ${{ secrets.PAT_UIG_PAGES }}
+      - name: publish Storybook on github-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: web-components/dist/apps/storybook
+          repository-name: milieuinfo/uig-pages
+          branch: main
+          target-folder: /build-apps/${{ steps.package-version.outputs.current-version}}/storybook
           token: ${{ secrets.PAT_UIG_PAGES }}
       # - name: authenticate to private NPM repository
       #   run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
