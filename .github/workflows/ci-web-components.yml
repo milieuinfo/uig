@@ -26,7 +26,7 @@ jobs:
         run: |
           echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/"  > ~/.npmrc
           echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG_ACD_NPM }}" >> ~/.npmrc
-      - name: get-npm-version
+      - name: web-components - get package version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
         with:
@@ -64,23 +64,23 @@ jobs:
       #        with:
       #          name: storybook
       #          path: /web-components/dist/apps/storybook
-      - name: output the build results output path
-        run: echo "the build results are available at build-bamboo/web-components/${{ github.ref_name }}/${{ github.run_number }}"
+      - name: output the build result path
+        run: echo "the build result (dist folder) is available at build-bamboo/web-components/${{ github.ref_name }}/${{ github.run_number }}"
       - name: 🚀 publish dist folder on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: web-components/dist
           repository-name: milieuinfo/uig-pages
           branch: main
-          target-folder: build-bamboo/web-components/${{ github.ref_name }}/${{ github.run_number }}
+          target-folder: build-bamboo/${{ github.ref_name }}/web-components/${{ github.run_number }}
           token: ${{ secrets.PAT_UIG_PAGES }}
-      - name: publish the Exhibit App on github-pages
+      - name: publish Exhibit App on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: web-components/dist/apps/exhibit
           repository-name: milieuinfo/uig-pages
           branch: main
-          target-folder: /build-apps/${{ steps.package-version.outputs.current-version}}/exhibit
+          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/exhibit
           token: ${{ secrets.PAT_UIG_PAGES }}
       - name: publish Storybook on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
@@ -88,7 +88,23 @@ jobs:
           folder: web-components/dist/apps/storybook
           repository-name: milieuinfo/uig-pages
           branch: main
-          target-folder: /build-apps/${{ steps.package-version.outputs.current-version}}/storybook
+          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/storybook
+          token: ${{ secrets.PAT_UIG_PAGES }}
+      - name: publish uig-resources on github-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: resources
+          repository-name: milieuinfo/uig-pages
+          branch: main
+          target-folder: /build-resources/${{ github.ref_name }}/uig
+          token: ${{ secrets.PAT_UIG_PAGES }}
+      - name: publish web-components resources on github-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: web-components/resources
+          repository-name: milieuinfo/uig-pages
+          branch: main
+          target-folder: /build-resources/${{ github.ref_name }}/uig/web-components
           token: ${{ secrets.PAT_UIG_PAGES }}
       # - name: authenticate to private NPM repository
       #   run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
