@@ -1,6 +1,6 @@
 # Workspace Setup Commands
 
-This document describes the steps to set up the monorepo workspace.
+Dit document beschrijft de stappen ondernomen om de UIG repo op te zeten
 
 ## Root Setup
 
@@ -26,3 +26,18 @@ This document describes the steps to set up the monorepo workspace.
 - npx nx g @nrwl/web:lib support/test-support --buildable --publishable --importPath=@domg-lib/test-support
 - npx nx g @nrwl/web:application exhibit
 - npx nx g @nrwl/web:application storybook
+
+## Storybook
+
+Nx ondersteund Storybook maar niet voor Web Componenten, enkel voor Angular of React.
+De volgende stappen zijn gedaan om Storybook te installeren:
+
+-   npx nx g @nrwl/web:application storybook\
+    -> dit maakt een default web app 'storybook' en 'storybook-e2e'
+-   npx storybook init\
+    -> in de apps/storybook folder\
+    -> dit doet een initialisatie van storybook\
+    -> de manuele 'web components' keuze gemaakt
+-   onder apps/storybook is er dan een package.json (+lock en node_modules)\
+    -> de devDependencies verplaatst naar het root niveau
+    -> de package.json, package-lock.json en node_modules verwijderd
