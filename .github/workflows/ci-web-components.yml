@@ -74,7 +74,7 @@ jobs:
           branch: main
           target-folder: build-bamboo/${{ github.ref_name }}/web-components/${{ github.run_number }}
           token: ${{ secrets.PAT_UIG_PAGES }}
-      - name: publish Exhibit App on github-pages
+      - name: publish Exhibit on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: web-components/dist/apps/exhibit
@@ -90,21 +90,13 @@ jobs:
           branch: main
           target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/storybook
           token: ${{ secrets.PAT_UIG_PAGES }}
-      - name: publish uig-resources on github-pages
+      - name: publish documentation on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: resources
+          folder: documentation
           repository-name: milieuinfo/uig-pages
           branch: main
-          target-folder: /build-resources/${{ github.ref_name }}/uig
-          token: ${{ secrets.PAT_UIG_PAGES }}
-      - name: publish web-components resources on github-pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: web-components/resources
-          repository-name: milieuinfo/uig-pages
-          branch: main
-          target-folder: /build-resources/${{ github.ref_name }}/uig/web-components
+          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/documentation
           token: ${{ secrets.PAT_UIG_PAGES }}
       # - name: authenticate to private NPM repository
       #   run: echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc

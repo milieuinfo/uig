@@ -12,15 +12,21 @@ staat hier beschreven.
 uig-pages/
 ├─ build-apps/ [de sub-folders zijn de branches - mag 3.0.10 in de beta branch voorkomen of moet dat 3.0.10-beta zijn ?]
 │  ├─ beta/
-│  ├─ feature-xxx/
+│  ├─ feature/
+│  │  ├─ xxx/
 │  ├─ main/ [sub-folders per versie - uit de root package.json van web-components]
 │  │  ├─ 3.0.10/ 
 │  │  │  ├─ alliance/ [volgt automatisch de versies van de web-components - is wel een aparte sub-monorepo]
+│  │  │  ├─ documentation/ 
+│  │  │  │  ├─ img/
+│  │  │  │  ├─ web-components/
+│  │  │  │  ├─ xyz.md
 │  │  │  ├─ exhibit/ 
 │  │  │  ├─ storybook/ 
 ├─ build-bamboo/ [de sub-folders zijn de branches]
 │  ├─ beta/
-│  ├─ feature-xxx/
+│  ├─ feature/
+│  │  ├─ xxx/
 │  ├─ main/ [de sub-folders zijn de root projecten]
 │  │  ├─ applications
 │  │  ├─ web-components [de sub-folders zijn de build numbers - enkel de laatste 10 worden bijgehouden]
@@ -29,22 +35,6 @@ uig-pages/
 │  │  │  │  ├─ cypress/
 │  │  │  │  ├─ libs
 ├─ build-github/ [de folder structuur is identiek aan build-bamboo, maar de build bron is github]
-├─ build-resources/ [bevat enkel de meest resource folders uit de main branch]
-│  ├─ beta/
-│  ├─ feature-xxx/
-│  ├─ main/ [bevat de meest recente resource folders uit de branch]
-│  │  ├─ uig/
-│  │  │  ├─ applications/
-│  │  │  │  ├─ resources/
-│  │  │  │  │  ├─ docs/
-│  │  │  ├─ cdn-assets/
-│  │  │  ├─ resources/
-│  │  │  │  ├─ docs/
-│  │  │  │  ├─ images/
-│  │  │  ├─ web-components/
-│  │  │  │  ├─ resources/
-│  │  │  │  │  ├─ docs/
-│  │  │  │  │  ├─ images/
 ├─ jekyll/
 │  -> basis jekyll structuur
 │  -> docs en build folders zijn hierin opgenomen via een symbolic link !!!

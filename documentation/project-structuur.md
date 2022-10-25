@@ -43,12 +43,10 @@ uig/
 │  ├─ apps/
 │  │   -> @domg-uig/alliance
 ├─ cdn-assets/
-│  │   -> @domg-ext/govflanders-font
-│  │   -> @domg-ext/tinymce-theme
-├─ resources/
-│  ├─ docs/
-│  │   -> markdown documentation 
-│  ├─ images/
+│   -> @domg-ext/govflanders-font
+│   -> @domg-ext/tinymce-theme
+├─ documentation/
+│   -> images, .md, .numbers, ... files
 ├─ web-components/ [nx]
 │  ├─ apps/
 │  │   -> @domg-uig/exhibit
@@ -58,7 +56,7 @@ uig/
 │  │  │  ├─ utilities/
 │  │  │  │   -> @domg-lib/common-utilities [ts]
 │  │  ├─ components/
-│  │  │  -> @domg-lib/components (http-error-message / proza-message) [ts]
+│  │  │   -> @domg-lib/components (http-error-message / proza-message) [ts]
 │  │  ├─ elements/
 │  │  │   -> @domg-lib/elements [ts]
 │  │  ├─ sections (accessibility / cookie / privacy / ...)
@@ -69,7 +67,4 @@ uig/
 │  │  ├─ support/
 │  │  │   -> @domg-lib/react-support [ts]
 │  │  │   -> @domg-lib/test-support [js]
-├─ resources/
-│  ├─ docs/
-│  │   -> .md + .numbers files
 ```

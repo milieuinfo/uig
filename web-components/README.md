@@ -16,7 +16,7 @@ de [Vlaamse Overheid](https://www.vlaanderen.be/).
 
 ## Meer info
 
-Er is de [algemene project informatie](resources/docs/todo.md) en specifieke informatie over de
+Er is de [algemene project informatie](docs/todo.md) en specifieke informatie over de
 [webcomponenten bibliotheek](web-components/doc)
 
 <hr>

@@ -50,7 +50,7 @@ De huidige setup werd opgebouwd m.b.v. [nx commando's](resources/markdown/nx-set
 De ⚗ <sup>web componenten</sup> zitten opgesplitst in 2 sub-bibliotheken: __elements__ en __components__.
 
 > De bibliotheek wordt momenteel gemigreerd, in het analyse document
-> (numbers) [UIG - componenten bibliotheek](resources/docs/numbers/UIG%20-%20componenten%20bibliotheek.numbers) staat de
+> (numbers) [UIG - componenten bibliotheek](docs/numbers/UIG%20-%20componenten%20bibliotheek.numbers) staat de
 > vooruitgang.
 
 ### Elements Bibliotheek
