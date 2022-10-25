@@ -5,30 +5,41 @@
     "targets": {
         "build": {
             "executor": "@nrwl/js:tsc",
-            "outputs": ["{options.outputPath}"],
+            "outputs": [
+                "{options.outputPath}"
+            ],
             "options": {
+                "clean": true,
                 "outputPath": "dist/libs/elements",
                 "main": "libs/elements/src/index.ts",
                 "tsConfig": "libs/elements/tsconfig.lib.json",
-                "assets": ["libs/elements/*.md"]
+                "assets": [
+                    "libs/elements/*.md"
+                ]
             }
         },
         "process-scss": {
             "executor": "nx:run-commands",
             "options": {
-                "command": "sass ./libs/elements/src/lib/_vl-elements.scss > ./dist/libs/elements/src/lib/vl-elements.css --load-path ./node_modules"
+                "command": "sass libs/elements/src/lib:dist/libs/elements/src/lib --load-path ./node_modules"
             }
         },
         "lint": {
             "executor": "@nrwl/linter:eslint",
-            "outputs": ["{options.outputFile}"],
+            "outputs": [
+                "{options.outputFile}"
+            ],
             "options": {
-                "lintFilePatterns": ["libs/elements/**/*.ts"]
+                "lintFilePatterns": [
+                    "libs/elements/**/*.ts"
+                ]
             }
         },
         "test": {
             "executor": "@nrwl/jest:jest",
-            "outputs": ["coverage/libs/elements"],
+            "outputs": [
+                "coverage/libs/elements"
+            ],
             "options": {
                 "jestConfig": "libs/elements/jest.config.ts",
                 "passWithNoTests": true

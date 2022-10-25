@@ -1,4 +1,12 @@
 {
     "name": "@domg-lib/sections",
-    "version": "0.0.1"
+    "scripts": {
+        "release": "npm publish"
+    },
+    "publishConfig": {
+        "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
+    },
+    "files": [
+        "*"
+    ]
 }

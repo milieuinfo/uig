@@ -1,12 +1,13 @@
 {
     "name": "web-components",
-    "version": "0.1.0",
+    "version": "0.4.0",
     "license": "MIT",
     "scripts": {
         "start": "nx serve",
         "build": "nx build",
         "test": "nx test",
-        "storybook:ci-test": "start-server-and-test 'npx nx storybook storybook' http://localhost:8080 'npx nx e2e storybook-e2e'"
+        "storybook:ci-test": "start-server-and-test 'npx nx storybook storybook' http://localhost:8080 'npx nx e2e storybook-e2e'",
+        "release:elements": "npx nx build elements && npx nx process-scss elements && cd ./dist/libs/elements && npm version $npm_package_version && npm publish"
     },
     "private": true,
     "peerDependencies": {

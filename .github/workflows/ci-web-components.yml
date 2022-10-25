@@ -42,7 +42,7 @@ jobs:
       - name: web-components - common-utilities - build
         run: npx nx build common-utilities
       - name: web-components - elements - build
-        run: npx nx build elements
+        run: npm run build:elements
       - name: web-components - components - build
         run: npx nx build components
       - name: web-components - storybook - e2e-test
