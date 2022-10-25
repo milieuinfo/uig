@@ -1,4 +1,4 @@
-import '../../../libs/elements/src/lib/_vl-elements.scss';
+import '../../../libs/elements/src/lib/vl-elements.scss';
 
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },

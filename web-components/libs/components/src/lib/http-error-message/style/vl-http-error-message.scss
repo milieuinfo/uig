@@ -8,7 +8,7 @@ $vl-icon-font-location: 'https://cdn.omgeving.vlaanderen.be/domg/govflanders-fon
 @import '@govflanders-v14/vl-ui-util/src/scss/util';
 
 // styling to inject into the shadow dom
-@import '../../../../../elements/src/lib/_vl-elements.scss';
+@import '../../../../../elements/src/lib/vl-elements.scss';
 //@import '../../../node_modules/@govflanders/vl-ui-titles/src/scss/titles';
 //@import '../../../node_modules/@govflanders/vl-ui-button/src/scss/button';
 //@import '../../../node_modules/@govflanders/vl-ui-typography/src/scss/typography';

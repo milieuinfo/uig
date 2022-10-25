@@ -45,8 +45,8 @@ npx http-server ./dist -p9090 --cors
 ## SCSS verwerking
 
 uit te voeren vanuit de folder waar de scss staan, de node_modules folder moet relatief kloppen !!!
-npx sass _vl-elements.scss > vl-elements.css --load-path ../../../../node_modules
-npx sass ./libs/elements/src/lib/_vl-elements.scss > ./dist/libs/elements/src/lib/vl-elements.css --load-path ./node_modules
+npx sass vl-elements.scss > vl-elements.css --load-path ../../../../node_modules
+npx sass ./libs/elements/src/lib/vl-elements.scss > ./dist/libs/elements/src/lib/vl-elements.css --load-path ./node_modules
 
 ## Nuttige links
 

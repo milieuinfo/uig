@@ -63,7 +63,7 @@ Een __element__ is geïmplementeerd als een native html-element en heeft technis
   - bvb. `<button is="vl-button"></button>`
 - heeft __geen__ shadow DOM
 - de styling wordt globaal gedefinieerd
-  - 1 sccs (_vl-elements.scss) die de css van alle elementen bevat
+  - 1 sccs (vl-elements.scss) die de css van alle elementen bevat
   - de bulk van de styling komt van DV (Digitaal Vlaanderen)
   - afnemers dienen expliciet deze css eenmalig (vanuit index.html) te refereren
 

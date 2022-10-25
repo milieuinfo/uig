@@ -54,7 +54,7 @@ export class VlTextarea extends vlFormValidationElement(BaseElementOfType(HTMLTe
             branding: false,
             powerpaste_word_import: 'clean',
             powerpaste_html_import: 'clean',
-            content_css: '/libs/elements/src/lib/_vl-elements.scss',
+            content_css: '/libs/elements/src/lib/vl-elements.scss',
             verify_html: false,
             forced_root_block: 'p',
             body_class: 'vl-typography',
