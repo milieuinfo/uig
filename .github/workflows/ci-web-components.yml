@@ -38,7 +38,11 @@ jobs:
       - name: web-components - storybook - build
         run: npx nx build-storybook storybook
       - name: web-components - storybook - e2e-test
-        run: npm run storybook:ci-test
+        run: |
+          npm run storybook:ci-test
+          mkdir dist/cypress/apps/storybook-e2e/mochawesome
+          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
+          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
       - name: web-components - build apps
         run: npx nx build
       - name: web-components - build libraries
