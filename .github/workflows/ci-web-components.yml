@@ -37,18 +37,12 @@ jobs:
       - name: web-components - test
         run: npx nx test
         continue-on-error: false
-      - name: web-components - build
-        run: npx nx build
-      - name: web-components - common-utilities - build
-        run: npx nx build common-utilities
-      - name: web-components - elements - build
-        run: npm run build:elements
-      - name: web-components - components - build
-        run: npx nx build components
-      - name: web-components - storybook - e2e-test
-        run: npm run storybook:ci-test
       - name: web-components - storybook - build
         run: npx nx build-storybook storybook
+      - name: web-components - storybook - e2e-test
+        run: npm run storybook:ci-test
+      - name: web-components - release all
+        run: npm run release:all
       #      - name: Archive dist folder
       #        uses: actions/upload-artifact@v3
       #        with:

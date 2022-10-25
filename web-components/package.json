@@ -1,6 +1,6 @@
 {
     "name": "web-components",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "license": "MIT",
     "scripts": {
         "start": "nx serve",
@@ -10,7 +10,8 @@
         "release:common-utilities": "npx nx build common-utilities && cd ./dist/libs/common/utilities && npm version $npm_package_version && npm publish",
         "release:elements": "npx nx build elements && npx nx process-scss elements && cd ./dist/libs/elements && npm version $npm_package_version && npm publish",
         "release:components": "npx nx build components && npx nx process-scss components && cd ./dist/libs/components && npm version $npm_package_version && npm publish",
-        "release:sections": "npx nx build sections && npx nx process-scss sections && cd ./dist/libs/sections && npm version $npm_package_version && npm publish"
+        "release:sections": "npx nx build sections && npx nx process-scss sections && cd ./dist/libs/sections && npm version $npm_package_version && npm publish",
+        "release:all": "npm run release:common-utilities && npm run release:elements && npm run release:components && npm run release:sections"
     },
     "private": true,
     "peerDependencies": {
