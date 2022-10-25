@@ -20,8 +20,6 @@ jobs:
           node-version: '16'
           cache: 'npm'
           cache-dependency-path: web-components/package-lock.json
-      # - name: delete lock file
-      #  run: rm package-lock.json
       - name: authenticate to acd-npm repository
         run: |
           echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/"  > ~/.npmrc
@@ -31,7 +29,7 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@main
         with:
           path: ./web-components
-      - name: web-components - npm install
+      - name: web-components - npm ci
         run: npm ci
         continue-on-error: false
       - name: web-components - test
@@ -41,7 +39,9 @@ jobs:
         run: npx nx build-storybook storybook
       - name: web-components - storybook - e2e-test
         run: npm run storybook:ci-test
-      - name: web-components - build all
+      - name: web-components - build apps
+        run: npx nx build
+      - name: web-components - build libraries
         run: npm run build:all
       - name: authenticate to local-npm repository
         run: |
@@ -83,6 +83,3 @@ jobs:
           branch: main
           target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/documentation
           token: ${{ secrets.PAT_UIG_PAGES }}
-      # - name: web-components - elements - publish
-      #  working-directory: ./web-components/dist/libs/elements
-      #  run: npm run release
