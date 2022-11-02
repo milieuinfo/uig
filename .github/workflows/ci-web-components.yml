@@ -1,11 +1,13 @@
 name: ci-web-components
+
 on:
   push:
     paths:
       - .github/workflows/ci-web-components.yml
       - web-components/**
+
 jobs:
-  ci-web-components:
+  checkout-install-and-cache-npm:
     runs-on: ubuntu-latest
     outputs:
       build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
@@ -24,66 +26,95 @@ jobs:
         run: |
           echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/"  > ~/.npmrc
           echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG_ACD_NPM }}" >> ~/.npmrc
-      - name: web-components - get package version
+      - name: get package version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
         with:
           path: ./web-components
-      - name: web-components - npm ci
+      - name: npm ci
         run: npm ci
         continue-on-error: false
+      - name: cache node_modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ./web-components/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+  test-web-components:
+    runs-on: ubuntu-latest
+    outputs:
+      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./web-components
+    needs: checkout-install-and-cache-npm
+    steps:
+      - name: restore cache node_modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ./web-components/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: web-components - test
         run: npx nx test
         continue-on-error: false
-      - name: web-components - storybook - build
-        run: npx nx build-storybook storybook
-      - name: web-components - storybook - e2e-test
-        run: |
-          npm run storybook:ci-test
-          mkdir dist/cypress/apps/storybook-e2e/mochawesome
-          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
-          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
-      - name: web-components - build apps
-        run: npx nx build
-      - name: web-components - build libraries
-        run: npm run build:all
-      - name: authenticate to local-npm repository
-        run: |
-          echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"  > ~/.npmrc
-          echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
-      - name: web-components - release all
-        run: npm run release:all
-      - name: output the build result path
-        run: echo "the build result (dist folder) is available at build-bamboo/web-components/${{ github.ref_name }}/${{ github.run_number }}"
-      - name: 🚀 publish dist folder on github-pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: web-components/dist
-          repository-name: milieuinfo/uig-pages
-          branch: main
-          target-folder: build-bamboo/${{ github.ref_name }}/web-components/${{ github.run_number }}
-          token: ${{ secrets.PAT_UIG_PAGES }}
-      - name: publish Exhibit on github-pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: web-components/dist/apps/exhibit
-          repository-name: milieuinfo/uig-pages
-          branch: main
-          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/exhibit
-          token: ${{ secrets.PAT_UIG_PAGES }}
-      - name: publish Storybook on github-pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: web-components/dist/apps/storybook
-          repository-name: milieuinfo/uig-pages
-          branch: main
-          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/storybook
-          token: ${{ secrets.PAT_UIG_PAGES }}
-      - name: publish documentation on github-pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: documentation
-          repository-name: milieuinfo/uig-pages
-          branch: main
-          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/documentation
-          token: ${{ secrets.PAT_UIG_PAGES }}
+#      - name: web-components - storybook - build
+#        run: npx nx build-storybook storybook
+#      - name: web-components - storybook - e2e-test
+#        run: |
+#          npm run storybook:ci-test
+#          mkdir dist/cypress/apps/storybook-e2e/mochawesome
+#          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
+#          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
+#      - name: web-components - build apps
+#        run: npx nx build
+#      - name: web-components - build libraries
+#        run: npm run build:all
+#      - name: authenticate to local-npm repository
+#        run: |
+#          echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"  > ~/.npmrc
+#          echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
+#      - name: web-components - release all
+#        run: npm run release:all
+#      - name: output the build result path
+#        run: echo "the build result (dist folder) is available at build-bamboo/web-components/${{ github.ref_name }}/${{ github.run_number }}"
+#      - name: publish dist folder on github-pages
+#        uses: JamesIves/github-pages-deploy-action@v4
+#        with:
+#          folder: web-components/dist
+#          repository-name: milieuinfo/uig-pages
+#          branch: main
+#          target-folder: build-bamboo/${{ github.ref_name }}/web-components/${{ github.run_number }}
+#          token: ${{ secrets.PAT_UIG_PAGES }}
+#      - name: publish Exhibit on github-pages
+#        uses: JamesIves/github-pages-deploy-action@v4
+#        with:
+#          folder: web-components/dist/apps/exhibit
+#          repository-name: milieuinfo/uig-pages
+#          branch: main
+#          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/exhibit
+#          token: ${{ secrets.PAT_UIG_PAGES }}
+#      - name: publish Storybook on github-pages
+#        uses: JamesIves/github-pages-deploy-action@v4
+#        with:
+#          folder: web-components/dist/apps/storybook
+#          repository-name: milieuinfo/uig-pages
+#          branch: main
+#          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/storybook
+#          token: ${{ secrets.PAT_UIG_PAGES }}
+#      - name: publish documentation on github-pages
+#        uses: JamesIves/github-pages-deploy-action@v4
+#        with:
+#          folder: documentation
+#          repository-name: milieuinfo/uig-pages
+#          branch: main
+#          target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/documentation
+#          token: ${{ secrets.PAT_UIG_PAGES }}
+#
+
