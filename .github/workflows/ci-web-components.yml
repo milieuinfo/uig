@@ -42,6 +42,14 @@ jobs:
         with:
           path: ./web-components
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - name: cache Cypress binary
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-cypress-binary
+        with:
+          path: /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
   perform-unit-tests:
     runs-on: ubuntu-latest
@@ -82,6 +90,14 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ./web-components
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - name: restore cache Cypress binary
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-cypress-binary
+        with:
+          path: /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: storybook - build
         run: npx nx build-storybook storybook
