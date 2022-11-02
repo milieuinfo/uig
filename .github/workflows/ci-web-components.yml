@@ -6,6 +6,9 @@ on:
       - .github/workflows/ci-web-components.yml
       - web-components/**
 
+env:
+  CYPRESS_CACHE_FOLDER: cypress/cache
+
 jobs:
   checkout-install-and-cache-npm:
     runs-on: ubuntu-latest
@@ -42,8 +45,7 @@ jobs:
         with:
           path: |
             ./web-components
-            ~/.cache/Cypress
-            /home/runner/.cache/Cypress
+            cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
   perform-all-unit-tests:
@@ -64,8 +66,7 @@ jobs:
         with:
           path: |
             ./web-components
-            ~/.cache/Cypress
-            /home/runner/.cache/Cypress
+            cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: web-components - test
         run: npx nx test
@@ -89,8 +90,7 @@ jobs:
         with:
           path: |
             ./web-components
-            ~/.cache/Cypress
-            /home/runner/.cache/Cypress
+            cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: storybook - build
         run: npx nx build-storybook storybook
@@ -119,8 +119,7 @@ jobs:
         with:
           path: |
             ./web-components
-            ~/.cache/Cypress
-            /home/runner/.cache/Cypress
+            cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: web-components - build apps
         run: npx nx build
