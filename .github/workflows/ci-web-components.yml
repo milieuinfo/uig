@@ -135,7 +135,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        job: [0, 1, 2, 3]
+        job: [1, 2, 3]
     defaults:
       run:
         shell: bash
@@ -153,17 +153,17 @@ jobs:
             cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
       - name: storybook - e2e-test
-        run: |
-          npm run storybook:ci-test-parallel
-          mkdir dist/cypress/apps/storybook-e2e/mochawesome
-          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
-          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
+        run: npm run storybook:ci-test-parallel-${{ matrix.job }}
       - name: archive Storybook e2e test results
         uses: actions/upload-artifact@v3
         with:
-          name: dist-e2e-test-storybook
+          name: dist-e2e-test-storybook-p${{ matrix.job }}
           path: ./web-components/dist
           retention-days: 1
+
+#          mkdir dist/cypress/apps/storybook-e2e/mochawesome
+#          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
+#          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
 
   publish-apps-and-documentation:
     runs-on: ubuntu-latest
