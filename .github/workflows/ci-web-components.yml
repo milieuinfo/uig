@@ -46,7 +46,7 @@ jobs:
           path: |
             ./web-components
             cypress/cache
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
 
   perform-all-unit-tests:
     runs-on: ubuntu-latest
@@ -67,7 +67,7 @@ jobs:
           path: |
             ./web-components
             cypress/cache
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
       - name: web-components - test
         run: npx nx test
         continue-on-error: false
@@ -91,7 +91,7 @@ jobs:
           path: |
             ./web-components
             cypress/cache
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
       - name: storybook - build
         run: npx nx build-storybook storybook
 
@@ -117,7 +117,7 @@ jobs:
           path: |
             ./web-components
             cypress/cache
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
       - name: storybook - e2e-test
         run: |
           npm run storybook:ci-test-parallel
@@ -144,7 +144,7 @@ jobs:
           path: |
             ./web-components
             cypress/cache
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
       - name: web-components - build apps
         run: npx nx build
       - name: web-components - build libraries
