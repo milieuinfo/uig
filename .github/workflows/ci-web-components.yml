@@ -45,7 +45,7 @@ jobs:
         with:
           name: archived-documentation
           path: ./documentation
-          retention-days: 1
+          retention-days: 30
 
   perform-all-unit-tests:
     runs-on: ubuntu-latest
@@ -73,7 +73,7 @@ jobs:
         with:
           name: dist-perform-all-unit-tests
           path: ./web-components/dist
-          retention-days: 1
+          retention-days: 30
 
   build-apps-and-libs:
     runs-on: ubuntu-latest
@@ -102,7 +102,7 @@ jobs:
         with:
           name: dist-build-apps-and-libs
           path: ./web-components/dist
-          retention-days: 1
+          retention-days: 30
 
   build-storybook:
     runs-on: ubuntu-latest
@@ -129,7 +129,7 @@ jobs:
         with:
           name: dist-build-storybook
           path: ./web-components/dist
-          retention-days: 1
+          retention-days: 30
 
   e2e-test-storybook:
     runs-on: ubuntu-latest
@@ -161,9 +161,39 @@ jobs:
           path: ./web-components/dist
           retention-days: 1
 
-#          mkdir dist/cypress/apps/storybook-e2e/mochawesome
-#          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
-#          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
+  e2e-report-storybook:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    needs: e2e-test-storybook
+    steps:
+      - name: download artifact dist-e2e-test-storybook-p1
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-e2e-test-storybook-p1
+          path: dist
+      - name: download artifact dist-e2e-test-storybook-p2
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-e2e-test-storybook-p2
+          path: dist
+      - name: download artifact dist-e2e-test-storybook-p3
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-e2e-test-storybook-p3
+          path: dist
+      - name: create mochawesome report
+        run: |
+          mkdir dist/cypress/apps/storybook-e2e/mochawesome
+          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
+          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
+      - name: archive Storybook e2e test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-e2e-test-storybook
+          path: ./web-components/dist
+          retention-days: 30
 
   publish-apps-and-documentation:
     runs-on: ubuntu-latest
@@ -171,7 +201,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./web-components
-    needs: [perform-all-unit-tests, build-apps-and-libs, build-storybook, e2e-test-storybook]
+    needs: [perform-all-unit-tests, build-apps-and-libs, build-storybook, e2e-report-storybook]
     steps:
       # github-pages-deploy-action gives an error when 'not in a git directory'
       # -> so a checkout instead of a 'restore workspace cache'
