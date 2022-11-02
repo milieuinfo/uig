@@ -7,7 +7,7 @@ on:
       - web-components/**
 
 jobs:
-  checkout-install-and-cache-npm:
+  checkout-and-install-and-cache-npm:
     runs-on: ubuntu-latest
     outputs:
       build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
@@ -43,7 +43,7 @@ jobs:
           path: ./web-components
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
-  test-web-components:
+  perform-unit-tests:
     runs-on: ubuntu-latest
     outputs:
       build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
@@ -51,7 +51,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./web-components
-    needs: checkout-install-and-cache-npm
+    needs: checkout-and-install-and-cache-npm
     steps:
       - name: restore cache node_modules
         id: cache-npm
@@ -64,14 +64,34 @@ jobs:
       - name: web-components - test
         run: npx nx test
         continue-on-error: false
-#      - name: web-components - storybook - build
-#        run: npx nx build-storybook storybook
-#      - name: web-components - storybook - e2e-test
-#        run: |
-#          npm run storybook:ci-test
-#          mkdir dist/cypress/apps/storybook-e2e/mochawesome
-#          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
-#          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
+
+  storybook-build-and-e2e-test:
+    runs-on: ubuntu-latest
+    outputs:
+      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./web-components
+    needs: checkout-and-install-and-cache-npm
+    steps:
+      - name: restore cache node_modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ./web-components
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - name: storybook - build
+        run: npx nx build-storybook storybook
+      - name: storybook - e2e-test
+        run: |
+          npm run storybook:ci-test
+          mkdir dist/cypress/apps/storybook-e2e/mochawesome
+          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
+          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
+
 #      - name: web-components - build apps
 #        run: npx nx build
 #      - name: web-components - build libraries
