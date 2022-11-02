@@ -4,7 +4,7 @@
         "mochaFile": "../../dist/cypress/apps/storybook-e2e/test-reports/junit-report-[hash].xml"
     },
     "mochawesomeReporterOptions": {
-        "reportFilename": "index",
+        "reportFilename": "[status]-[name]-report",
         "reportPageTitle": "Storybook e2e tests",
         "reportDir": "../../dist/cypress/apps/storybook-e2e/mochawesome-reports",
         "overwrite": false,
