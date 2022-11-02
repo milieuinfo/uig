@@ -43,7 +43,7 @@ jobs:
           path: ./web-components
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: cache Cypress binary
-        id: cache-npm
+        id: cache-cypress-binary
         uses: actions/cache@v3
         env:
           cache-name: cache-cypress-binary
@@ -92,7 +92,7 @@ jobs:
           path: ./web-components
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: restore cache Cypress binary
-        id: cache-npm
+        id: cache-cypress-binary
         uses: actions/cache@v3
         env:
           cache-name: cache-cypress-binary
