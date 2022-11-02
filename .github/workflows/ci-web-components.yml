@@ -7,7 +7,7 @@ on:
       - web-components/**
 
 jobs:
-  checkout-and-install-and-cache-npm:
+  checkout-install-and-cache-npm:
     runs-on: ubuntu-latest
     outputs:
       build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
@@ -59,7 +59,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./web-components
-    needs: checkout-and-install-and-cache-npm
+    needs: checkout-install-and-cache-npm
     steps:
       - name: restore cache node_modules
         id: cache-npm
@@ -81,7 +81,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./web-components
-    needs: checkout-and-install-and-cache-npm
+    needs: checkout-install-and-cache-npm
     steps:
       - name: restore cache node_modules
         id: cache-npm
@@ -108,10 +108,29 @@ jobs:
           npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
           npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
 
-#      - name: web-components - build apps
-#        run: npx nx build
-#      - name: web-components - build libraries
-#        run: npm run build:all
+  build-apps-and-libraries:
+    runs-on: ubuntu-latest
+    outputs:
+      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./web-components
+    needs: checkout-install-and-cache-npm
+    steps:
+      - name: restore cache node_modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ./web-components
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - name: web-components - build apps
+        run: npx nx build
+      - name: web-components - build libraries
+        run: npm run build:all
+        
 #      - name: authenticate to local-npm repository
 #        run: |
 #          echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"  > ~/.npmrc
