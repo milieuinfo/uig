@@ -40,7 +40,7 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: ./web-components/node_modules
+          path: ./web-components
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
   test-web-components:
@@ -59,7 +59,7 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: ./web-components/node_modules
+          path: ./web-components
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: web-components - test
         run: npx nx test
