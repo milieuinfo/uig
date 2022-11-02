@@ -94,7 +94,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-build-apps-and-libraries
-          path: dist
+          path: ./web-components/dist
           retention-days: 1
 
   build-storybook:
@@ -121,7 +121,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-build-storybook
-          path: dist
+          path: ./web-components/dist
           retention-days: 1
 
   e2e-test-storybook:
