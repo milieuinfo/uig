@@ -135,7 +135,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        job: [1, 2, 3]
+        job: [1, 2, 3, 4, 5]
     defaults:
       run:
         shell: bash
@@ -166,23 +166,44 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: ./web-components
     needs: e2e-test-storybook
     steps:
+      - name: restore workspace cache
+        id: cache-workspace
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-workspace
+        with:
+          path: |
+            ./web-components
+            cypress/cache
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
       - name: download artifact dist-e2e-test-storybook-p1
         uses: actions/download-artifact@v3
         with:
           name: dist-e2e-test-storybook-p1
-          path: dist
+          path: ./web-components/dist
       - name: download artifact dist-e2e-test-storybook-p2
         uses: actions/download-artifact@v3
         with:
           name: dist-e2e-test-storybook-p2
-          path: dist
+          path: ./web-components/dist
       - name: download artifact dist-e2e-test-storybook-p3
         uses: actions/download-artifact@v3
         with:
           name: dist-e2e-test-storybook-p3
-          path: dist
+          path: ./web-components/dist
+      - name: download artifact dist-e2e-test-storybook-p4
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-e2e-test-storybook-p4
+          path: ./web-components/dist
+      - name: download artifact dist-e2e-test-storybook-p5
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-e2e-test-storybook-p5
+          path: ./web-components/dist
       - name: create mochawesome report
         run: |
           mkdir dist/cypress/apps/storybook-e2e/mochawesome
