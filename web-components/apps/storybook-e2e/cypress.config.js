@@ -1,7 +1,7 @@
 const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
-    projectId: '8xekd5',
+    projectId: 'ren9q3',
     fileServerFolder: '.',
     fixturesFolder: './src/fixtures',
     modifyObstructiveCode: false,
@@ -9,10 +9,6 @@ module.exports = defineConfig({
     videosFolder: '../../dist/cypress/apps/storybook-e2e/videos',
     screenshotsFolder: '../../dist/cypress/apps/storybook-e2e/screenshots',
     chromeWebSecurity: false,
-    reporter: '../../node_modules/cypress-multi-reporters',
-    reporterOptions: {
-        configFile: 'reporter-config.json',
-    },
     retries: 3,
     e2e: {
         setupNodeEvents(on, config) {},
