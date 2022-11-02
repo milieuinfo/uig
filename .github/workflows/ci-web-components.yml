@@ -75,7 +75,7 @@ jobs:
           path: ./web-components/dist
           retention-days: 30
 
-  build-apps-and-libs:
+  build-apps-libs-and-storybook:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -93,41 +93,16 @@ jobs:
             ./web-components
             cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
-      - name: web-components - build apps
+      - name: build apps
         run: npx nx build
-      - name: web-components - build libraries
+      - name: build libraries
         run: npm run build:all
+      - name: build storybook
+        run: npx nx build-storybook storybook
       - name: archive app and lib artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: dist-build-apps-and-libs
-          path: ./web-components/dist
-          retention-days: 30
-
-  build-storybook:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./web-components
-    needs: checkout-install-and-cache
-    steps:
-      - name: restore workspace cache
-        id: cache-workspace
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-workspace
-        with:
-          path: |
-            ./web-components
-            cypress/cache
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
-      - name: storybook - build
-        run: npx nx build-storybook storybook
-      - name: archive Storybook artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist-build-storybook
+          name: dist-build-apps-libs-and-storybook
           path: ./web-components/dist
           retention-days: 30
 
@@ -140,7 +115,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./web-components
-    needs: build-storybook
+    needs: checkout-install-and-cache
     steps:
       - name: restore workspace cache
         id: cache-workspace
@@ -222,7 +197,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./web-components
-    needs: [perform-all-unit-tests, build-apps-and-libs, build-storybook, e2e-report-storybook]
+    needs: [perform-all-unit-tests, build-apps-libs-and-storybook, e2e-report-storybook]
     steps:
       # github-pages-deploy-action gives an error when 'not in a git directory'
       # -> so a checkout instead of a 'restore workspace cache'
@@ -247,7 +222,7 @@ jobs:
       - name: publish Exhibit on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist-build-apps-and-libs/apps/exhibit
+          folder: dist-build-apps-libs-and-storybook/apps/exhibit
           repository-name: milieuinfo/uig-pages
           branch: main
           target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/exhibit
@@ -255,7 +230,7 @@ jobs:
       - name: publish Storybook on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist-build-storybook/apps/storybook
+          folder: dist-build-apps-libs-and-storybook/apps/storybook
           repository-name: milieuinfo/uig-pages
           branch: main
           target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/storybook
