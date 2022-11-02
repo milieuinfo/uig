@@ -34,24 +34,19 @@ jobs:
       - name: npm ci
         run: npm ci
         continue-on-error: false
-      - name: cache node_modules
-        id: cache-npm
+      - name: cache workspace
+        id: cache-workspace
         uses: actions/cache@v3
         env:
-          cache-name: cache-node-modules
+          cache-name: cache-workspace
         with:
-          path: ./web-components
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      - name: cache Cypress binary
-        id: cache-cypress-binary
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-cypress-binary
-        with:
-          path: /home/runner/.cache/Cypress
+          path: |
+            ./web-components
+            ~/.cache/Cypress
+            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
-  perform-unit-tests:
+  perform-all-unit-tests:
     runs-on: ubuntu-latest
     outputs:
       build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
@@ -61,19 +56,22 @@ jobs:
         working-directory: ./web-components
     needs: checkout-install-and-cache-npm
     steps:
-      - name: restore cache node_modules
-        id: cache-npm
+      - name: restore workspace cache
+        id: cache-workspace
         uses: actions/cache@v3
         env:
-          cache-name: cache-node-modules
+          cache-name: cache-workspace
         with:
-          path: ./web-components
+          path: |
+            ./web-components
+            ~/.cache/Cypress
+            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: web-components - test
         run: npx nx test
         continue-on-error: false
 
-  storybook-build-and-e2e-test:
+  build-and-e2e-test-storybook:
     runs-on: ubuntu-latest
     outputs:
       build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
@@ -83,21 +81,16 @@ jobs:
         working-directory: ./web-components
     needs: checkout-install-and-cache-npm
     steps:
-      - name: restore cache node_modules
-        id: cache-npm
+      - name: restore workspace cache
+        id: cache-workspace
         uses: actions/cache@v3
         env:
-          cache-name: cache-node-modules
+          cache-name: cache-workspace
         with:
-          path: ./web-components
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      - name: restore cache Cypress binary
-        id: cache-cypress-binary
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-cypress-binary
-        with:
-          path: /home/runner/.cache/Cypress
+          path: |
+            ./web-components
+            ~/.cache/Cypress
+            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: storybook - build
         run: npx nx build-storybook storybook
@@ -118,13 +111,16 @@ jobs:
         working-directory: ./web-components
     needs: checkout-install-and-cache-npm
     steps:
-      - name: restore cache node_modules
-        id: cache-npm
+      - name: restore workspace cache
+        id: cache-workspace
         uses: actions/cache@v3
         env:
-          cache-name: cache-node-modules
+          cache-name: cache-workspace
         with:
-          path: ./web-components
+          path: |
+            ./web-components
+            ~/.cache/Cypress
+            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: web-components - build apps
         run: npx nx build
