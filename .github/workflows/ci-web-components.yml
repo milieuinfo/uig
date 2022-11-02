@@ -10,7 +10,7 @@ env:
   CYPRESS_CACHE_FOLDER: cypress/cache
 
 jobs:
-  checkout-install-and-cache-npm:
+  checkout-install-and-cache:
     runs-on: ubuntu-latest
     outputs:
       build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
@@ -56,7 +56,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./web-components
-    needs: checkout-install-and-cache-npm
+    needs: checkout-install-and-cache
     steps:
       - name: restore workspace cache
         id: cache-workspace
@@ -72,7 +72,7 @@ jobs:
         run: npx nx test
         continue-on-error: false
 
-  build-and-e2e-test-storybook:
+  build-storybook:
     runs-on: ubuntu-latest
     outputs:
       build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
@@ -80,7 +80,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./web-components
-    needs: checkout-install-and-cache-npm
+    needs: checkout-install-and-cache
     steps:
       - name: restore workspace cache
         id: cache-workspace
@@ -94,6 +94,27 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: storybook - build
         run: npx nx build-storybook storybook
+
+  e2e-test-storybook:
+    runs-on: ubuntu-latest
+    outputs:
+      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./web-components
+    needs: build-storybook
+    steps:
+      - name: restore workspace cache
+        id: cache-workspace
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-workspace
+        with:
+          path: |
+            ./web-components
+            cypress/cache
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: storybook - e2e-test
         run: |
           npm run storybook:ci-test
@@ -109,7 +130,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./web-components
-    needs: checkout-install-and-cache-npm
+    needs: checkout-install-and-cache
     steps:
       - name: restore workspace cache
         id: cache-workspace

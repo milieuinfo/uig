@@ -12,6 +12,7 @@ module.exports = defineConfig({
     reporterOptions: {
         configFile: 'reporter-config.json',
     },
+    retries: 3,
     e2e: {
         setupNodeEvents(on, config) {},
         specPattern: './src/e2e/**/*.cy.{js,jsx,ts,tsx}',
