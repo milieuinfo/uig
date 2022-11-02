@@ -67,6 +67,12 @@ jobs:
       - name: web-components - test
         run: npx nx test
         continue-on-error: false
+      - name: archive unit-test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-perform-all-unit-tests
+          path: ./web-components/dist
+          retention-days: 1
 
   build-apps-and-libraries:
     runs-on: ubuntu-latest
@@ -117,7 +123,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
       - name: storybook - build
         run: npx nx build-storybook storybook
-      - name: archive app and lib artifacts
+      - name: archive Storybook artifacts
         uses: actions/upload-artifact@v3
         with:
           name: dist-build-storybook
@@ -151,6 +157,12 @@ jobs:
 #          mkdir dist/cypress/apps/storybook-e2e/mochawesome
 #          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
 #          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
+      - name: archive Storybook e2e test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-e2e-test-storybook
+          path: ./web-components/dist
+          retention-days: 1
 
   publish-dist-folder:
     runs-on: ubuntu-latest
@@ -160,31 +172,18 @@ jobs:
         working-directory: ./web-components
     needs: [perform-all-unit-tests, build-apps-and-libraries, build-storybook, e2e-test-storybook]
     steps:
-      - name: restore workspace cache
-        id: cache-workspace
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-workspace
-        with:
-          path: |
-            ./web-components
-            cypress/cache
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
-      - name: download app and lib artifacts
+      - uses: actions/checkout@v3
+      - name: download artifacts
         uses: actions/download-artifact@v3
-#        with:
-#          name: |
-#            dist-build-apps-and-libraries
-#            dist-build-storybook
       - name: output the build result path
-        run: echo "the build result (dist folder) is available at build-bamboo/web-components/${{ github.ref_name }}/${{ github.run_number }}"
+        run: echo "the build results (dist folders) are available at /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}"
 #      - name: publish dist folder on github-pages
 #        uses: JamesIves/github-pages-deploy-action@v4
 #        with:
 #          folder: web-components/dist
 #          repository-name: milieuinfo/uig-pages
 #          branch: main
-#          target-folder: build-bamboo/${{ github.ref_name }}/web-components/${{ github.run_number }}
+#          target-folder: build-github/${{ github.ref_name }}/web-components/${{ github.run_number }}
 #          token: ${{ secrets.PAT_UIG_PAGES }}
       - name: publish Exhibit on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
