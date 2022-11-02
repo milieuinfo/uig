@@ -7,7 +7,7 @@
         "build": "nx build",
         "test": "nx test",
         "storybook:ci-test": "start-server-and-test 'npx nx storybook storybook' http://localhost:8080 'npx nx e2e storybook-e2e'",
-        "storybook:ci-test-parallel": "start-server-and-test 'npx nx storybook storybook' http://localhost:8080 'npx nx e2e storybook-e2e -- -- --record --key=d436af08-6d9a-458b-9719-e92baac22e7c --parallel'",
+        "storybook:ci-test-parallel-old": "start-server-and-test 'npx nx storybook storybook' http://localhost:8080 'npx nx e2e storybook-e2e -- -- --record --key=d436af08-6d9a-458b-9719-e92baac22e7c --parallel'",
         "build:common-utilities": "npx nx build common-utilities",
         "build:elements": "npx nx build elements && npx nx process-scss elements",
         "build:components": "npx nx build components && npx nx process-scss components",

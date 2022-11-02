@@ -12,8 +12,6 @@ env:
 jobs:
   checkout-install-and-cache:
     runs-on: ubuntu-latest
-    outputs:
-      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
     defaults:
       run:
         shell: bash
@@ -50,8 +48,6 @@ jobs:
 
   perform-all-unit-tests:
     runs-on: ubuntu-latest
-    outputs:
-      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
     defaults:
       run:
         shell: bash
@@ -74,8 +70,6 @@ jobs:
 
   build-apps-and-libraries:
     runs-on: ubuntu-latest
-    outputs:
-      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
     defaults:
       run:
         shell: bash
@@ -96,11 +90,15 @@ jobs:
         run: npx nx build
       - name: web-components - build libraries
         run: npm run build:all
+      - name: archive app and lib artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-build-apps-and-libraries
+          path: dist
+          retention-days: 1
 
   build-storybook:
     runs-on: ubuntu-latest
-    outputs:
-      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
     defaults:
       run:
         shell: bash
@@ -119,14 +117,18 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
       - name: storybook - build
         run: npx nx build-storybook storybook
+      - name: archive app and lib artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-build-storybook
+          path: dist
+          retention-days: 1
 
   e2e-test-storybook:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        job: [0, 1, 2, 3]
-    outputs:
-      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
+#    strategy:
+#      matrix:
+#        job: [0, 1, 2, 3]
     defaults:
       run:
         shell: bash
@@ -145,15 +147,13 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
       - name: storybook - e2e-test
         run: |
-          npm run storybook:ci-test-parallel
+          npm run storybook:ci-test
           mkdir dist/cypress/apps/storybook-e2e/mochawesome
           npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
           npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
 
   publish-dist-folder:
     runs-on: ubuntu-latest
-    outputs:
-      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
     defaults:
       run:
         shell: bash
@@ -170,20 +170,26 @@ jobs:
             ./web-components
             cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
+      - name: download app and lib artifacts
+        uses: actions/download-artifact@v3
+#        with:
+#          name: |
+#            dist-build-apps-and-libraries
+#            dist-build-storybook
       - name: output the build result path
         run: echo "the build result (dist folder) is available at build-bamboo/web-components/${{ github.ref_name }}/${{ github.run_number }}"
-      - name: publish dist folder on github-pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: web-components/dist
-          repository-name: milieuinfo/uig-pages
-          branch: main
-          target-folder: build-bamboo/${{ github.ref_name }}/web-components/${{ github.run_number }}
-          token: ${{ secrets.PAT_UIG_PAGES }}
+#      - name: publish dist folder on github-pages
+#        uses: JamesIves/github-pages-deploy-action@v4
+#        with:
+#          folder: web-components/dist
+#          repository-name: milieuinfo/uig-pages
+#          branch: main
+#          target-folder: build-bamboo/${{ github.ref_name }}/web-components/${{ github.run_number }}
+#          token: ${{ secrets.PAT_UIG_PAGES }}
       - name: publish Exhibit on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: web-components/dist/apps/exhibit
+          folder: dist-build-apps-and-libraries/apps/exhibit
           repository-name: milieuinfo/uig-pages
           branch: main
           target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/exhibit
@@ -191,7 +197,7 @@ jobs:
       - name: publish Storybook on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: web-components/dist/apps/storybook
+          folder: dist-build-storybook/apps/storybook
           repository-name: milieuinfo/uig-pages
           branch: main
           target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/storybook
