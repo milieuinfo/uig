@@ -133,9 +133,9 @@ jobs:
 
   e2e-test-storybook:
     runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        job: [0, 1, 2, 3]
+    strategy:
+      matrix:
+        job: [0, 1, 2, 3]
     defaults:
       run:
         shell: bash
@@ -217,11 +217,3 @@ jobs:
           branch: main
           target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/documentation
           token: ${{ secrets.PAT_UIG_PAGES }}
-
-
-#      - name: authenticate to local-npm repository
-#        run: |
-#          echo "registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"  > ~/.npmrc
-#          echo "//repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/:_authToken=${{ secrets.NPM_TOKEN_DOMG }}" > ~/.npmrc
-#      - name: web-components - release all
-#        run: npm run release:all
