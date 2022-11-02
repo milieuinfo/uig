@@ -1,0 +1,24 @@
+name: ci-publish-npm-artifacts
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ci-release-web-components:
+    runs-on: ubuntu-latest
+    outputs:
+      build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./web-components
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: delete lock file
+        run: rm package-lock.json
+      - name: web-components - npm install
+        run: npm install
+        continue-on-error: false

@@ -38,10 +38,10 @@ jobs:
         run: npm ci
         continue-on-error: false
       - name: cache workspace
-        id: cache-workspace
+        id: cache-workspace-2
         uses: actions/cache@v3
         env:
-          cache-name: cache-workspace
+          cache-name: cache-workspace-2
         with:
           path: |
             ./web-components
@@ -59,10 +59,10 @@ jobs:
     needs: checkout-install-and-cache
     steps:
       - name: restore workspace cache
-        id: cache-workspace
+        id: cache-workspace-2
         uses: actions/cache@v3
         env:
-          cache-name: cache-workspace
+          cache-name: cache-workspace-2
         with:
           path: |
             ./web-components
@@ -83,10 +83,10 @@ jobs:
     needs: checkout-install-and-cache
     steps:
       - name: restore workspace cache
-        id: cache-workspace
+        id: cache-workspace-2
         uses: actions/cache@v3
         env:
-          cache-name: cache-workspace
+          cache-name: cache-workspace-2
         with:
           path: |
             ./web-components
@@ -109,10 +109,10 @@ jobs:
     needs: build-storybook
     steps:
       - name: restore workspace cache
-        id: cache-workspace
+        id: cache-workspace-2
         uses: actions/cache@v3
         env:
-          cache-name: cache-workspace
+          cache-name: cache-workspace-2
         with:
           path: |
             ./web-components
@@ -136,10 +136,10 @@ jobs:
     needs: checkout-install-and-cache
     steps:
       - name: restore workspace cache
-        id: cache-workspace
+        id: cache-workspace-2
         uses: actions/cache@v3
         env:
-          cache-name: cache-workspace
+          cache-name: cache-workspace-2
         with:
           path: |
             ./web-components
