@@ -40,6 +40,12 @@ jobs:
             ./web-components
             cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
+      - name: archive documentation
+        uses: actions/upload-artifact@v3
+        with:
+          name: archived-documentation
+          path: ./web-components/documentation
+          retention-days: 1
 
   perform-all-unit-tests:
     runs-on: ubuntu-latest
@@ -69,7 +75,7 @@ jobs:
           path: ./web-components/dist
           retention-days: 1
 
-  build-apps-and-libraries:
+  build-apps-and-libs:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -94,7 +100,7 @@ jobs:
       - name: archive app and lib artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: dist-build-apps-and-libraries
+          name: dist-build-apps-and-libs
           path: ./web-components/dist
           retention-days: 1
 
@@ -146,12 +152,12 @@ jobs:
             ./web-components
             cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
-#      - name: storybook - e2e-test
-#        run: |
-#          npm run storybook:ci-test
-#          mkdir dist/cypress/apps/storybook-e2e/mochawesome
-#          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
-#          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
+      - name: storybook - e2e-test
+        run: |
+          npm run storybook:ci-test
+          mkdir dist/cypress/apps/storybook-e2e/mochawesome
+          npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
+          npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
       - name: archive Storybook e2e test results
         uses: actions/upload-artifact@v3
         with:
@@ -165,7 +171,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./web-components
-    needs: [perform-all-unit-tests, build-apps-and-libraries, build-storybook, e2e-test-storybook]
+    needs: [perform-all-unit-tests, build-apps-and-libs, build-storybook, e2e-test-storybook]
     steps:
       # github-pages-deploy-action gives an error when 'not in a git directory'
       # -> so a checkout instead of a 'restore workspace cache'
@@ -190,7 +196,7 @@ jobs:
       - name: publish Exhibit on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist-build-apps-and-libraries/apps/exhibit
+          folder: dist-build-apps-and-libs/apps/exhibit
           repository-name: milieuinfo/uig-pages
           branch: main
           target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/exhibit
@@ -206,7 +212,7 @@ jobs:
       - name: publish documentation on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: documentation
+          folder: archived-documentation
           repository-name: milieuinfo/uig-pages
           branch: main
           target-folder: /build-apps/${{ github.ref_name }}/${{ steps.package-version.outputs.current-version}}/documentation
