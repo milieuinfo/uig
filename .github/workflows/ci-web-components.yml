@@ -97,6 +97,9 @@ jobs:
 
   e2e-test-storybook:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        job: [0, 1, 2, 3]
     outputs:
       build-results: https://github.com/milieuinfo/uig-pages/build/${{ github.ref_name }}/${{ github.workflow }}/${{ github.run_number }}
     defaults:
@@ -117,7 +120,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: storybook - e2e-test
         run: |
-          npm run storybook:ci-test
+          npm run storybook:ci-test-parallel
           mkdir dist/cypress/apps/storybook-e2e/mochawesome
           npx mochawesome-merge dist/cypress/apps/storybook-e2e/mochawesome-reports/*.json > dist/cypress/apps/storybook-e2e/mochawesome/output.json
           npx marge dist/cypress/apps/storybook-e2e/mochawesome/output.json --reportDir dist/cypress/apps/storybook-e2e/mochawesome --inline --reportFilename index.html --reportPageTitle "Storybook e2e tests" --reportTitle "UIG Webcomponents - Storybook e2e tests"
