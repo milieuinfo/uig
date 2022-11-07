@@ -7,6 +7,7 @@
         "elements": "libs/elements",
         "playground": "apps/playground",
         "playground-e2e": "apps/playground-e2e",
+        "map": "libs/map",
         "sections": "libs/sections",
         "storybook": "apps/storybook",
         "storybook-e2e": "apps/storybook-e2e",

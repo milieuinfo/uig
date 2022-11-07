@@ -24,6 +24,7 @@ Dit document beschrijft (in grote lijnen) de stappen utgevoerd om de UIG repo op
 - npx nx g @nrwl/web:lib components --buildable --publishable --importPath=@domg-lib/components
 - npx nx g @nrwl/web:lib sections --buildable --publishable --importPath=@domg-lib/sections
 - npx nx g @nrwl/web:lib support/test-support --buildable --publishable --importPath=@domg-lib/test-support
+- npx nx g @nrwl/web:lib map --buildable --publishable --importPath=@domg-lib/map
 - npx nx g @nrwl/web:application playground
 - npx nx g @nrwl/web:application storybook
 
