@@ -229,18 +229,12 @@ jobs:
       - name: prepare the release for beta branches
         if: contains('refs/heads/beta, refs/heads/beta-apo, refs/heads/beta-dec, refs/heads/beta-olo, refs/heads/beta-phe, refs/heads/beta-uig', github.ref)
         run: |
-          pagesSubPath=${{ github.ref_name }}
-          echo using $pagesSubPath as pagesSubPath
-          echo "pages_sub_path=$pagesSubPath" >> $GITHUB_ENV
           cd ./web-components
           mv .releaserc-beta .releaserc
           npx semantic-release
       - name: prepare the release for the main branch
         if: contains('refs/heads/main', github.ref)
         run: |
-          pagesSubPath=${{ github.ref_name }}/${{ env.root_semver }}
-          echo using $pagesSubPath as pagesSubPath
-          echo "pages_sub_path=$pagesSubPath" >> $GITHUB_ENV
           cd ./web-components
           mv .releaserc-main .releaserc
           npx semantic-release
@@ -249,6 +243,18 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@main
         with:
           path: ./web-components
+      - name: build the pages_sub_path for beta branches
+        if: contains('refs/heads/beta, refs/heads/beta-apo, refs/heads/beta-dec, refs/heads/beta-olo, refs/heads/beta-phe, refs/heads/beta-uig', github.ref)
+        run: |
+          pagesSubPath=${{ github.ref_name }}
+          echo using $pagesSubPath as pages_sub_path
+          echo "pages_sub_path=$pagesSubPath" >> $GITHUB_ENV
+      - name: build the pages_sub_path for the main branch
+        if: contains('refs/heads/main', github.ref)
+        run: |
+          pagesSubPath=${{ github.ref_name }}/${{ steps.package-version.outputs.current-version }}
+          echo using $pagesSubPath as pages_sub_path
+          echo "pages_sub_path=$pagesSubPath" >> $GITHUB_ENV
       - name: get root semver
         run: |
           rootsemver=$(echo ${{ steps.package-version.outputs.current-version }} | cut -d '.' -f1-3)
