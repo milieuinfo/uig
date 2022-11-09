@@ -1,4 +1,12 @@
 {
     "name": "@domg-lib/map",
-    "version": "0.0.1"
+    "version": "0.0.1",
+    "devDependencies": {
+        "fetch-mock": "^9.11.0",
+        "jsdom": "^20.0.2",
+        "node-fetch": "^3.2.10"
+    },
+    "volta": {
+        "node": "16.18.1"
+    }
 }

@@ -57,8 +57,7 @@ describe('map with actions', () => {
             actions: [action1, action2],
         });
 
-        // @ts-ignore
-        expect(map.actions.length).toBe(2);
+        expect((map as any).actions.length).toBe(2);
         expect(map.getInteractions().getLength()).toBe(14);
 
         const newAction = new VlMapAction([new Interaction(), new Interaction()]);
@@ -66,10 +65,8 @@ describe('map with actions', () => {
         map.addAction(newAction);
         await sleep();
 
-        // @ts-ignore
-        expect(map.actions.length).toBe(3);
-        // @ts-ignore
-        expect(map.actions[2]).toBe(newAction);
+        expect((map as any).actions.length).toBe(3);
+        expect((map as any).actions[2]).toBe(newAction);
         expect(map.getInteractions().getLength()).toBe(16);
     });
 
@@ -79,8 +76,7 @@ describe('map with actions', () => {
         });
 
         const newAction = new VlMapAction([new Interaction(), new Interaction()]);
-        // @ts-ignore
-        newAction.element = {
+        (newAction as any).element = {
             reset: () => {},
         };
 
@@ -89,10 +85,8 @@ describe('map with actions', () => {
 
         map.removeAction(newAction);
 
-        // @ts-ignore
-        expect(map.actions.length).toBe(2);
-        // @ts-ignore
-        expect(map.actions.indexOf(newAction)).toBe(-1);
+        expect((map as any).actions.length).toBe(2);
+        expect((map as any).actions.indexOf(newAction)).toBe(-1);
         expect(map.getInteractions().getLength()).toBe(14);
     });
 
@@ -103,8 +97,7 @@ describe('map with actions', () => {
 
         const activateDefaultActionSpy = jest.spyOn(map, 'activateDefaultAction').mockClear();
         const newAction = new VlMapAction([new Interaction(), new Interaction()]);
-        // @ts-ignore
-        newAction.element = {
+        (newAction as any).element = {
             reset: () => {},
         };
 

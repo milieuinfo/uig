@@ -210,8 +210,7 @@ describe('custom map', () => {
             map.addBaseLayerAndOverlayMapLayer(createInvisibleBaseLayer(), createInvisibleBaseLayer());
         }
 
-        // @ts-ignore
-        const overlayElement = map.overviewMapControl?.element!;
+        const overlayElement = (map.overviewMapControl as any).element!;
         const overviewMap = map.overviewMapControl?.getOverviewMap();
 
         const mapRenderFn = jest.spyOn(map, 'render').mockClear().mockImplementation();

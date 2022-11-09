@@ -130,8 +130,7 @@ export class VlCustomMap extends VlMapWithActions {
             })
         });
 
-        // @ts-ignore
-        this._overviewMapControl.element.addEventListener('click', () => toggleBaseLayer(), false);
+        (this._overviewMapControl as any).element.addEventListener('click', () => toggleBaseLayer(), false);
 
         this.custom.toggleBaseLayer = toggleBaseLayer;
     }
