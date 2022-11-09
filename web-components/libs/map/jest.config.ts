@@ -10,6 +10,7 @@ export default {
     transform: {
         '^.+\\.[tj]sx?$': 'ts-jest',
     },
+    transformIgnorePatterns: [],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-    coverageDirectory: '../../coverage/libs/map',
+    coverageDirectory: '../../coverage/libs/map'
 };

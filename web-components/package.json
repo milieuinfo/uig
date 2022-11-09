@@ -14,16 +14,18 @@
         "build:common-utilities": "npx nx build common-utilities",
         "build:elements": "npx nx build elements",
         "build:components": "npx nx build components",
+        "build:map": "npx nx build map",
         "build:sections": "npx nx build sections",
         "build:test-support": "npx nx build support-test-support",
-        "process:scss": "npx nx process-scss elements && npx nx process-scss components && npx nx process-scss sections && node post-process-libs.mjs",
-        "build:all": "npm run build:common-utilities && npm run build:elements && npm run build:components && npm run build:sections && npm run build:test-support && npm run process:scss",
+        "process:scss": "npx nx process-scss elements && npx nx process-scss components && npx nx process-scss map && npx nx process-scss sections && node post-process-libs.mjs",
+        "build:all": "npm run build:common-utilities && npm run build:elements && npm run build:components && npm run build:map && npm run build:sections && npm run build:test-support && npm run process:scss",
         "release:common-utilities": "cd ./dist/libs/common/utilities && npm version $npm_package_version && npm publish",
         "release:elements": "cd ./dist/libs/elements && npm version $npm_package_version && npm publish",
         "release:components": "cd ./dist/libs/components && npm version $npm_package_version && npm publish",
+        "release:map": "cd ./dist/libs/map && npm version $npm_package_version && npm publish",
         "release:sections": "cd ./dist/libs/sections && npm version $npm_package_version && npm publish",
         "release:test-support": "cd ./dist/libs/support/test-support && npm version $npm_package_version && npm publish",
-        "release:all": "npm run release:common-utilities && npm run release:elements && npm run release:components && npm run release:sections && npm run release:test-support"
+        "release:all": "npm run release:common-utilities && npm run release:elements && npm run release:components && npm run release:map && npm run release:sections && npm run release:test-support"
     },
     "private": true,
     "peerDependencies": {
