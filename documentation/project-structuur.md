@@ -54,7 +54,7 @@ uig/
 │   -> images, .md, .numbers, ... files
 ├─ web-components/ [nx]
 │  ├─ apps/
-│  │   -> @domg-uig/exhibit
+│  │   -> @domg-uig/playground
 │  │   -> @domg-uig/storybook
 │  ├─ libs/
 │  │  ├─ common/

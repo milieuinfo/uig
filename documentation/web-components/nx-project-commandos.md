@@ -1,8 +1,8 @@
 # Nx Commando's
 
-<sub>Opstarten van Exhibit (de demo toepassing)</sub>
+<sub>Opstarten van Playground (de demo toepassing)</sub>
 ```
-npx nx serve exhibit
+npx nx serve playground
 ```
 
 <sub>Opstarten van Storybook</sub>

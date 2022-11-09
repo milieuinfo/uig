@@ -21,7 +21,7 @@ uig-pages/
 │  │  │  │  ├─ img/
 │  │  │  │  ├─ web-components/
 │  │  │  │  ├─ xyz.md
-│  │  │  ├─ exhibit/ 
+│  │  │  ├─ playground/ 
 │  │  │  ├─ storybook/ 
 ├─ build-bamboo/ [de sub-folders zijn de branches]
 │  ├─ beta/

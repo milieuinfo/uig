@@ -21,7 +21,7 @@ bibliotheek, die verder bouwt op het [Webuniversum v3](https://overheid.vlaander
 door [Digitaal Vlaanderen](https://www.vlaanderen.be/digitaal-vlaanderen) (onderdeel van de VO).
 
 <sup>_[WIP - aan te vullen met links naar de code of de draaiende toepassing]_</sup>\
-Het gebruik van de bibliotheek wordt toegepast in de __Exhibit__ toepassing.
+Het gebruik van de bibliotheek wordt toegepast in de __Playground__ toepassing.
 
 ## Opzet
 
@@ -34,8 +34,8 @@ De huidige setup werd opgebouwd m.b.v. [nx commando's](resources/markdown/nx-set
 ## Project Structuur
 
 - apps <sup>_[de toepassingen]_</sup>
-    - exhibit <sup>_[de demo toepassing]_</sup>
-    - exhibit-e2e <sup>_[de Cypress testen tegenover Exhibit]_</sup>
+    - playground <sup>_[de demo toepassing]_</sup>
+    - playground-e2e <sup>_[de Cypress testen tegenover Playground]_</sup>
     - storybook <sup>_[Storybook]_</sup>
     - storybook-e2e <sup>_[de Cypress testen tegenover Storybook]_</sup>
 - libs <sup>_[de bibliotheken]_</sup>
