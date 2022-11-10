@@ -46,6 +46,7 @@ export class VlCustomMap extends VlMapWithActions {
     private _overviewMapLayers?: Layer[];
 
     constructor(options: {
+        defaultZoom?: boolean;
         maxZoomViewToExtent?: number;
         custom?: any;
         projection?: Projection;
@@ -77,6 +78,10 @@ export class VlCustomMap extends VlMapWithActions {
         });
 
         super(options);
+
+        if (options.defaultZoom === undefined || options.defaultZoom === true) {
+            this.addControl(new Zoom());
+        }
 
         this._projection = options.projection;
         this._view = options.view;

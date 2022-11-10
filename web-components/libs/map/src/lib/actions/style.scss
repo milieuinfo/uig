@@ -1,9 +1,9 @@
 $icon-font-path: '../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 
-@import '../../../../node_modules/@govflanders/vl-ui-core/src/scss/setting/colorsRaw';
-@import '../../../../node_modules/@govflanders/vl-ui-core/src/scss/setting/colors';
-@import '../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
-@import '../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_glyphicons.scss';
+@import '@govflanders-v14/vl-ui-core/src/scss/setting/colorsRaw';
+@import '@govflanders-v14/vl-ui-core/src/scss/setting/colors';
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_glyphicons.scss';
 
 @mixin ol-control {
   padding: 0;

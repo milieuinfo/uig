@@ -5,6 +5,10 @@ export class VlMapAction {
         return this._interactions;
     }
 
+    protected set interactions(interactions: Interaction[]) {
+        this._interactions = interactions;
+    }
+
     private _interactions: Interaction[];
 
     constructor(interactions: Interaction[]) {

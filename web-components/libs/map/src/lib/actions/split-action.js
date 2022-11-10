@@ -1,5 +1,6 @@
 import Feature from 'ol/Feature';
 import * as jsts from 'jsts/dist/jsts';
+import { Polygonizer } from 'jsts/org/locationtech/jts/operation/polygonize';
 import { Point, LineString, LinearRing, Polygon, MultiPoint, MultiLineString, MultiPolygon } from 'ol/geom';
 import { VlSelectAction } from './select-action';
 import { VlMapAction } from './mapaction';
@@ -30,7 +31,7 @@ export class VlSplitAction extends VlMapAction {
         const selectedGeometry = reader.read(selectedFeature.getGeometry().getPolygons()[0]);
         const drawnGeometry = reader.read(drawnFeature.getGeometry());
         const union = selectedGeometry.getExteriorRing().union(drawnGeometry);
-        const polygonizer = new jsts.operation.Polygonizer();
+        const polygonizer = new Polygonizer();
         polygonizer.add(union);
         const result = [];
         const polygons = polygonizer.getPolygons();
