@@ -3,17 +3,5 @@
     "version": "0.0.1",
     "publishConfig": {
         "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
-    },
-    "devDependencies": {
-        "fetch-mock": "^9.11.0",
-        "jsdom": "^20.0.2",
-        "node-fetch": "^3.2.10"
-    },
-    "volta": {
-        "node": "16.18.1"
-    },
-    "dependencies": {
-        "bootstrap-sass": "^3.3.4",
-        "jsts": "2.9.0"
     }
 }
