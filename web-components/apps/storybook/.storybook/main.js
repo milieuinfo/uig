@@ -56,6 +56,7 @@ module.exports = {
         builder: 'webpack5',
     },
     stories: [
+        '../docs/**/*.stories.mdx',
         '../../../libs/components/src/lib/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/elements/src/lib/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/sections/src/lib/**/*.stories.@(js|jsx|ts|tsx)',
