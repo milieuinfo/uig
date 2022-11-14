@@ -27,7 +27,7 @@
                 "production": {
                     "optimization": true,
                     "outputHashing": "all",
-                    "sourceMap": false,
+                    "sourceMap": true,
                     "namedChunks": false,
                     "extractLicenses": true,
                     "vendorChunk": false,
