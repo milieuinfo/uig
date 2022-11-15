@@ -43,7 +43,8 @@
         "serve": {
             "executor": "@nrwl/webpack:dev-server",
             "options": {
-                "buildTarget": "alliance:build"
+                "buildTarget": "alliance:build",
+                "port": 4201
             },
             "configurations": {
                 "production": {
