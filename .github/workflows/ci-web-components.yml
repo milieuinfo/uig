@@ -273,7 +273,7 @@ jobs:
       - name: replace the base-href with the correct path
         run: |
           toReplace=$(echo href=\"/\")
-          baseHref=$(echo /uig-pages/${{ env.pages_sub_path }}/playground)
+          baseHref=$(echo href=\"/uig-pages/build-apps/${{ env.pages_sub_path }}/playground/\")
           echo using $baseHref as baseHref
           sed -i'.bak' "s,$toReplace,$baseHref," dist-build-apps-libs-and-storybook/apps/playground/index.html
       - name: prepare to publish
@@ -289,3 +289,4 @@ jobs:
           branch: main
           target-folder: build-apps/${{ env.pages_sub_path }}
           token: ${{ secrets.PAT_UIG_PAGES }}
+          clean: false

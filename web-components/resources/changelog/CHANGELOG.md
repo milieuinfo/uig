@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/milieuinfo/uig/compare/v1.2.0...v1.2.1) (2022-11-16)
+
+
+### Bug Fixes
+
+* publiceren van de Alliance app ([820ff00](https://github.com/milieuinfo/uig/commit/820ff00cda304e987ec91c6302fd79382f72cfa2))
+
 # [1.2.0](https://github.com/milieuinfo/uig/compare/v1.1.0...v1.2.0) (2022-11-16)
 
 
