@@ -1,6 +1,6 @@
 # Workspace Setup Commands
 
-Dit document beschrijft de stappen ondernomen om de UIG repo op te zeten
+Dit document beschrijft (in grote lijnen) de stappen utgevoerd om de UIG repo op te bouwen
 
 ## Root Setup
 

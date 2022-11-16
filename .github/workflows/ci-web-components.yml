@@ -44,12 +44,6 @@ jobs:
             ./web-components
             cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
-      - name: archive documentation
-        uses: actions/upload-artifact@v3
-        with:
-          name: archived-documentation
-          path: ./documentation
-          retention-days: 30
 
   perform-all-unit-tests:
     runs-on: ubuntu-latest
@@ -282,12 +276,11 @@ jobs:
           baseHref=$(echo /uig-pages/${{ env.pages_sub_path }}/playground)
           echo using $baseHref as baseHref
           sed -i'.bak' "s,$toReplace,$baseHref," dist-build-apps-libs-and-storybook/apps/playground/index.html
-      - name: prepare the publish
+      - name: prepare to publish
         run: |
           mkdir to-publish
           mv dist-build-apps-libs-and-storybook/apps/playground to-publish/playground
           mv dist-build-apps-libs-and-storybook/apps/storybook to-publish/storybook
-          mv archived-documentation to-publish/documentation
       - name: publish on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:

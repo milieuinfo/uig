@@ -1,10 +1,13 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Ontwikkeling/Pages Structuur" />
+
 # Pages Structuur
 
 ## Beschrijving
 
-Alle documentatie is in deze (https://github.com/milieuinfo/uig) monorepo te vinden in de vorm van Markdown bestanden.
-Ze worden gepubliceerd op de documentatie website (https://milieuinfo.github.io/uig-pages), de structuur van die repo
-staat hier beschreven.
+Documentatie wordt gepubliceerd op de documentatie website (https://milieuinfo.github.io/uig-pages), de structuur van
+die repo staat hier beschreven.
 
 ## Structuur
 
@@ -15,14 +18,14 @@ uig-pages/
 │  ├─ feature/
 │  │  ├─ xxx/
 │  ├─ main/ [sub-folders per versie - uit de root package.json van web-components]
-│  │  ├─ 3.0.10/ 
+│  │  ├─ 3.0.10/
 │  │  │  ├─ alliance/ [volgt automatisch de versies van de web-components - is wel een aparte sub-monorepo]
-│  │  │  ├─ documentation/ 
+│  │  │  ├─ documentation/
 │  │  │  │  ├─ img/
 │  │  │  │  ├─ web-components/
 │  │  │  │  ├─ xyz.md
-│  │  │  ├─ playground/ 
-│  │  │  ├─ storybook/ 
+│  │  │  ├─ playground/
+│  │  │  ├─ storybook/
 ├─ build-bamboo/ [de sub-folders zijn de branches]
 │  ├─ beta/
 │  ├─ feature/
