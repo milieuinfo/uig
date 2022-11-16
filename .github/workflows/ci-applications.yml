@@ -43,7 +43,7 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
         with:
-          path: ./web-components
+          path: ./applications
       - name: build the pages_sub_path for beta branches
         if: contains('refs/heads/beta, refs/heads/beta-apo, refs/heads/beta-dec, refs/heads/beta-olo, refs/heads/beta-phe, refs/heads/beta-uig', github.ref)
         run: |
@@ -62,6 +62,11 @@ jobs:
           baseHref=$(echo href=\"/uig-pages/build-apps/${{ env.pages_sub_path }}/alliance/\")
           echo using $baseHref as baseHref
           sed -i'.bak' "s,$toReplace,$baseHref," ./dist/apps/alliance/index.html
+      - name: replace the __UIG-VERSION__ with the new version
+        run: |
+          toReplace=__UIG-VERSION__
+          newVersion=${{ steps.package-version.outputs.current-version }}
+          sed -i'.bak' "s,$toReplace,$newVersion," ./dist/apps/alliance/index.html
       - name: publish on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
