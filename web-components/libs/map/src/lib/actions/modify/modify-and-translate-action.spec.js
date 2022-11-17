@@ -3,7 +3,7 @@ import Feature from 'ol/Feature';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { VlModifyAndTranslateAction } from './modify-and-translate-action';
-import { VlSnapInteraction } from './snap-interaction';
+import { VlSnapInteraction } from '../snap/snap-interaction';
 
 describe('modify and translate action', () => {
     const source = new VectorSource();

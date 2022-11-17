@@ -1,7 +1,7 @@
 import Overlay from 'ol/Overlay';
 import { unByKey } from 'ol/Observable';
 import GeometryType from 'ol/geom/GeometryType';
-import { VlDrawAction } from './draw-action';
+import { VlDrawAction } from '../draw/draw-action';
 
 export class VlMeasureAction extends VlDrawAction {
   constructor(layer, options) {

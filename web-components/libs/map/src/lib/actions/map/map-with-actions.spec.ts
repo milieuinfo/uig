@@ -11,8 +11,8 @@ import Collection from 'ol/Collection';
 import Interaction from 'ol/interaction/Interaction';
 import VectorSource from 'ol/source/Vector';
 import { VlMapWithActions } from './map-with-actions';
-import { VlMapAction } from './mapaction';
-import { VlDrawLineAction } from './draw-line-action';
+import { VlMapAction } from '../mapaction';
+import { VlDrawLineAction } from '../draw/draw-line-action';
 
 // TODO: Review timeout
 // Use to wait for map action to be activated because of timeout for activating a mapaction in map-with-actions

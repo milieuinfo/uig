@@ -5,7 +5,7 @@ import Draw from 'ol/interaction/Draw';
 import Polygon from 'ol/geom/Polygon';
 import LineString from 'ol/geom/LineString';
 import { VlDrawAction } from './draw-action';
-import { VlSnapInteraction } from './snap-interaction';
+import { VlSnapInteraction } from '../snap/snap-interaction';
 
 describe('draw action', () => {
     const source = new VectorSource({ features: [] });

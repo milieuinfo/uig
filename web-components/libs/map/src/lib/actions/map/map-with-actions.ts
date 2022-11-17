@@ -1,6 +1,6 @@
 import { defaults } from 'ol/interaction';
 import Map from 'ol/Map';
-import { CONTROL_TYPE } from '../vl-map.model';
+import { CONTROL_TYPE } from '../../vl-map.model';
 
 /**
  * Deze map bevat enkel de functionaliteit om de acties te behandelen. Aan het eerste argument van de constructor kan het gebruikelijke object map opties worden weergegeven die ook op de ol.Map worden gezet, samen met een extra parameter 'acties' in dat object. Deze array bevat MapActions.

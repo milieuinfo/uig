@@ -6,7 +6,7 @@ import Point from 'ol/geom/Point';
 import Select from 'ol/interaction/Select';
 import Modify from 'ol/interaction/Modify';
 import { VlModifyAction } from './modify-action';
-import { VlSnapInteraction } from './snap-interaction';
+import { VlSnapInteraction } from '../snap/snap-interaction';
 
 describe('modify action', () => {
     const source = new VectorSource();

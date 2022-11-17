@@ -1,6 +1,6 @@
 import Select from 'ol/interaction/Select';
 import Translate from 'ol/interaction/Translate';
-import { VlMapAction } from './mapaction';
+import { VlMapAction } from '../mapaction';
 
 export class VlTranslateAction extends VlMapAction {
   constructor(layer, onTranslate) {

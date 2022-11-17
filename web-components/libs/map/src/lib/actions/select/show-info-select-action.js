@@ -1,5 +1,5 @@
 import { VlSelectAction } from './select-action';
-import { VlTooltips } from './tooltips';
+import { VlTooltips } from '../tooltips';
 
 export class VlShowInfoSelectAction extends VlSelectAction {
   constructor(layer, infoPromise, loadingMessage, doneLoading, tooltipOptions) {

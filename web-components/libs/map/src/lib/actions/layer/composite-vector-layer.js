@@ -1,5 +1,5 @@
 import OlVectorLayer from 'ol/layer/Vector';
-import { VlCompositeVectorSource } from './composite-vector-source';
+import { VlCompositeVectorSource } from '../source/composite-vector-source';
 
 export class VlCompositeVectorLayer extends OlVectorLayer {
   constructor(wfsLayers, options = {}) {

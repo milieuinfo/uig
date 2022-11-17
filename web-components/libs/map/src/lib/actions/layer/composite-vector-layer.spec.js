@@ -2,7 +2,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import OlGML2 from 'ol/format/GML2';
 import { VlCompositeVectorLayer } from './composite-vector-layer';
-import { VlCompositeVectorSource } from './composite-vector-source';
+import { VlCompositeVectorSource } from '../source/composite-vector-source';
 
 describe('composite wfs layer', () => {
     const source1 = new VectorSource({

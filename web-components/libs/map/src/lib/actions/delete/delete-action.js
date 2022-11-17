@@ -1,5 +1,5 @@
 import { Fill, Stroke, Style, Circle } from 'ol/style';
-import { VlBoxSelectAction } from './box-select-action';
+import { VlBoxSelectAction } from '../select/box-select-action';
 
 export class VlDeleteAction extends VlBoxSelectAction {
   constructor(layer, onDelete, options = {}) {

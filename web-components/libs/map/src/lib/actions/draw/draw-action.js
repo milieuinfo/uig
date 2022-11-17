@@ -3,8 +3,8 @@ import Overlay from 'ol/Overlay';
 import { LineString, Polygon } from 'ol/geom';
 import { unByKey } from 'ol/Observable';
 import { Fill, Stroke, Style, Circle } from 'ol/style';
-import { VlMapAction } from './mapaction';
-import { VlSnapInteraction } from './snap-interaction';
+import { VlMapAction } from '../mapaction';
+import { VlSnapInteraction } from '../snap/snap-interaction';
 
 export class VlDrawAction extends VlMapAction {
   constructor(layer, type, onDraw, options = {}) {

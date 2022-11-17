@@ -1,6 +1,6 @@
 import { Select } from 'ol/interaction';
 import { click, pointerMove, never } from 'ol/events/condition';
-import { VlMapAction } from './mapaction';
+import { VlMapAction } from '../mapaction';
 
 export class VlSelectAction extends VlMapAction {
   constructor(layer, onSelect, options) {

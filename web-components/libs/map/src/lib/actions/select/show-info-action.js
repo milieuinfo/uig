@@ -1,5 +1,5 @@
-import { VlDrawAction } from './draw-action';
-import { VlTooltips } from './tooltips';
+import { VlDrawAction } from '../draw/draw-action';
+import { VlTooltips } from '../tooltips';
 
 export class VlShowInfoAction extends VlDrawAction {
   constructor(layer, infoPromise, loadingMessage, tooltipOptions) {

@@ -1,6 +1,6 @@
 import { Modify } from 'ol/interaction';
-import { VlSnapInteraction } from './snap-interaction';
-import { VlSelectAction } from './select-action';
+import { VlSnapInteraction } from '../snap/snap-interaction';
+import { VlSelectAction } from '../select/select-action';
 
 export class VlModifyAction extends VlSelectAction {
   constructor(layer, onModify, options = {}) {

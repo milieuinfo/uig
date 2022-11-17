@@ -2,9 +2,9 @@ import Feature from 'ol/Feature';
 import * as jsts from 'jsts/dist/jsts';
 import { Polygonizer } from 'jsts/org/locationtech/jts/operation/polygonize';
 import { Point, LineString, LinearRing, Polygon, MultiPoint, MultiLineString, MultiPolygon } from 'ol/geom';
-import { VlSelectAction } from './select-action';
-import { VlMapAction } from './mapaction';
-import { VlDrawAction } from './draw-action';
+import { VlSelectAction } from '../select/select-action';
+import { VlMapAction } from '../mapaction';
+import { VlDrawAction } from '../draw/draw-action';
 
 export class VlSplitAction extends VlMapAction {
   constructor(layer, onSplit, options) {
