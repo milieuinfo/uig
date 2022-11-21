@@ -22,8 +22,8 @@ function sleep() {
 
 describe('map with actions', () => {
     let map;
-    let action1: any;
-    let action2: any;
+    let action1;
+    let action2;
 
     class VlTestMapWithActions extends VlMapWithActions {
         getDefaultActiveAction() {
@@ -57,7 +57,7 @@ describe('map with actions', () => {
             actions: [action1, action2],
         });
 
-        expect((map as any).actions.length).toBe(2);
+        expect(map.actions.length).toBe(2);
         expect(map.getInteractions().getLength()).toBe(14);
 
         const newAction = new VlMapAction([new Interaction(), new Interaction()]);
@@ -65,8 +65,8 @@ describe('map with actions', () => {
         map.addAction(newAction);
         await sleep();
 
-        expect((map as any).actions.length).toBe(3);
-        expect((map as any).actions[2]).toBe(newAction);
+        expect(map.actions.length).toBe(3);
+        expect(map.actions[2]).toBe(newAction);
         expect(map.getInteractions().getLength()).toBe(16);
     });
 
@@ -76,7 +76,7 @@ describe('map with actions', () => {
         });
 
         const newAction = new VlMapAction([new Interaction(), new Interaction()]);
-        (newAction as any).element = {
+        newAction.element = {
             reset: () => {},
         };
 
@@ -85,8 +85,8 @@ describe('map with actions', () => {
 
         map.removeAction(newAction);
 
-        expect((map as any).actions.length).toBe(2);
-        expect((map as any).actions.indexOf(newAction)).toBe(-1);
+        expect(map.actions.length).toBe(2);
+        expect(map.actions.indexOf(newAction)).toBe(-1);
         expect(map.getInteractions().getLength()).toBe(14);
     });
 
@@ -97,7 +97,7 @@ describe('map with actions', () => {
 
         const activateDefaultActionSpy = jest.spyOn(map, 'activateDefaultAction').mockClear();
         const newAction = new VlMapAction([new Interaction(), new Interaction()]);
-        (newAction as any).element = {
+        newAction.element = {
             reset: () => {},
         };
 
@@ -205,7 +205,7 @@ describe('map with actions', () => {
         map.activateAction(drawLineAction);
         await sleep();
 
-        const currentActiveActionStub = (jest.spyOn(map, 'getCurrentActiveAction') as unknown as jest.SpyInstance<VlMapAction>).mockReturnValue(drawLineAction);
+        const currentActiveActionStub = jest.spyOn(map, 'getCurrentActiveAction').mockReturnValue(drawLineAction);
 
         const event = new KeyboardEvent('keydown', {keyCode: 27});
         document.body.dispatchEvent(event);

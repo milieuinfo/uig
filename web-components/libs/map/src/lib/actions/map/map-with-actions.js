@@ -9,20 +9,11 @@ import { CONTROL_TYPE } from '../../vl-map.model';
  * Deze kaart regelt dat er maar één actie actief kan staan. Bij het activeren van een andere actie wordt namelijk de huidige actie gedeactiveerd.
  */
 export class VlMapWithActions extends Map {
-  private actions: any[];
-  private timeout?: any;
-
   static get CLICK_COUNT_TIMEOUT() {
     return 300;
   }
 
-  constructor(options: {
-          actions?: any;
-          disableRotation?: boolean;
-          disableMouseWheelZoom?: boolean;
-          disableEscapeKey?: boolean;
-          interactions?: any;
-      } | any = {}) {
+  constructor(options = {}) {
     const enableRotation = !options.disableRotation;
     const enableMouseWheelZoom = !options.disableMouseWheelZoom;
     const interactions = defaults({
@@ -31,13 +22,13 @@ export class VlMapWithActions extends Map {
       mouseWheelZoom: enableMouseWheelZoom,
     });
     if (options && options.interactions) {
-      options.interactions.forEach((interaction: any) => interactions.push(interaction));
+      options.interactions.forEach((interaction) => interactions.push(interaction));
     }
     options.interactions = interactions;
     super(options);
     this.actions = [];
 
-    options.actions.forEach((action: any) => {
+    options.actions.forEach((action) => {
       this.addAction(action);
     });
 
@@ -47,7 +38,7 @@ export class VlMapWithActions extends Map {
     });
 
     if (!options.disableEscapeKey) {
-      const activateFirstActionOnEscapeKey = (e: KeyboardEvent) => {
+      const activateFirstActionOnEscapeKey = (e) => {
         if (e && e.keyCode && e.keyCode === 27) {
           const currentActiveAction = this.getCurrentActiveAction();
           if (currentActiveAction) {
@@ -73,11 +64,11 @@ export class VlMapWithActions extends Map {
     return this.actions && this.actions.find((action) => action.element._active);
   }
 
-  getActionWithIdentifier(identifier: string) {
+  getActionWithIdentifier(identifier) {
     return this.actions && this.actions.find((action) => action.element.identifier === identifier);
   }
 
-  getControlsOfType(type: string) {
+  getControlsOfType(type) {
     const controls = this.getControls().getArray();
     return controls.filter((control) => control.get('element') && control.get('element').type === type);
   }
@@ -86,7 +77,7 @@ export class VlMapWithActions extends Map {
     return this.getControlsOfType(CONTROL_TYPE.ACTION);
   }
 
-  getActionControlWithIdentifier(identifier: string) {
+  getActionControlWithIdentifier(identifier) {
     const actionControls = this.getActionControls();
     return (
       actionControls &&
@@ -94,11 +85,11 @@ export class VlMapWithActions extends Map {
     );
   }
 
-  getLayerActions(layer: any) {
+  getLayerActions(layer) {
     return this.actions && this.actions.filter((action) => action.layer === layer);
   }
 
-  activateAction(action: any) {
+  activateAction(action) {
     // TODO: Review timeout
     // delay the activation of the action with 300ms because ol has a timeout of 251ms to detect a double click event
     // when we don't use a delay some click and select events of the previous action will be triggered on the new action
@@ -115,17 +106,17 @@ export class VlMapWithActions extends Map {
     }
   }
 
-  addAction(action: any) {
+  addAction(action) {
     this.actions.push(action);
     action.map = this;
 
-    action.interactions.forEach((interaction: any) => {
+    action.interactions.forEach((interaction) => {
       this.addInteraction(interaction);
       interaction.map = action.map;
     });
   }
 
-  removeAction(action: any) {
+  removeAction(action) {
     if (this.getCurrentActiveAction() === action) {
       if (action === this.getDefaultActiveAction()) {
         action.element.deactivate();
@@ -134,7 +125,7 @@ export class VlMapWithActions extends Map {
       }
     }
 
-    action.interactions.forEach((interaction: any) => {
+    action.interactions.forEach((interaction) => {
       this.removeInteraction(interaction);
     });
 

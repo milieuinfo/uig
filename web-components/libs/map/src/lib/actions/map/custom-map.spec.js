@@ -4,7 +4,7 @@ import {Vector as VectorSource} from 'ol/source';
 import Projection from 'ol/proj/Projection';
 
 describe('custom map', () => {
-    let map: VlCustomMap;
+    let map;
 
     const layers = [new Tile({
         visible: true,
@@ -20,7 +20,7 @@ describe('custom map', () => {
 
     const overlayLayer = new Vector({source: new VectorSource()});
 
-    const merge = (a: any, b: any) => {
+    const merge = (a, b) => {
         for (const element in b) {
             if (b.hasOwnProperty(element)) {
                 a[element] = b[element];
@@ -28,7 +28,7 @@ describe('custom map', () => {
         }
     };
 
-    const createMap = (options: any = {}) => {
+    const createMap = (options = {}) => {
         const defaultOptions = {
             actions: [],
             customLayers: {
@@ -81,7 +81,7 @@ describe('custom map', () => {
         return map;
     };
 
-    const createBaseLayer = (visibility: any) => {
+    const createBaseLayer = (visibility) => {
         return new Tile({
             visible: visibility,
         });
@@ -210,11 +210,11 @@ describe('custom map', () => {
             map.addBaseLayerAndOverlayMapLayer(createInvisibleBaseLayer(), createInvisibleBaseLayer());
         }
 
-        const overlayElement = (map.overviewMapControl as any).element!;
+        const overlayElement = map.overviewMapControl.element;
         const overviewMap = map.overviewMapControl?.getOverviewMap();
 
         const mapRenderFn = jest.spyOn(map, 'render').mockClear().mockImplementation();
-        const overviewMapRenderFn = jest.spyOn(overviewMap!, 'render').mockClear().mockImplementation();
+        const overviewMapRenderFn = jest.spyOn(overviewMap, 'render').mockClear().mockImplementation();
 
         overlayElement.click();
         expect(map.getBaseLayers()[0].getVisible()).toBe(false);

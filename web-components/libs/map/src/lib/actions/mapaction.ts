@@ -37,4 +37,8 @@ export class VlMapAction {
             interaction.setActive(false);
         });
     }
+
+    getControl() {
+        return (this as any).map.getActionControlWithIdentifier((this as any).element.identifier);
+    }
 }
