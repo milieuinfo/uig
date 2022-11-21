@@ -5,8 +5,8 @@ const wrapAsStylesObject = (content) => `const styles = \`${content}\`; export d
 
 const wrapCssInJs = (directoryToSearch) => {
     const pattern = '.css';
-    fs.readdirSync(directoryToSearch).forEach((subDirectory) => {
-        const filePath = path.resolve(directoryToSearch, subDirectory);
+    fs.readdirSync(directoryToSearch).forEach((file) => {
+        const filePath = path.resolve(directoryToSearch, file);
         const stat = fs.statSync(filePath);
         if (stat.isDirectory()) {
             wrapCssInJs(filePath);
@@ -25,34 +25,33 @@ const wrapCssInJs = (directoryToSearch) => {
     });
 };
 
-const copyLibJs = (directoryToSearch, directoryCopyTo) => {
-    const pattern = '.lib.js';
-    fs.readdirSync(directoryToSearch).forEach((subDirectory) => {
-        const filePath = directoryToSearch + '/' + subDirectory;
-        const copyPath = directoryCopyTo + '/' + subDirectory;
+const copySources = (directoryToSearch, directoryCopyTo, pattern) => {
+    fs.readdirSync(directoryToSearch).forEach((file) => {
+        const filePath = directoryToSearch + '/' + file;
+        const copyPath = directoryCopyTo + '/' + file;
         const stat = fs.statSync(filePath);
         if (stat.isDirectory()) {
-            copyLibJs(filePath, copyPath);
+            copySources(filePath, copyPath, pattern);
         }
         if (stat.isFile() && filePath.endsWith(pattern)) {
             console.log('filePath:', filePath);
             fs.copy(filePath, copyPath, err => {
-                console.log('copied lib to:', copyPath);
+                console.log('copied to:', copyPath);
             })
         }
     });
 };
 
 // post process elements
-copyLibJs('libs/elements/src/lib', 'dist/libs/elements/src/lib');
+copySources('libs/elements/src', 'dist/libs/elements/src', '.lib.js');
 
 // post process components
-wrapCssInJs('dist/libs/components/src/lib');
-copyLibJs('libs/components/src/lib', 'dist/libs/components/src/lib');
+wrapCssInJs('dist/libs/components/src');
+copySources('libs/components/src', 'dist/libs/components/src', '.lib.js');
 
 // post process sections
-wrapCssInJs('dist/libs/sections/src/lib');
-copyLibJs('libs/sections/src/lib', 'dist/libs/sections/src/lib');
+wrapCssInJs('dist/libs/sections/src');
+copySources('libs/sections/src', 'dist/libs/sections/src', '.lib.js');
 
 // post process test-support
-copyLibJs('libs/support/test-support/src/lib', 'dist/libs/support/test-support/src/lib');
+copySources('libs/support/test-support/src', 'dist/libs/support/test-support/src', '.js');
