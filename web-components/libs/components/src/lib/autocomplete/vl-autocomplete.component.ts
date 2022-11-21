@@ -50,6 +50,7 @@ export class VlAutocomplete extends LitElement {
             initialValue: { type: String, attribute: 'data-vl-initial-value', reflect: true },
             showClear: { type: Boolean, attribute: 'data-vl-show-clear', reflect: true },
             label: { type: String, attribute: 'data-vl-label', reflect: true },
+            noMatchesText: { type: String, attribute: 'data-vl-no-matches-text', reflect: true },
         };
     }
 
@@ -57,6 +58,7 @@ export class VlAutocomplete extends LitElement {
     private initialValue: string;
     private showClear: boolean;
     private label: any; // string ?
+    private noMatchesText: string;
     private minChars = 0;
     private items = [];
     private loading = false;
@@ -116,6 +118,7 @@ export class VlAutocomplete extends LitElement {
 
         this.maxSuggestions = DEFAULT_MAX_MATCHES;
         this.captionFormat = DEFAULT_CAPTION_FORMAT;
+        this.noMatchesText = 'Sorry, no matches.';
     }
 
     firstUpdated() {
@@ -310,7 +313,7 @@ export class VlAutocomplete extends LitElement {
 
             this._groupedMatches = new Map();
             if (this._matches.length > 0) {
-                if (this.groupBy != null) {
+                if (this.groupBy != null && this.groupBy.length > 0) {
                     this._matches.forEach((item: any) => {
                         const groupByValue = item[this.groupBy];
                         let group = this._groupedMatches.get(groupByValue);
@@ -326,7 +329,7 @@ export class VlAutocomplete extends LitElement {
                 }
             } else {
                 this._matches = [];
-                this._matches.push({ value: null, title: 'Sorry, No matches' });
+                this._matches.push({ value: null, title: this.noMatchesText });
                 this.firstValidItemIndex = null;
             }
         } else {

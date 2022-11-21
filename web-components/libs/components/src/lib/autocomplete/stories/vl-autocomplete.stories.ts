@@ -23,6 +23,7 @@ const autocompleteTemplate = ({
     groupBy,
     items,
     showClear,
+    noMatchesText,
 }) => html`
     <vl-autocomplete
         placeholder=${placeholder}
@@ -33,6 +34,7 @@ const autocompleteTemplate = ({
         data-vl-caption-format=${captionFormat}
         data-vl-group-by=${groupBy}
         ?data-vl-show-clear=${showClear}
+        data-vl-no-matches-text=${noMatchesText}
         .items=${items}
     ></vl-autocomplete>
 `;

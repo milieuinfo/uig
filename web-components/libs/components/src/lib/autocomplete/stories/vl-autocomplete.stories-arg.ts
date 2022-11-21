@@ -20,6 +20,7 @@ export const autocompleteArgs = {
     captionFormat: CAPTION_FORMAT.TITLE_SUBTITLE_VERTICAL,
     groupBy: '',
     showClear: false,
+    noMatchesText: 'Geen resultaat',
     items: complexItems,
 };
 
@@ -117,6 +118,16 @@ export const autocompleteArgTypes = {
         name: 'showClear',
         type: { summary: TYPES.BOOLEAN, required: false },
         description: 'Attribuut wordt gebruikt te bepalen of het clear icoon moet tevoorschijn komen.',
+        table: {
+            defaultValue: { summary: '' },
+            category: CATEGORIES.ATTRIBUTES,
+        },
+    },
+    noMatchesText: {
+        name: 'data-vl-no-matches-text',
+        type: { summary: TYPES.STRING, required: false },
+        description:
+            'Attribuut wordt gebruikt de tekst te bepalen die getoond moet worden als er geen suggesties zijn.',
         table: {
             defaultValue: { summary: '' },
             category: CATEGORIES.ATTRIBUTES,
