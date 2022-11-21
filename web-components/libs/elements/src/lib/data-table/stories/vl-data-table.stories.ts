@@ -8,7 +8,15 @@ export default {
     argTypes: dataTableArgTypes,
 };
 
-export const dataTableDefault = ({ hover, matrix, grid, zebra, collapsedM, collapsedS, collapsedXS }) => html`
+export const dataTableDefault = ({
+    hover,
+    matrix,
+    grid,
+    zebra,
+    collapsedM,
+    collapsedS,
+    collapsedXS,
+}: typeof dataTableArgs) => html`
     <table
         is="vl-data-table"
         ?data-vl-hover=${hover}
@@ -18,31 +26,32 @@ export const dataTableDefault = ({ hover, matrix, grid, zebra, collapsedM, colla
         ?data-vl-collapsed-m=${collapsedM}
         ?data-vl-collapsed-s=${collapsedS}
         ?data-vl-collapsed-xs=${collapsedXS}
+        data-cy="data-table"
     >
         <caption>
             Data table
         </caption>
         <thead>
             <tr>
-                <th>Entry Header 1</th>
-                <th>Entry Header 2</th>
-                <th>Entry Header 3</th>
-                <th>Entry Header 4</th>
+                <th data-cy="data-table-header-1">Entry Header 1</th>
+                <th data-cy="data-table-header-2">Entry Header 2</th>
+                <th data-cy="data-table-header-3">Entry Header 3</th>
+                <th data-cy="data-table-header-4">Entry Header 4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr data-cy="data-table-body-row-1">
                 <td data-title="Entry Header 1">Entry line 1</td>
                 <td data-title="Entry Header 2">Entry line 2</td>
                 <td data-title="Entry Header 3">Entry line 3</td>
                 <td data-title="Entry Header 4">Entry line 4</td>
             </tr>
-            <tr>
+            <tr data-cy="data-table-body-row-2">
                 <td data-title="Entry Header 1">Entry line 1</td>
                 <td data-title="Entry Header 2" colspan="2">Entry line 2</td>
                 <td data-title="Entry Header 3">Entry line 3</td>
             </tr>
-            <tr>
+            <tr data-cy="data-table-body-row-3">
                 <td data-title="Entry Header 1">Entry line 1</td>
                 <td data-title="Entry Header 2">Entry line 2</td>
                 <td data-title="Entry Header 3">Entry line 3</td>
@@ -53,7 +62,15 @@ export const dataTableDefault = ({ hover, matrix, grid, zebra, collapsedM, colla
 `;
 dataTableDefault.storyName = 'vl-data-table - default';
 
-export const dataTableJoinedRowTitles = ({ hover, matrix, grid, zebra, collapsedM, collapsedS, collapsedXS }) => html`
+export const dataTableJoinedRowTitles = ({
+    hover,
+    matrix,
+    grid,
+    zebra,
+    collapsedM,
+    collapsedS,
+    collapsedXS,
+}: typeof dataTableArgs) => html`
     <table
         is="vl-data-table"
         ?data-vl-hover=${hover}
@@ -63,6 +80,7 @@ export const dataTableJoinedRowTitles = ({ hover, matrix, grid, zebra, collapsed
         ?data-vl-collapsed-m=${collapsedM}
         ?data-vl-collapsed-s=${collapsedS}
         ?data-vl-collapsed-xs=${collapsedXS}
+        data-cy="data-table-joined-row-titles"
     >
         <caption>
             Data table Matrix - Joined row titles
