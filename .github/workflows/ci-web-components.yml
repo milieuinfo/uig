@@ -64,7 +64,7 @@ jobs:
             cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
       - name: web-components - test
-        run: npx nx run-many --all --target=test --parallel --maxParallel=4 --skip-nx-cache
+        run: npm run test
         continue-on-error: false
       - name: archive unit-test results
         uses: actions/upload-artifact@v3

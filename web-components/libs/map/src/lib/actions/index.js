@@ -1,4 +1,4 @@
-export { VlCustomMap } from './map/custom-map.ts';
+export { VlCustomMap } from './map/custom-map';
 export { VlMapWithActions } from './map/map-with-actions';
 export { VlBoxSelectAction } from './select/box-select-action';
 export { VlDeleteAction } from './delete/delete-action';

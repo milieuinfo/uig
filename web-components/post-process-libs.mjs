@@ -55,3 +55,7 @@ copySources('libs/sections/src', 'dist/libs/sections/src', '.lib.js');
 
 // post process test-support
 copySources('libs/support/test-support/src', 'dist/libs/support/test-support/src', '.js');
+
+// post process map
+wrapCssInJs('dist/libs/map/src/lib');
+copySources('libs/map/src/lib', 'dist/libs/map/src/lib', '.js');
