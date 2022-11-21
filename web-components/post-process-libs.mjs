@@ -54,3 +54,5 @@ copyLibJs('libs/components/src/lib', 'dist/libs/components/src/lib');
 wrapCssInJs('dist/libs/sections/src/lib');
 copyLibJs('libs/sections/src/lib', 'dist/libs/sections/src/lib');
 
+// post process test-support
+copyLibJs('libs/support/test-support/src/lib', 'dist/libs/support/test-support/src/lib');

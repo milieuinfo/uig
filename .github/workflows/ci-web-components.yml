@@ -270,6 +270,7 @@ jobs:
           cd ../../elements && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
           cd ../components && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
           cd ../sections && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
+          cd ../support/test-support && npm version ${{ steps.package-version.outputs.current-version }} && npm publish
       - name: output the build result path
         run: echo "the build results (dist folders) are available at /build-apps/${{ env.pages_sub_path }}"
       - name: replace the base-href with the correct path

@@ -8,7 +8,7 @@ export class VlAutocompleteTester extends VlElementTester {
     }
 
     async _getInput() {
-        const inputElement = await this.shadowRoot.findElement(By.css('input'));
+        const inputElement = await this.getElementInShadow(this, 'input');
         return new VlElementTester(this.driver, inputElement);
     }
 
@@ -36,7 +36,7 @@ export class VlAutocompleteTester extends VlElementTester {
     }
 
     async _getClearIcon() {
-        const element = await this.shadowRoot.findElement(By.css('.uig-autocomplete__clear'));
+        const element = await this.getElementInShadow(this, '.uig-autocomplete__clear');
         return new VlElementTester(this.driver, element);
     }
 
