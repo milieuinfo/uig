@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/milieuinfo/uig/compare/v1.3.0...v1.3.1) (2022-11-22)
+
+
+### Bug Fixes
+
+* naar de juiste (build) branch pushen ([cf04981](https://github.com/milieuinfo/uig/commit/cf049813fbc66f01276469ce208f40bfa53ad761))
+
 # [1.3.0](https://github.com/milieuinfo/uig/compare/v1.2.0...v1.3.0) (2022-11-22)
 
 
