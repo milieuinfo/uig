@@ -304,6 +304,7 @@ jobs:
             @domg-lib/sections@${{ steps.package-version.outputs.current-version }}
       - name: commit the applications package.json
         env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
           CI_COMMIT_MESSAGE: 'chore(post-release): upgrading Alliance dependencies'
           CI_COMMIT_AUTHOR: 'ci-web-components'
           CI_COMMIT_EMAIL: 'noreply@vlaanderen.be'
@@ -312,7 +313,7 @@ jobs:
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
           git config --global user.email "${{ env.CI_COMMIT_EMAIL }}"
           git commit package.json package-lock.json -m "${{ env.CI_COMMIT_MESSAGE }}"
-          git push -f --set-upstream origin beta-uig
+          git push -f --set-upstream origin ${{ env.BRANCH_NAME }}
       - name: publish on github-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
