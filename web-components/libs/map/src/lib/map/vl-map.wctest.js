@@ -9,44 +9,47 @@ import { VlMapMeasureControl } from './controls/vl-map-measure-control';
 import './vl-map';
 import './controls/vl-map-action-controls';
 import './layer/vector-layer/vl-map-features-layer';
-import './action/draw-action/vl-map-draw-measure-action';
+import './action/draw-action/vl-map-measure-action';
 import './action/layer-action/vl-map-select-action';
 
 const mapFixture = async () => fixture(html`<vl-map></vl-map>`);
 const mapFullscreenFixture = async () => fixture(html`<vl-map data-vl-allow-fullscreen></vl-map>`);
-const mapWithActionsFixture = async () => fixture(html`
-    <vl-map>
-        <vl-map-features-layer>
-            <vl-map-select-action data-vl-default-active></vl-map-select-action>
-            <vl-map-measure-action></vl-map-measure-action>
-        </vl-map-features-layer>
-    </vl-map>
-`);
-const mapWithActionsAndMultipleLayersFixture = async () => fixture(html`
-    <vl-map>
-        <vl-map-features-layer>
-            <vl-map-select-action data-vl-default-active></vl-map-select-action>
-        </vl-map-features-layer>
-        <vl-map-features-layer>
-            <vl-map-measure-action></vl-map-measure-action>
-        </vl-map-features-layer>
-    </vl-map>
-`);
-const mapWithActionsAndControlFixture = async () => fixture(html`
-    <vl-map>
-        <vl-map-action-controls>
-            <vl-map-measure-control></vl-map-measure-control>
-        </vl-map-action-controls>
-        <vl-map-features-layer>
-            <vl-map-select-action></vl-map-select-action>
-            <vl-map-measure-action></vl-map-measure-action>
-        </vl-map-features-layer>
-    </vl-map>
-`);
+const mapWithActionsFixture = async () =>
+    fixture(html`
+        <vl-map>
+            <vl-map-features-layer>
+                <vl-map-select-action data-vl-default-active></vl-map-select-action>
+                <vl-map-measure-action></vl-map-measure-action>
+            </vl-map-features-layer>
+        </vl-map>
+    `);
+const mapWithActionsAndMultipleLayersFixture = async () =>
+    fixture(html`
+        <vl-map>
+            <vl-map-features-layer>
+                <vl-map-select-action data-vl-default-active></vl-map-select-action>
+            </vl-map-features-layer>
+            <vl-map-features-layer>
+                <vl-map-measure-action></vl-map-measure-action>
+            </vl-map-features-layer>
+        </vl-map>
+    `);
+const mapWithActionsAndControlFixture = async () =>
+    fixture(html`
+        <vl-map>
+            <vl-map-action-controls>
+                <vl-map-measure-control></vl-map-measure-control>
+            </vl-map-action-controls>
+            <vl-map-features-layer>
+                <vl-map-select-action></vl-map-select-action>
+                <vl-map-measure-action></vl-map-measure-action>
+            </vl-map-features-layer>
+        </vl-map>
+    `);
 
 const sleep = (ms) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+    return new Promise((resolve) => setTimeout(resolve, ms));
+};
 
 describe('vl-map', async () => {
     const sandbox = sinon.createSandbox();
@@ -380,7 +383,7 @@ describe('vl-map', async () => {
         assert.isTrue(mapElement.defaultAction === defaultActiveActionLayer1);
 
         const layer1 = mapElement.nonBaseLayers.find(
-            (nonBaseLayer) => nonBaseLayer._layer === defaultActiveActionLayer1.layer,
+            (nonBaseLayer) => nonBaseLayer._layer === defaultActiveActionLayer1.layer
         );
 
         const deactivateCurrentActionSpy = sandbox.spy(map, 'deactivateCurrentAction');
@@ -445,13 +448,11 @@ describe('vl-map', async () => {
         let mapElement = await mapFixture();
 
         assert.isUndefined(
-            mapElement._map.controls.getArray().find((control) => control instanceof OlFullScreenControl),
+            mapElement._map.controls.getArray().find((control) => control instanceof OlFullScreenControl)
         );
 
         mapElement = await mapFullscreenFixture();
 
-        assert.isDefined(
-            mapElement._map.controls.getArray().find((control) => control instanceof OlFullScreenControl),
-        );
+        assert.isDefined(mapElement._map.controls.getArray().find((control) => control instanceof OlFullScreenControl));
     });
 });
