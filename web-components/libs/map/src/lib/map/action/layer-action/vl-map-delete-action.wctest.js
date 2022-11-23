@@ -47,16 +47,12 @@ describe('vl-map-delete-action', () => {
         assert.isTrue(VlMapDeleteAction.isVlMapAction());
     });
 
-    it('delete action configuration is possible', async (done) => {
+    it('delete action configuration is possible', async () => {
         const map = await mapDeleteActionFixture();
         const { layer } = map.querySelector('vl-map-features-layer');
-
-        map.ready.then(() => {
-            const action = map.map.actions[0];
-            assert.deepEqual(action.layer, layer);
-            assert.equal(action.style.getFill().getColor(), 'rgba(241, 174, 174, 0.26)');
-            done();
-        });
+        const action = map.map.actions[0];
+        assert.deepEqual(action.layer, layer);
+        assert.equal(action.style.getFill().getColor(), 'rgba(241, 174, 174, 0.26)');
     });
 
     it('a custom style can be set', async () => {
@@ -155,25 +151,17 @@ describe('vl-map-delete-action', () => {
         getSourceStub.reset();
     });
 
-    it('the filter for the delete action returns true by default', async (done) => {
+    it('the filter for the delete action returns true by default', async () => {
         const map = await mapDeleteActionFixture();
-
-        map.ready.then(() => {
-            const action = map.map.actions[0];
-            assert.isTrue(action.filter());
-            done();
-        });
+        const action = map.map.actions[0];
+        assert.isTrue(action.filter());
     });
 
-    it('the filter for the delete action can be overridden', async (done) => {
+    it('the filter for the delete action can be overridden', async () => {
         const map = await customMapDeleteActionFixture();
-
-        map.ready.then(() => {
-            const action = map.map.actions[0];
-            assert.isTrue(action.filter({ id: '12' }, { id: '12' }));
-            assert.isFalse(action.filter({ id: '2' }, { id: '12' }));
-            assert.isFalse(action.filter({ id: '12' }, { id: '2' }));
-            done();
-        });
+        const action = map.map.actions[0];
+        assert.isTrue(action.filter({ id: '12' }, { id: '12' }));
+        assert.isFalse(action.filter({ id: '2' }, { id: '12' }));
+        assert.isFalse(action.filter({ id: '12' }, { id: '2' }));
     });
 });

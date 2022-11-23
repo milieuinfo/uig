@@ -66,6 +66,11 @@ jobs:
       - name: web-components - test
         run: npm run test
         continue-on-error: false
+      - name: web-components - web-test-runner
+        run: |
+          npm run build:all
+          npx web-test-runner "dist/libs/map/**/*.wctest.js"
+        continue-on-error: false
       - name: archive unit-test results
         uses: actions/upload-artifact@v3
         with:
