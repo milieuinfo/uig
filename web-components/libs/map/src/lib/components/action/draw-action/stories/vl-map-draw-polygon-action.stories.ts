@@ -5,7 +5,6 @@ import '../../../baselayer/vl-map-base-layer-grb-gray';
 import '../../../layer/vector-layer/vl-map-features-layer';
 import '../../../layer/vector-layer/wfs-layer/vl-map-wfs-layer';
 import '../vl-map-draw-polygon-action';
-import { drawLineActionDefault } from './vl-map-draw-line-action.stories';
 
 export default {
     title: 'map/draw-actions',
