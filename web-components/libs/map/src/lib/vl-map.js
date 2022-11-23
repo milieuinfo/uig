@@ -143,8 +143,12 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
 
     __createZoomControl() {
         const zoomOptions = {};
-        if (this.zoomInTipLabel) zoomOptions.zoomInTipLabel = this.zoomInTipLabel;
-        if (this.zoomOutTipLabel) zoomOptions.zoomOutTipLabel = this.zoomOutTipLabel;
+        if (this.zoomInTipLabel) {
+            zoomOptions.zoomInTipLabel = this.zoomInTipLabel;
+        }
+        if (this.zoomOutTipLabel) {
+            zoomOptions.zoomOutTipLabel = this.zoomOutTipLabel;
+        }
         return new Zoom(zoomOptions);
     }
 

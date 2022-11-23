@@ -3,7 +3,7 @@ const Sass = require('sass');
 
 const scssLoader = {
     test: /\.scss$/,
-    exclude: /\/libs\/(components|sections)\/src\/lib/,
+    exclude: /\/libs\/(components|sections|map)\/src\/lib/,
     use: ['style-loader', 'css-loader', 'sass-loader'],
 };
 
@@ -15,7 +15,7 @@ const tsconfigPathsPlugin = new TsconfigPathsPlugin({
 const litCssLoaderRule = {
     test: /\.scss$/,
     loader: 'lit-css-loader',
-    include: /\/libs\/(components|sections)\/src\/lib/,
+    include: /\/libs\/(components|sections|map)\/src\/lib/,
     options: {
         specifier: 'lit',
         transform: (data, { filePath }) => {
@@ -59,6 +59,7 @@ module.exports = {
         '../docs/**/*.stories.mdx',
         '../../../libs/components/src/lib/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/elements/src/lib/**/*.stories.@(js|jsx|ts|tsx)',
+        '../../../libs/map/src/lib/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/sections/src/lib/**/*.stories.@(js|jsx|ts|tsx)',
     ],
     // staticDirs: ['../../../'], TODO: dit geeft problemen bij een storybook-build -> logisch zou de complete root naar een lager path kopieren !!!
