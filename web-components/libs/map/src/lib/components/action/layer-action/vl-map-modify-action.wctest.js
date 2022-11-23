@@ -2,7 +2,7 @@ import { awaitUntil } from '@domg-lib/common-utilities';
 import { VlCompositeVectorLayer, VlCompositeVectorSource } from '../../../actions';
 import { assert, expect, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
-import '../../vl-map';
+import '../../../vl-map';
 import '../../layer/vector-layer/vl-map-features-layer';
 import '../../layer/vector-layer/wfs-layer/vl-map-wfs-layer';
 import '../../layer-style/vl-map-layer-style';

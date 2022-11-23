@@ -1,16 +1,16 @@
 import { assert, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
 import proj4 from 'proj4';
-import { OpenLayersUtil } from '../ol-util.js';
+import { OpenLayersUtil } from './ol-util.js';
 import OlLayerGroup from 'ol/layer/Group';
 import OlFullScreenControl from 'ol/control/FullScreen';
-import { VlSelectAction } from '../actions';
-import { VlMapMeasureControl } from './controls/vl-map-measure-control';
+import { VlSelectAction } from './actions';
+import { VlMapMeasureControl } from './components/controls/vl-map-measure-control';
 import './vl-map';
-import './controls/vl-map-action-controls';
-import './layer/vector-layer/vl-map-features-layer';
-import './action/draw-action/vl-map-measure-action';
-import './action/layer-action/vl-map-select-action';
+import './components/controls/vl-map-action-controls';
+import './components/layer/vector-layer/vl-map-features-layer';
+import './components/action/draw-action/vl-map-measure-action';
+import './components/action/layer-action/vl-map-select-action';
 
 const mapFixture = async () => fixture(html`<vl-map></vl-map>`);
 const mapFullscreenFixture = async () => fixture(html`<vl-map data-vl-allow-fullscreen></vl-map>`);

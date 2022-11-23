@@ -2,11 +2,10 @@ import OlFullScreenControl from 'ol/control/FullScreen';
 import OlLayerGroup from 'ol/layer/Group';
 import OlProjection from 'ol/proj/Projection';
 import proj4 from 'proj4';
-import { VlCustomMap } from '../actions';
+import { VlCustomMap } from './actions';
 import { BaseElementOfType, define } from '@domg-lib/common-utilities';
-import { EVENT } from '../vl-map.model';
-
-import styles from './styles.scss';
+import { EVENT } from './vl-map.model';
+import styles from './vl-map.scss';
 import { Zoom } from 'ol/control.js';
 
 export class VlMap extends BaseElementOfType(HTMLElement) {
@@ -108,7 +107,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
         return new OlProjection({
             code: 'EPSG:31370',
             extent: this._extent,
-            getPointResolution: (r) => r
+            getPointResolution: (r) => r,
         });
     }
 
@@ -127,12 +126,12 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
             customLayers: {
                 baseLayerGroup: this.__createLayerGroup('Basis lagen', []),
                 overviewMapLayers: [],
-                overlayGroup: this.__createLayerGroup('Lagen', [])
+                overlayGroup: this.__createLayerGroup('Lagen', []),
             },
             projection: this._projection,
             target: this._mapElement,
             controls: this._controls,
-            defaultZoom: false
+            defaultZoom: false,
         });
 
         this._map.initializeView();
@@ -176,7 +175,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
     _dispatchLayerVisibleChangedEvent(layer) {
         this.dispatchEvent(
             new CustomEvent(EVENT.LAYER_VISIBLE_CHANGED, {
-                detail: { layer, visible: layer.visible }
+                detail: { layer, visible: layer.visible },
             })
         );
     }
@@ -217,8 +216,8 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
             new CustomEvent(EVENT.ACTIVE_ACTION_CHANGED, {
                 detail: {
                     previous: previousActiveAction ? previousActiveAction.element : previousActiveAction,
-                    current: currentActiveAction ? currentActiveAction.element : currentActiveAction
-                }
+                    current: currentActiveAction ? currentActiveAction.element : currentActiveAction,
+                },
             })
         );
     }
@@ -319,7 +318,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
     __createLayerGroup(title, layers) {
         return new OlLayerGroup({
             title,
-            layers
+            layers,
         });
     }
 

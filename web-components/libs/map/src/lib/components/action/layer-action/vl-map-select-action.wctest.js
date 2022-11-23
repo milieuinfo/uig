@@ -3,7 +3,7 @@ import { assert, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
 import OlFeature from 'ol/Feature';
 import OlPoint from 'ol/geom/Point';
-import '../../vl-map';
+import '../../../vl-map';
 import '../../layer/vector-layer/vl-map-features-layer';
 import '../../layer-style/vl-map-layer-style';
 import './vl-map-select-action';

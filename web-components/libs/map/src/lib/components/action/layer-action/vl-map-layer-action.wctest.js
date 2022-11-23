@@ -1,7 +1,7 @@
 import { assert, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
 import { VlMapWithActions } from '../../../actions';
-import '../../vl-map';
+import '../../../vl-map';
 import '../../layer/vector-layer/vl-map-features-layer';
 import './vl-map-layer-action';
 

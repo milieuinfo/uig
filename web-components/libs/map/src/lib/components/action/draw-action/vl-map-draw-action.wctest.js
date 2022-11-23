@@ -1,6 +1,6 @@
 import { awaitUntil } from '@domg-lib/common-utilities';
 import { assert, fixture, html } from '@open-wc/testing';
-import '../../vl-map';
+import '../../../vl-map';
 import '../../layer/vector-layer/vl-map-features-layer';
 import './vl-map-draw-point-action';
 import './vl-map-draw-line-action';
