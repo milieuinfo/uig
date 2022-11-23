@@ -66,6 +66,31 @@ jobs:
       - name: web-components - test
         run: npm run test
         continue-on-error: false
+      - name: archive unit-test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-perform-all-unit-tests
+          path: ./web-components/dist
+          retention-days: 30
+
+  perform-all-web-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./web-components
+    needs: checkout-install-and-cache
+    steps:
+      - name: restore workspace cache
+        id: cache-workspace
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-workspace
+        with:
+          path: |
+            ./web-components
+            cypress/cache
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
       - name: web-components - web-test-runner
         run: |
           npm run build:all
@@ -74,7 +99,7 @@ jobs:
       - name: archive unit-test results
         uses: actions/upload-artifact@v3
         with:
-          name: dist-perform-all-unit-tests
+          name: dist-perform-all-web-tests
           path: ./web-components/dist
           retention-days: 30
 
@@ -210,7 +235,7 @@ jobs:
     defaults:
       run:
         shell: bash
-    needs: [perform-all-unit-tests, build-apps-libs-and-storybook, e2e-report-storybook]
+    needs: [perform-all-unit-tests, perform-all-web-tests, build-apps-libs-and-storybook, e2e-report-storybook]
     steps:
       # github-pages-deploy-action gives an error when 'not in a git directory'
       # -> so a checkout instead of a 'restore workspace cache'
