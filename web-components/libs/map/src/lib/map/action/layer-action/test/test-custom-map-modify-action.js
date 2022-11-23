@@ -1,4 +1,4 @@
-import { VlMapModifyAction } from '../vl-map-modify-action.wctest';
+import { VlMapModifyAction } from '../vl-map-modify-action';
 import { define } from '@domg-lib/common-utilities';
 
 export class VlTestCustomMapModifyAction extends VlMapModifyAction {

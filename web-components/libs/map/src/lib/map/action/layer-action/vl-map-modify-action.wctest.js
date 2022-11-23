@@ -7,6 +7,7 @@ import '../../layer/vector-layer/vl-map-features-layer';
 import '../../layer/vector-layer/wfs-layer/vl-map-wfs-layer';
 import '../../layer-style/vl-map-layer-style';
 import './vl-map-modify-action';
+import './test/test-custom-map-modify-action';
 import { VlMapModifyAction } from './vl-map-modify-action';
 
 const mapModifyActionFixture = async () =>
@@ -129,9 +130,7 @@ describe('vl-map-modify-action', () => {
         await awaitUntil(() => modifyMetSnappingOpWfsLagenAction.action != null);
         const stromendWaterSnappingLayer = mapMetSnapping.querySelector('#stromendwater');
         const removeEventListenerSpy = sandbox.spy(stromendWaterSnappingLayer, 'removeEventListener');
-
         modifyMetSnappingOpWfsLagenAction.remove();
-
         await awaitUntil(() => removeEventListenerSpy.called);
     });
 
@@ -143,7 +142,6 @@ describe('vl-map-modify-action', () => {
         const processActionSpy = sandbox.spy(modifyAction, '_processAction');
         modifyAction.setAttribute('data-vl-snapping', '');
         await awaitUntil(() => processActionSpy.called);
-        done();
     });
 
     // TODO: geskipped - te bekijken met Sander
