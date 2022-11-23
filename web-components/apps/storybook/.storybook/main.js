@@ -3,7 +3,7 @@ const Sass = require('sass');
 
 const scssLoader = {
     test: /\.scss$/,
-    exclude: /\/libs\/(components|sections|map)\/src\/lib/,
+    exclude: /\/libs\/(components|map|sections)\/src\/lib/,
     use: ['style-loader', 'css-loader', 'sass-loader'],
 };
 
@@ -15,7 +15,7 @@ const tsconfigPathsPlugin = new TsconfigPathsPlugin({
 const litCssLoaderRule = {
     test: /\.scss$/,
     loader: 'lit-css-loader',
-    include: /\/libs\/(components|sections|map)\/src\/lib/,
+    include: /\/libs\/(components|map|sections)\/src\/lib/,
     options: {
         specifier: 'lit',
         transform: (data, { filePath }) => {
