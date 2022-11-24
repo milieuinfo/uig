@@ -5,7 +5,8 @@
     "scripts": {
         "start": "nx serve",
         "build": "nx build",
-        "test": "npm run build:all && npx nx run-many --all --target=test --parallel --maxParallel=4 --skip-nx-cache",
+        "test": "npm run build:all && npx nx run-many --all --target=test --skip-nx-cache",
+        "test-parallel": "npm run build:all && npx nx run-many --all --target=test --parallel --maxParallel=4 --skip-nx-cache",
         "storybook:ci-test": "start-server-and-test 'npx nx storybook storybook' http://localhost:8080 'npx nx e2e storybook-e2e'",
         "storybook:ci-test-parallel-1": "start-server-and-test 'npx nx storybook storybook' http://localhost:8080 'npx nx e2e storybook-e2e -- --spec **/src/e2e/components/[a-m]*/**/*'",
         "storybook:ci-test-parallel-2": "start-server-and-test 'npx nx storybook storybook' http://localhost:8080 'npx nx e2e storybook-e2e -- --spec **/src/e2e/components/[n-z]*/**/*'",
