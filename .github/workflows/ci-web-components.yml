@@ -64,7 +64,7 @@ jobs:
             cypress/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
       - name: web-components - test
-        run: npm run test
+        run: npx nx run-many --all --target=test --parallel --maxParallel=4 --skip-nx-cache
         continue-on-error: false
       - name: archive unit-test results
         uses: actions/upload-artifact@v3
@@ -94,7 +94,7 @@ jobs:
       - name: web-components - web-test-runner
         run: |
           npm run build:all
-          npx web-test-runner "dist/libs/map/**/*.wctest.js"
+          npx nx wct map
         continue-on-error: false
       - name: archive unit-test results
         uses: actions/upload-artifact@v3
