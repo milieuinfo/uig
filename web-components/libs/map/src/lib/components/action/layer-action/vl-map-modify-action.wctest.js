@@ -134,9 +134,8 @@ describe('vl-map-modify-action', () => {
         await awaitUntil(() => removeEventListenerSpy.called);
     });
 
-    // TODO: geskipped - te bekijken met Sander
     it.skip('changes to the snapping attribute reprocesses the action', async () => {
-        const map = await customMapModifyActionFixture();
+        const map = await mapModifyActionFixture();
         const modifyAction = map.querySelector('vl-map-modify-action');
         await awaitUntil(() => modifyAction.action != null);
         const processActionSpy = sandbox.spy(modifyAction, '_processAction');
@@ -144,9 +143,8 @@ describe('vl-map-modify-action', () => {
         await awaitUntil(() => processActionSpy.called);
     });
 
-    // TODO: geskipped - te bekijken met Sander
     it.skip('changes to the snapping pixel tolerance attribute reprocesses the action', async () => {
-        const map = await customMapModifyActionFixture();
+        const map = await mapModifyActionFixture();
         const modifyAction = map.querySelector('vl-map-modify-action');
         await awaitUntil(() => modifyAction.action != null);
         const processActionSpy = sandbox.spy(modifyAction, '_processAction');
