@@ -1,9 +1,9 @@
-import { assert, fixture, html } from '@open-wc/testing';
+import { expect, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
 import { VlMapWithActions } from '../../../actions';
 import '../../../vl-map';
 import '../../layer/vector-layer/vl-map-features-layer';
-import './vl-map-layer-action';
+import { VlMapLayerAction } from './vl-map-layer-action';
 
 const mapLayerActionFixture = async () =>
     fixture(html`
@@ -52,21 +52,20 @@ describe('vl-map-layer-action', () => {
         sandbox.restore();
     });
 
-    // TODO: geskipped - te bekijken met Sander
-    it.skip('de actie wordt standaard gekoppeld aan de kaartlaag waarin gedeclareerd', async () => {
+    it('de actie wordt standaard gekoppeld aan de kaartlaag waarin gedeclareerd', async () => {
+        const createActionStub = sandbox.stub(VlMapLayerAction.prototype, '_createAction').returns(action);
         const map = await mapLayerActionFixture();
-        const actionElement = map.querySelector('vl-map-layer-action');
         const layerElement = map.querySelector('vl-map-features-layer');
-        const createActionStub = sandbox
-            .stub(actionElement, '_createAction')
-            .withArgs(layerElement.layer)
-            .returns(action);
-        assert.lengthOf(map._map.actions, 1);
-        assert.deepEqual(map._map.actions[0], action);
-        setTimeout(() => {
-            assert.isFalse(action.activate.called);
-            createActionStub.reset();
-        }, VlMapWithActions.CLICK_COUNT_TIMEOUT);
+        await map.ready;
+        expect(map._map.actions).to.have.lengthOf(1);
+        expect(map._map.actions[0]).to.deep.equal(action);
+        expect(createActionStub).to.have.been.calledWith(layerElement.layer);
+        await new Promise((resolve) => {
+            setTimeout(() => {
+                expect(action.activate.called).to.be.false;
+                resolve();
+            }, VlMapWithActions.CLICK_COUNT_TIMEOUT);
+        });
     });
 
     // it("de actie kan standaard geactiveerd worden via het default active attribuut", (done) => {
@@ -88,31 +87,30 @@ describe('vl-map-layer-action', () => {
     //   });
     // });
 
-    // TODO: geskipped - te bekijken met Sander
-    it.skip('de actie kaartlaag koppeling kan gebeuren via een attribuut', async () => {
+    it('de actie kaartlaag koppeling kan gebeuren via een attribuut', async () => {
+        const createActionStub = sandbox.stub(VlMapLayerAction.prototype, '_createAction').returns(action);
         const map = await mapLayerActionLayerByNameFixture();
-        const actionElement = map.querySelector('vl-map-layer-action');
         const layerElement = map.querySelector('vl-map-features-layer');
-        const createActionStub = sandbox
-            .stub(actionElement, '_createAction')
-            .withArgs(layerElement.layer)
-            .returns(action);
-        assert.lengthOf(map._map.actions, 1);
-        assert.deepEqual(map._map.actions[0], action);
-        createActionStub.reset();
+        await map.ready;
+        expect(map._map.actions).to.have.lengthOf(1);
+        expect(map._map.actions[0]).to.deep.equal(action);
+        expect(createActionStub).to.have.been.calledWith(layerElement.layer);
     });
 
     it('de actie kaartlaag kan gezet worden zodat één actie voor meerdere kaartlagen gebruikt kan worden', async () => {
+        sandbox.stub(VlMapLayerAction.prototype, '_createAction').returns(action);
         const map = await mapLayerActionLayerFixture();
         const layerElement = map.querySelector('vl-map-features-layer');
         const actionElement = map.querySelector('vl-map-layer-action');
-        const createActionStub = sandbox.stub(actionElement, '_createAction').returns(action);
-        assert.lengthOf(map._map.actions, 0);
+        await map.ready;
+        expect(map._map.actions).to.be.empty;
         actionElement.layer = layerElement.layer;
-        setTimeout(() => {
-            assert.lengthOf(map._map.actions, 1);
-            assert.deepEqual(map._map.actions[0], action);
-            createActionStub.reset();
+        await new Promise((resolve) => {
+            setTimeout(() => {
+                expect(map._map.actions).to.have.lengthOf(1);
+                expect(map._map.actions[0]).to.deep.equal(action);
+                resolve();
+            });
         });
     });
 });
