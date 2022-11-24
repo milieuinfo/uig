@@ -27,12 +27,6 @@
             }
         },
         "test": {
-            "executor": "nx:run-commands",
-            "options": {
-                "command": "nx jest map && nx wct map"
-            }
-        },
-        "jest": {
             "executor": "@nrwl/jest:jest",
             "outputs": ["coverage/libs/map"],
             "options": {
