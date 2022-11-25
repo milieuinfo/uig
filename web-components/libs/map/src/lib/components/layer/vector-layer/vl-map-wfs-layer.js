@@ -2,7 +2,7 @@ import OlVectorSource from 'ol/source/Vector';
 import * as OlLoadingstrategy from 'ol/loadingstrategy';
 import OlGML2 from 'ol/format/GML2';
 import { define } from '@domg-lib/common-utilities';
-import { VlMapVectorLayer } from '../vl-map-vector-layer';
+import { VlMapVectorLayer } from './vl-map-vector-layer';
 
 /**
  * VlMapWfsLayer

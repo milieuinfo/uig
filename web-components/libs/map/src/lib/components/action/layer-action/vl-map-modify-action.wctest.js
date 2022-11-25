@@ -4,7 +4,7 @@ import { assert, expect, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
 import '../../../vl-map';
 import '../../layer/vector-layer/vl-map-features-layer';
-import '../../layer/vector-layer/wfs-layer/vl-map-wfs-layer';
+import '../../layer/vector-layer/vl-map-wfs-layer';
 import '../../layer-style/vl-map-layer-style';
 import './vl-map-modify-action';
 import './test/test-custom-map-modify-action';

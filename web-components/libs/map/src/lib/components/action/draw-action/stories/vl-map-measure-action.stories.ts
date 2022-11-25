@@ -5,7 +5,7 @@ import '../../../baselayer/vl-map-base-layer-grb-gray';
 import '../../../controls/vl-map-action-controls';
 import '../../../controls/vl-map-measure-control';
 import '../../../layer/vector-layer/vl-map-features-layer';
-import '../../../layer/vector-layer/wfs-layer/vl-map-wfs-layer';
+import '../../../layer/vector-layer/vl-map-wfs-layer';
 import '../vl-map-measure-action';
 
 export default {

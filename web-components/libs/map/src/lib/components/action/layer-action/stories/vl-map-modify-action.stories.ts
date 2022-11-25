@@ -3,7 +3,7 @@ import { html } from 'lit';
 import '../../../../vl-map';
 import '../../../baselayer/vl-map-base-layer-grb-gray';
 import '../../../layer/vector-layer/vl-map-features-layer';
-import '../../../layer/vector-layer/wfs-layer/vl-map-wfs-layer';
+import '../../../layer/vector-layer/vl-map-wfs-layer';
 import '../../../layer-style/vl-map-layer-style';
 import '../vl-map-modify-action';
 

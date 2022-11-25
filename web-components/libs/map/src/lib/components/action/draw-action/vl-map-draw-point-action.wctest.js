@@ -3,7 +3,7 @@ import { assert, expect, fixture, html } from '@open-wc/testing';
 import { VlCompositeVectorLayer, VlCompositeVectorSource } from '../../../actions';
 import '../../../vl-map';
 import '../../layer/vector-layer/vl-map-features-layer';
-import '../../layer/vector-layer/wfs-layer/vl-map-wfs-layer';
+import '../../layer/vector-layer/vl-map-wfs-layer';
 import '../../layer-style/vl-map-layer-style';
 // TODO bekijken met Sander -> dit moet op 2 manieren geimporteerd worden
 import './vl-map-draw-point-action';
