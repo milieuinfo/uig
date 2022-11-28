@@ -232,28 +232,25 @@ describe('vl-map-features-layer', () => {
         assert.lengthOf(layer.layer.getSource().getFeatures(), 2);
     });
 
-    // todo: fix
-    it.skip('kan programmatorisch feature toevoegen aan layer met cluster', async () => {
+    it('kan programmatorisch feature toevoegen aan layer met cluster', async () => {
         const map = await mapClusterFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
-        assert.lengthOf(layer.source.getFeatures(), 0);
+
         assert.lengthOf(layer.source.getSource().getFeatures(), 1);
         layer.addFeature(
             '{"type":"Feature","geometry":{"type":"Point","coordinates":[148055,197908]},"properties":null,"id":2}',
         );
-        assert.lengthOf(layer.source.getFeatures(), 0);
         assert.lengthOf(layer.source.getSource().getFeatures(), 2);
         assert.isDefined(layer.getFeature(1));
         assert.isDefined(layer.getFeature(2));
     });
 
-    // todo: fix
-    it.skip('kan programmatorisch features wijzigen in layer met cluster', async () => {
+    it('kan programmatorisch features wijzigen in layer met cluster', async () => {
         const map = await mapClusterFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
-        assert.lengthOf(layer.source.getFeatures(), 0);
+
         assert.lengthOf(layer.source.getSource().getFeatures(), 1);
         layer.features = {
             type: 'FeatureCollection',
@@ -272,7 +269,6 @@ describe('vl-map-features-layer', () => {
                 },
             ],
         };
-        assert.lengthOf(layer.source.getFeatures(), 0);
         assert.lengthOf(layer.source.getSource().getFeatures(), 2);
         assert.isUndefined(layer.getFeature(1));
         assert.isDefined(layer.getFeature(2));
