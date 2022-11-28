@@ -6,7 +6,7 @@ import OlStyle from 'ol/style/Style';
 import OlStyleStroke from 'ol/style/Stroke';
 import OlStyleFill from 'ol/style/Fill';
 import OlStyleCircle from 'ol/style/Circle';
-import { OpenLayersUtil } from '../../ol-util';
+import { OpenLayersUtil } from '../../utils/ol-util';
 import '../../vl-map';
 import '../layer/vector-layer/vl-map-features-layer';
 import './vl-map-layer-circle-style';
@@ -217,7 +217,7 @@ describe('vl-map-layer-circle-style', () => {
                     radius2: 6,
                     points: 15,
                 }),
-            }),
+            })
         );
 
         feature2.setStyle(
@@ -234,7 +234,7 @@ describe('vl-map-layer-circle-style', () => {
                     radius2: 7,
                     points: 16,
                 }),
-            }),
+            })
         );
         const features = [feature1, feature2];
         layerElement.setAttribute('data-vl-cluster', '');

@@ -1,7 +1,7 @@
 import { assert, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
 import proj4 from 'proj4';
-import { OpenLayersUtil } from './ol-util.js';
+import { OpenLayersUtil } from './utils/ol-util.js';
 import OlLayerGroup from 'ol/layer/Group';
 import OlFullScreenControl from 'ol/control/FullScreen';
 import { VlSelectAction } from './actions';

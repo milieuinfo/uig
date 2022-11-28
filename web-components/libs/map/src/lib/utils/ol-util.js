@@ -25,7 +25,7 @@ export class OpenLayersUtil {
         return {
             addEventListener: () => {},
             getExtent: () => {},
-            getFeatures: () =>{
+            getFeatures: () => {
                 return features;
             },
             clear: () => {},
