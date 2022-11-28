@@ -69,6 +69,7 @@ describe.only('vl-map-layer-action', () => {
         });
     });
 
+    // todo: fix
     // it('de actie kan standaard geactiveerd worden via het default active attribuut', async () => {
     //     const createActionStub = sandbox.stub(VlMapLayerAction.prototype, '_createAction').returns(action);
     //     const map = await mapLayerActionDefaultActiveFixture();
