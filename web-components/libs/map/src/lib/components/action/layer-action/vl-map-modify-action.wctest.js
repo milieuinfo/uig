@@ -134,7 +134,7 @@ describe('vl-map-modify-action', () => {
         await awaitUntil(() => removeEventListenerSpy.called);
     });
 
-    it.skip('changes to the snapping attribute reprocesses the action', async () => {
+    it('changes to the snapping attribute reprocesses the action', async () => {
         const map = await mapModifyActionFixture();
         const modifyAction = map.querySelector('vl-map-modify-action');
         await awaitUntil(() => modifyAction.action != null);
@@ -143,7 +143,7 @@ describe('vl-map-modify-action', () => {
         await awaitUntil(() => processActionSpy.called);
     });
 
-    it.skip('changes to the snapping pixel tolerance attribute reprocesses the action', async () => {
+    it('changes to the snapping pixel tolerance attribute reprocesses the action', async () => {
         const map = await mapModifyActionFixture();
         const modifyAction = map.querySelector('vl-map-modify-action');
         await awaitUntil(() => modifyAction.action != null);
