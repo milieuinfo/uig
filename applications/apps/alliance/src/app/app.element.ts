@@ -7,9 +7,10 @@ export class AppElement extends HTMLElement {
         const title = 'alliance';
         this.innerHTML = `
     <div class="wrapper">
-      <alliance-action-group></alliance-action-group>
-      <alliance-breadcrumb></alliance-breadcrumb>
-      <alliance-toaster></alliance-toaster>
+      <h1>Alliance App</h1>
+      <alliance-elements></alliance-elements>
+      <alliance-components></alliance-components>
+      <alliance-sections></alliance-sections>
     </div>
       `;
     }
