@@ -1,7 +1,7 @@
 import { BaseElementOfType, define } from '@domg-lib/common-utilities';
+import '@domg-lib/components/src/lib/search/vl-search.component';
 import OlOverlay from 'ol/Overlay';
 import LambertCoordinaat from '../../utils/lambert-coordinaat';
-import '../../../../../components/src/lib/search/vl-search.component';
 import '../select-location/vl-select-location';
 import styles from './style/vl-map-search.scss';
 
