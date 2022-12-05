@@ -7,7 +7,7 @@ import '../../../layer/vector-layer/vl-map-wfs-layer';
 import '../vl-map-draw-line-action';
 
 export default {
-    title: 'map/draw-actions',
+    title: 'map/action/draw-action',
     parameters: {
         controls: { hideNoControlsWarning: true },
     },

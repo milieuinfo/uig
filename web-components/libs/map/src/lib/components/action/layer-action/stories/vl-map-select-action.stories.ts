@@ -6,7 +6,7 @@ import '../../../layer/vector-layer/vl-map-features-layer';
 import '../vl-map-select-action';
 
 export default {
-    title: 'map/layer-actions',
+    title: 'map/action/layer-action',
     parameters: {
         controls: { hideNoControlsWarning: true },
     },

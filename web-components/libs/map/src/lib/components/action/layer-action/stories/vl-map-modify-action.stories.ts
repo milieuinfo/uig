@@ -8,7 +8,7 @@ import '../../../layer-style/vl-map-layer-style';
 import '../vl-map-modify-action';
 
 export default {
-    title: 'map/layer-actions',
+    title: 'map/action/layer-action',
     parameters: {
         controls: { hideNoControlsWarning: true },
     },
