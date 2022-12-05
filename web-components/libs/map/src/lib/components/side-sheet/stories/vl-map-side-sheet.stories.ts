@@ -1,10 +1,10 @@
 import { html } from 'lit-html';
 import '../../../vl-map';
 import '../../baselayer/vl-map-base-layer-grb-gray';
-import '../../side-sheet/vl-map-side-sheet';
-import '../../side-sheet-menu/vl-map-side-sheet-menu';
+import '../vl-map-side-sheet';
+import '../vl-map-side-sheet-menu';
 import '../vl-map-side-sheet-menu-item';
-import { sideSheetArgs, sideSheetArgTypes } from './vl-map-side-sheet-menu-item.stories-arg';
+import { sideSheetArgs, sideSheetArgTypes } from './vl-map-side-sheet.stories-arg';
 
 export default {
     title: 'map/side-sheet',
@@ -14,7 +14,7 @@ export default {
     args: sideSheetArgs,
     argTypes: sideSheetArgTypes,
 };
-export const sideSheetMenuItemDefault = ({ title, href }) => html`
+export const sideSheetDefault = ({ title, href }) => html`
     <vl-map>
         <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
         <vl-map-side-sheet>
@@ -26,4 +26,4 @@ export const sideSheetMenuItemDefault = ({ title, href }) => html`
         </vl-map-side-sheet>
     </vl-map>
 `;
-sideSheetMenuItemDefault.storyName = 'vl-map-side-sheet-menu-item - default';
+sideSheetDefault.storyName = 'vl-map-side-sheet - default';
