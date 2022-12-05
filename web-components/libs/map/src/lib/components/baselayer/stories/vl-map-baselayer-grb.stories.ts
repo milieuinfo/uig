@@ -1,4 +1,4 @@
-import { baselayerArgs, baselayerArgTypes } from './baselayer.stories-arg';
+import { baselayerArgs, baselayerArgTypes } from './vl-map-baselayer.stories-arg';
 import { html } from 'lit-html';
 import '../../../vl-map';
 import '../vl-map-base-layer-grb';

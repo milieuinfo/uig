@@ -25,23 +25,6 @@ export const drawPolygonActionDefault = ({ active }) => html`
 `;
 drawPolygonActionDefault.storyName = 'vl-map-draw-polygon-action - default';
 
-export const drawPolygonActionWithDefaultActive = () => html`
-    <vl-map>
-        <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-        <vl-map-features-layer>
-            <vl-map-draw-polygon-action data-vl-default-active></vl-map-draw-polygon-action>
-        </vl-map-features-layer>
-    </vl-map>
-`;
-drawPolygonActionWithDefaultActive.storyName = 'vl-map-draw-polygon-action - with default active';
-drawPolygonActionWithDefaultActive.argTypes = {
-    active: {
-        control: {
-            disable: true,
-        },
-    },
-};
-
 export const drawPolygonActionWithSnapping = ({ active }) => html` <vl-map>
     <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
     <vl-map-features-layer>

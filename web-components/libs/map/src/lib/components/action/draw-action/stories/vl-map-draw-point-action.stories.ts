@@ -25,23 +25,6 @@ export const drawPointActionDefault = ({ active }) => html`
 `;
 drawPointActionDefault.storyName = 'vl-map-draw-point-action - default';
 
-export const drawPointActionWithDefaultActive = () => html`
-    <vl-map>
-        <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-        <vl-map-features-layer>
-            <vl-map-draw-point-action data-vl-default-active></vl-map-draw-point-action>
-        </vl-map-features-layer>
-    </vl-map>
-`;
-drawPointActionWithDefaultActive.storyName = 'vl-map-draw-point-action - with default active';
-drawPointActionWithDefaultActive.argTypes = {
-    active: {
-        control: {
-            disable: true,
-        },
-    },
-};
-
 export const drawPointActionWithSnapping = ({ active }) => html`
     <vl-map>
         <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
