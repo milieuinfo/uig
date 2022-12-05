@@ -23,7 +23,6 @@ export const searchDefault = () =>
     `;
 searchDefault.storyName = 'vl-map-search - default';
 
-// TODO: bug in docs tab
 export const searchSeparateFunctionality = () => html`
     <vl-map-search id="bind-map-search"></vl-map-search>
     <vl-map id="map">
