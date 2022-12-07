@@ -254,6 +254,8 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.run_number }}
       - name: release the beta branch
         if: contains('refs/heads/beta, refs/heads/beta-apo, refs/heads/beta-dec, refs/heads/beta-olo, refs/heads/beta-phe, refs/heads/beta-uig', github.ref)
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_UIG }}
         run: |
           cd ./web-components
           mv .releaserc-beta .releaserc
