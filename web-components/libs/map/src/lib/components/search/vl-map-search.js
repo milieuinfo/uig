@@ -52,6 +52,16 @@ class VlMapSearch extends BaseElementOfType(HTMLElement) {
     }
 
     /**
+     * Register map event.
+     *
+     * @param {*} event
+     * @param {*} callback
+     */
+    on(event, callback) {
+        this._map.on(event, callback);
+    }
+
+    /**
      * Bepaal callback die uitgevoerd wordt bij selectie van een locatie via de map search.
      *
      * @param {Function} callback

@@ -1,10 +1,14 @@
 import { awaitUntil } from '@domg-wc/common-utilities';
-import { assert, fixture, html } from '@open-wc/testing';
+import { assert, fixture, html, expect } from '@open-wc/testing';
 import sinon from 'sinon';
 import '../../vl-map';
 import './vl-map-search';
 
 const mapSearchFixture = async () => fixture(html` <vl-map-search></vl-map-search> `);
+
+const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+};
 
 const mapWithSearchFixture = async () =>
     fixture(html`

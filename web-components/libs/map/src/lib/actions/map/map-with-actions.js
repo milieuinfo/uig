@@ -13,20 +13,22 @@ export class VlMapWithActions extends Map {
     return 300;
   }
 
-  constructor(options = {}) {
-    const enableRotation = !options.disableRotation;
-    const enableMouseWheelZoom = !options.disableMouseWheelZoom;
-    const interactions = defaults({
-      altShiftDragRotate: enableRotation,
-      pinchRotate: enableRotation,
-      mouseWheelZoom: enableMouseWheelZoom,
-    });
-    if (options && options.interactions) {
-      options.interactions.forEach((interaction) => interactions.push(interaction));
-    }
-    options.interactions = interactions;
-    super(options);
-    this.actions = [];
+    constructor(options = {}) {
+        const { disableRotation, disableMouseWheelZoom, disableKeyboard } = options;
+        const enableRotation = !disableRotation;
+        const enableMouseWheelZoom = !disableMouseWheelZoom;
+        const interactions = defaults({
+            altShiftDragRotate: enableRotation,
+            pinchRotate: enableRotation,
+            mouseWheelZoom: enableMouseWheelZoom,
+            keyboard: !disableKeyboard,
+        });
+        if (options && options.interactions) {
+            options.interactions.forEach((interaction) => interactions.push(interaction));
+        }
+        options.interactions = interactions;
+        super(options);
+        this.actions = [];
 
     options.actions.forEach((action) => {
       this.addAction(action);

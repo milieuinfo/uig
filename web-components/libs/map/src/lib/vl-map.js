@@ -56,6 +56,15 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
     }
 
     /**
+     * Exposes the OpenLayers map getView().
+     *
+     * @return {Object}
+     */
+    getView() {
+        return this.map.getView();
+    }
+
+    /**
      * Returns the OpenLayers map layers that are not used as a base map layer.
      *
      * @return {Object[]}
@@ -74,6 +83,10 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
 
     get disableMouseWheelZoom() {
         return this.getAttribute('disable-mouse-wheel-zoom') != undefined;
+    }
+
+    get disableKeyboard() {
+        return this.getAttribute('disable-keyboard') != undefined;
     }
 
     get actions() {
@@ -123,6 +136,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
             disableEscapeKey: this.disableEscapeKey,
             disableRotation: this.disableRotation,
             disableMouseWheelZoom: this.disableMouseWheelZoom,
+            disableKeyboard: this.disableKeyboard,
             customLayers: {
                 baseLayerGroup: this.__createLayerGroup('Basis lagen', []),
                 overviewMapLayers: [],
