@@ -1,6 +1,15 @@
 import Interaction from 'ol/interaction/Interaction';
+import Map from 'ol/Map';
 
 export class VlMapAction {
+
+    /**
+     * property that keeps reference to instance of Map class (OpenLayers)
+     * @public
+     * @type {import("ol/Map").Map}
+     */
+    public map: Map;
+
     get interactions(): Interaction[] {
         return this._interactions;
     }
