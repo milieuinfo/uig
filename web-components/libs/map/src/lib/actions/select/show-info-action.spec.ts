@@ -1,15 +1,13 @@
-import VectorSource from 'ol/source/Vector';
+import { VlShowInfoAction } from '@domg-lib/map';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
-import { VlShowInfoSelectAction } from './show-info-select-action';
+import VectorSource from 'ol/source/Vector';
 
-describe('show info select action', () => {
+describe('show info action', () => {
     let map;
-    let showInfoSelectAction;
+    let showInfoAction;
     let feature;
     let source;
-    let doneFunctionCalled;
-    let visibility;
     let mapWasRerendered;
 
     const waitFor = (done, callback) => {
@@ -39,54 +37,30 @@ describe('show info select action', () => {
             render: () => {
                 mapWasRerendered = true;
             },
-            on: jest.fn(),
-            un: jest.fn(),
         };
         feature = new Feature();
         feature.setGeometry(new Point([0, 0]));
-        doneFunctionCalled = false;
-        showInfoSelectAction = new VlShowInfoSelectAction(
+        showInfoAction = new VlShowInfoAction(
             {
                 getSource: () => source,
-                setVisible: (visible) => (visibility = visible),
-                getVisible: () => visibility,
             },
             infoPromise,
             'loading message',
-            () => (doneFunctionCalled = true),
         );
-        showInfoSelectAction.map = map;
-    });
-
-    it('bij het activeren wordt de laag op visible gezet', () => {
-        visibility = false;
-        showInfoSelectAction.activate();
-        expect(visibility).toBe(true);
-    });
-
-    it('bij het deactiveren wordt de laag zichtbaarheid weer op de oorspronkelijke waarde gezet', () => {
-        visibility = false;
-        showInfoSelectAction.activate();
-        showInfoSelectAction.deactivate();
-        expect(visibility).toBe(false);
-
-        visibility = true;
-        showInfoSelectAction.activate();
-        showInfoSelectAction.deactivate();
-        expect(visibility).toBe(true);
+        showInfoAction.map = map;
     });
 
     it('zet een overlay op de map wanneer punt getekend werd, met daarin inhoud van de promise', (done) => {
-        showInfoSelectAction.selectInteraction.getFeatures().push(feature);
-        const event = { type: 'select', mapBrowserEvent: { coordinate: [0, 0] } };
-        showInfoSelectAction.selectInteraction.dispatchEvent(event);
+        showInfoAction.drawInteraction.dispatchEvent({
+            type: 'drawend',
+            feature,
+        });
         const contentShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
             '<span class="content">content of info object</span><div class="arrow"></div>';
         waitFor(contentShown, () => {
             expect(map.overlays[0].getPosition()).toEqual([0, 0]);
-            expect(doneFunctionCalled).toBe(true);
             done();
         });
     });
@@ -95,20 +69,18 @@ describe('show info select action', () => {
         const infoPromise = () => ({
             then: (callback) => setTimeout(() => callback('content of info object'), 600),
         });
-        showInfoSelectAction = new VlShowInfoSelectAction(
+        showInfoAction = new VlShowInfoAction(
             {
-                getSource: () => new VectorSource(),
-                setVisible: () => {},
-                getVisible: () => {},
+                getSource: () => new VectorSource({}),
             },
             infoPromise,
             'loading message',
-            () => {},
         );
-        showInfoSelectAction.map = map;
-        showInfoSelectAction.selectInteraction.getFeatures().push(feature);
-        const event = { type: 'select', mapBrowserEvent: { coordinate: [0, 0] } };
-        showInfoSelectAction.selectInteraction.dispatchEvent(event);
+        showInfoAction.map = map;
+        showInfoAction.drawInteraction.dispatchEvent({
+            type: 'drawend',
+            feature,
+        });
         const loadingShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
@@ -126,12 +98,18 @@ describe('show info select action', () => {
     });
 
     it('overlays worden verwijderd als de interactie gedeactiveerd wordt', (done) => {
-        showInfoSelectAction.selectInteraction.getFeatures().push(feature);
-        const event = { type: 'select', mapBrowserEvent: { coordinate: [0, 0] } };
-        showInfoSelectAction.selectInteraction.dispatchEvent(event);
-        const contentShown = () => map.overlays.length === 1;
+        showInfoAction.drawInteraction.dispatchEvent({
+            type: 'drawend',
+            feature,
+        });
+        source.addFeature(feature);
+        showInfoAction.drawInteraction.dispatchEvent({
+            type: 'drawend',
+            feature,
+        });
+        const contentShown = () => map.overlays.length === 2 && source.getFeatures().length > 0;
         waitFor(contentShown, () => {
-            showInfoSelectAction.deactivate();
+            showInfoAction.deactivate();
             expect(map.overlays.length).toBe(0);
             expect(source.getFeatures().length).toBe(0);
             done();
@@ -140,22 +118,24 @@ describe('show info select action', () => {
 
     it('een default offset van [0, -10] wordt gebruikt wanneer er geen offset wordt meegegeven', (done) => {
         const infoPromise = () => ({
-            then: (callback) => setTimeout(() => callback('content of info object'), 600),
+            then(callback) {
+                setTimeout(() => {
+                    callback('content of info object');
+                }, 600);
+            },
         });
-        showInfoSelectAction = new VlShowInfoSelectAction(
+        showInfoAction = new VlShowInfoAction(
             {
-                getSource: () => new VectorSource(),
-                setVisible: () => {},
-                getVisible: () => {},
+                getSource: () => new VectorSource({}),
             },
             infoPromise,
             'loading message',
-            () => {},
         );
-        showInfoSelectAction.map = map;
-        showInfoSelectAction.selectInteraction.getFeatures().push(feature);
-        const event = { type: 'select', mapBrowserEvent: { coordinate: [0, 0] } };
-        showInfoSelectAction.selectInteraction.dispatchEvent(event);
+        showInfoAction.map = map;
+        showInfoAction.drawInteraction.dispatchEvent({
+            type: 'drawend',
+            feature,
+        });
         const contentShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
@@ -170,21 +150,19 @@ describe('show info select action', () => {
         const infoPromise = () => ({
             then: (callback) => setTimeout(() => callback('content of info object'), 600),
         });
-        showInfoSelectAction = new VlShowInfoSelectAction(
+        showInfoAction = new VlShowInfoAction(
             {
-                getSource: () => new VectorSource(),
-                setVisible: () => {},
-                getVisible: () => {},
+                getSource: () => new VectorSource({}),
             },
             infoPromise,
             'loading message',
-            () => {},
             { offset: [0, 0] },
         );
-        showInfoSelectAction.map = map;
-        showInfoSelectAction.selectInteraction.getFeatures().push(feature);
-        const event = { type: 'select', mapBrowserEvent: { coordinate: [0, 0] } };
-        showInfoSelectAction.selectInteraction.dispatchEvent(event);
+        showInfoAction.map = map;
+        showInfoAction.drawInteraction.dispatchEvent({
+            type: 'drawend',
+            feature,
+        });
         const contentShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===

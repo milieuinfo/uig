@@ -1,11 +1,10 @@
-import { VlSelectAction } from './select-action';
-import { VlTooltips } from '../tooltips';
+import { VlSelectAction, VlTooltips } from '@domg-lib/map';
 
 export class VlShowInfoSelectAction extends VlSelectAction {
     private tooltips: VlTooltips;
     private visible: boolean;
 
-    constructor(layer, infoPromise, loadingMessage, doneLoading, tooltipOptions) {
+    constructor(layer, infoPromise, loadingMessage, doneLoading, tooltipOptions?) {
         super(layer, (feature, event) => {
             if (feature) {
                 const coordinate = feature.getGeometry().getClosestPoint(event.mapBrowserEvent.coordinate);

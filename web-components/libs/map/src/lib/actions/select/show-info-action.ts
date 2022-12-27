@@ -1,10 +1,9 @@
-import { VlDrawAction } from '../draw/draw-action';
-import { VlTooltips } from '../tooltips';
+import { VlDrawAction, VlTooltips } from '@domg-lib/map';
 
 export class VlShowInfoAction extends VlDrawAction {
     private Vltooltips: VlTooltips;
 
-    constructor(layer, infoPromise, loadingMessage, tooltipOptions) {
+    constructor(layer, infoPromise, loadingMessage, tooltipOptions?) {
         const Vltooltips = new VlTooltips(layer, infoPromise, loadingMessage);
 
         super(layer, 'Point', (feature) => {

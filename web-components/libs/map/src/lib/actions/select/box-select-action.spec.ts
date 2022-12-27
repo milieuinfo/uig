@@ -1,6 +1,6 @@
-import Map from 'ol/Map';
+import { VlBoxSelectAction } from '@domg-lib/map';
 import Feature from 'ol/Feature';
-import { VlBoxSelectAction } from './box-select-action';
+import Map from 'ol/Map';
 
 describe('box select action', () => {
     const feature1 = new Feature({ id: 1 });
@@ -9,7 +9,7 @@ describe('box select action', () => {
     let callback;
     let stub;
 
-    const createVlBoxSelectAction = (filter) => {
+    const createVlBoxSelectAction = (filter?: (feature) => boolean) => {
         callback = jest.fn();
         const action = new VlBoxSelectAction(
             {
@@ -23,8 +23,10 @@ describe('box select action', () => {
             callback,
             { filter },
         );
-        stub = jest.spyOn(action.dragBoxInteraction, 'getGeometry').mockClear().mockReturnValue({ getExtent: () => {} });
-        action.map = new Map();
+        stub = jest.spyOn(action.dragBoxInteraction, 'getGeometry').mockClear()
+            // @ts-ignore
+            .mockReturnValue({ getExtent: () => {} });
+        action.map = new Map({});
         return action;
     };
 

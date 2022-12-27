@@ -1,15 +1,17 @@
+import { VlSelectAction } from '@domg-lib/map';
 import VectorLayer from 'ol/layer/Vector';
 import { Style } from 'ol/style';
-import { VlSelectAction } from './select-action';
 
 export class VlSelectActions extends VlSelectAction {
-    private layerConfiguraties: {
+    layerConfiguraties: {
         layer: VectorLayer<any>,
         style: Style,
         hoverStyle: Style,
     }[];
-    private layers: VectorLayer<any>[];
-  constructor(layerConfiguraties, onSelect, options) {
+    layers: VectorLayer<any>[];
+
+
+  constructor(layerConfiguraties, onSelect?, options?) {
     const layers = layerConfiguraties.map((layerConfiguratie) => layerConfiguratie.layer);
 
     const style = (feature) => {
@@ -63,7 +65,7 @@ export class VlSelectActions extends VlSelectAction {
     return this._getLayerStyle(layer, 'hoverStyle') || this._getLayerStyle(layer);
   }
 
-  markFeatureWithId(id, layer) {
+  markFeatureWithId(id, layer?) {
     if (layer) {
       super.markFeatureWithId(id, layer);
     } else {

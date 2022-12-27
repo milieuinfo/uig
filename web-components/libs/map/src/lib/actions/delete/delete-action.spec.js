@@ -8,7 +8,7 @@ import { VlDeleteAction } from './delete-action';
 describe('delete action', () => {
     const createVlDeleteAction = ({ layer, callback, options = {} }) => {
         const action = new VlDeleteAction(layer, callback, options);
-        action.map = new Map();
+        action.map = new Map({});
         action.map.render = jest.fn();
         return action;
     };

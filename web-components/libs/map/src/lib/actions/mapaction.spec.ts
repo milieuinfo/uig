@@ -1,5 +1,5 @@
+import { VlMapAction } from '@domg-lib/map';
 import Interaction from 'ol/interaction/Interaction';
-import { VlMapAction } from './mapaction';
 
 describe('map action', () => {
     it('kan een interactie toevoegen die niet actief staat', () => {

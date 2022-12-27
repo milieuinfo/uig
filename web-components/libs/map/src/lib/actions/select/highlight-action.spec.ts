@@ -1,8 +1,8 @@
+import { VlHighlightAction } from '@domg-lib/map';
 import Feature from 'ol/Feature';
-import Style from 'ol/style/Style';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { VlHighlightAction } from './highlight-action';
+import Style from 'ol/style/Style';
 
 describe('highlight action', () => {
     it('kan de highlight stijl definiëren', () => {

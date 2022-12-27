@@ -1,15 +1,15 @@
-import Map from 'ol/Map';
-import Style from 'ol/style/Style';
+import { VlSelectAction } from '@domg-lib/map';
+import { never } from 'ol/events/condition';
 import Feature from 'ol/Feature';
 import VectorLayer from 'ol/layer/Vector';
+import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
-import { never } from 'ol/events/condition';
-import { VlSelectAction } from './select-action';
+import Style from 'ol/style/Style';
 
 describe('select action', () => {
-    const createVlSelectAction = ({ layer = {}, callback, options } = {}) => {
+    const createVlSelectAction = ({ layer = <VectorLayer<any>>{}, callback, options}: { layer?, callback?, options?}) => {
         const action = new VlSelectAction(layer, callback, options);
-        action.map = new Map();
+        action.map = new Map({});
         return action;
     };
 
@@ -37,7 +37,7 @@ describe('select action', () => {
     });
 
     it('kan de selectie en hover stijl niet bepalen als die niet gedefinieerd is', () => {
-        const selectAction = createVlSelectAction();
+        const selectAction = createVlSelectAction({});
         expect(selectAction.style).toBeNull();
         expect(selectAction.hoverStyle).toBeNull();
     });
@@ -165,6 +165,8 @@ describe('select action', () => {
                                     return feature2;
                                 case 3:
                                     return feature3;
+                                default:
+                                    return undefined;
                             }
                         },
                     }),
@@ -174,7 +176,7 @@ describe('select action', () => {
         });
 
         selectAction.selectFeature(feature);
-        selectAction.clearFeatures(feature);
+        selectAction.clearFeatures();
 
         selectAction.selectInteraction.getFeatures().push(feature2);
         selectAction.selectInteraction.dispatchEvent({ type: 'select' });
@@ -207,6 +209,8 @@ describe('select action', () => {
                                 return feature2;
                             case 3:
                                 return feature3;
+                            default:
+                                return undefined;
                         }
                     },
                 }),
@@ -230,7 +234,7 @@ describe('select action', () => {
     it('zal de onselect functie oproepen met lege argumenten als er een select wordt gedaan niet op een feature', () => {
         const onSelect = jest.fn();
         const selectAction = createVlSelectAction({ layer: [{}], callback: onSelect });
-        selectAction.map = new Map();
+        selectAction.map = new Map({});
         selectAction.activate();
         selectAction.selectInteraction.dispatchEvent('select');
         expect(onSelect).toHaveBeenCalled();
@@ -238,7 +242,7 @@ describe('select action', () => {
 
     it('zal bij een deactivate de selectie features clearen', () => {
         const selectAction = createVlSelectAction({ layer: [{}] });
-        selectAction.map = new Map();
+        selectAction.map = new Map({});
         const feature = new Feature({ id: 1 });
         selectAction.selectInteraction.getFeatures().push(feature);
         selectAction.deactivate();
@@ -271,7 +275,7 @@ describe('select action', () => {
         feature.setId(1);
         const featureWithId2 = new Feature();
         feature.setId(2);
-        let filter = (feature) => feature.getId() == 1;
+        let filter: any = (feature) => feature.getId() == 1;
         const selectAction = createVlSelectAction({
             layer: [new VectorLayer({ source: new VectorSource({ features: [feature, featureWithId2] }) })],
             options: {
@@ -290,8 +294,8 @@ describe('select action', () => {
                 cluster: true,
             },
         });
-        selectAction.map = {
-            on: jest.fn(),
+        selectAction.map = <Map>{
+            on: <any>jest.fn(),
         };
         selectAction.activate();
         expect(selectAction.map.on).toHaveBeenCalledWith('moveend', selectAction._fixClusterBehaviorListener);
@@ -304,9 +308,9 @@ describe('select action', () => {
                 cluster: true,
             },
         });
-        selectAction.map = {
-            on: jest.fn(),
-            un: jest.fn(),
+        selectAction.map = <Map>{
+            on: <any>(jest.fn()),
+            un: <any>(jest.fn()),
         };
         selectAction.activate();
         selectAction.deactivate();
@@ -346,7 +350,7 @@ describe('select action', () => {
     });
 
     it('het markeren kan niet door een gebruiker worden getriggered', () => {
-        const selectAction = createVlSelectAction();
-        expect(selectAction.markInteraction.condition_).toBe(never);
+        const selectAction = createVlSelectAction({});
+        expect(selectAction.markInteraction['condition_']).toBe(never);
     });
 });

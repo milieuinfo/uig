@@ -2,7 +2,7 @@ import { Fill, Stroke, Style, Circle } from 'ol/style';
 import { VlBoxSelectAction } from '../select/box-select-action';
 
 export class VlDeleteAction extends VlBoxSelectAction {
-  constructor(layer, onDelete, options = {}) {
+  constructor(layer, onDelete, options:any = {}) {
     const defaultStyle = new Style({
       fill: new Fill({
         color: 'rgba(241, 174, 174, 0.26)',
@@ -37,7 +37,7 @@ export class VlDeleteAction extends VlBoxSelectAction {
     super(
       layer,
       (features) => {
-        if (onDelete && onDelete != null) {
+        if (onDelete) {
           onDelete(
             features,
             (feature) => {

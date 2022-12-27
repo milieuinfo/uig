@@ -66,17 +66,18 @@ describe('select actions', () => {
         };
         const feature = jest.fn();
         const selectActions = new VlSelectActions(layerConfiguraties, onSelect, options);
+        // @ts-ignore
         selectActions.filter(feature, layer1);
         expect(filter).toHaveBeenCalledWith(feature);
     });
 
     it('kan de selectie en hover stijl per kaartlaag definiëren', () => {
-        const selectieStyle1 = () => new Style();
-        const selectieStyle2 = () => {
+        const selectieStyle1 = (feature1: Feature<any>) => new Style();
+        const selectieStyle2 = (feature2: Feature<any>) => {
             new Style();
         };
-        const hoverStyle1 = () => new Style();
-        const hoverStyle2 = () => new Style();
+        const hoverStyle1 = (feature1: Feature<any>) => new Style();
+        const hoverStyle2 = (feature2: Feature<any>) => new Style();
         const feature1 = new Feature();
         const feature2 = new Feature();
         const layerConfiguraties = [
@@ -107,8 +108,8 @@ describe('select actions', () => {
     });
 
     it('zal per kaartlaag terugvallen op de selectie stijl indien er geen hover stijl gedefinieerd is', () => {
-        const selectieStyle1 = () => new Style();
-        const selectieStyle2 = () => {
+        const selectieStyle1 = (feature1: Feature<any>) => new Style();
+        const selectieStyle2 = (feature2: Feature<any>) => {
             new Style();
         };
         const feature1 = new Feature();
