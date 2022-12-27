@@ -39,6 +39,12 @@
             "options": {
                 "command": "web-test-runner \"dist/libs/map/**/*.wctest.js\""
             }
+        },
+        "wctdetail": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "web-test-runner \"dist/libs/map/**/vl-map.wctest.js\""
+            }
         }
     },
     "tags": []
