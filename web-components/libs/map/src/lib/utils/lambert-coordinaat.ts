@@ -1,4 +1,6 @@
 class LambertCoordinaat {
+    private readonly _x: any;
+    private readonly _y: any;
     constructor(x, y) {
         this._x = x;
         this._y = y;

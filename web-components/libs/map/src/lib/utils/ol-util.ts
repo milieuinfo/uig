@@ -1,5 +1,5 @@
 export class OpenLayersUtil {
-    static createDummyLayer(id, source) {
+    static createDummyLayer(id, source?) {
         return {
             id: id,
             addEventListener: () => {},
@@ -21,7 +21,7 @@ export class OpenLayersUtil {
         };
     }
 
-    static createDummySource(features) {
+    static createDummySource(features?) {
         return {
             addEventListener: () => {},
             getExtent: () => {},
