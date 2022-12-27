@@ -1,9 +1,28 @@
-import { Select } from 'ol/interaction';
-import { click, pointerMove, never } from 'ol/events/condition';
+import { Feature } from 'ol';
+import { FilterFunction } from 'ol/interaction/Select';
+import { Style } from 'ol/style';
 import { VlMapAction } from '../mapaction';
 
+import { click, never, pointerMove } from 'ol/events/condition';
+import { Select } from 'ol/interaction';
+import { Layer } from 'ol/layer';
+import { Cluster } from 'ol/source';
+
 export class VlSelectAction extends VlMapAction {
-  constructor(layer, onSelect, options) {
+    private selectInteraction: any;
+    private readonly cluster: Cluster;
+    private readonly filter: FilterFunction;
+    private readonly layer: Layer;
+    private style: Style;
+    private hoverStyle: any;
+    private hoverInteraction: Select;
+    private markInteraction: Select;
+    private selectedFeature: Feature;
+    private readonly getLayer: () => Layer;
+    private selectInteractionFilter: (feature, layer) => boolean;
+    private hoverInteractionFilter: (feature, layer) => boolean;
+    private _fixClusterBehaviorListener: () => void;
+  constructor(layer: Layer, onSelect, options) {
     const cluster = options && options.cluster;
     const filter = options && options.filter ? options.filter : () => true;
     const style = options ? options.style : null;
@@ -168,7 +187,7 @@ export class VlSelectAction extends VlMapAction {
     this.selectedFeature = null;
   }
 
-  markFeatureWithId(id, layer) {
+  markFeatureWithId(id, layer?) {
     layer = layer || this.layer;
     const feature =
       layer.getSource().getFeatureById(id) || this.getClusterWithFeatureId(layer.getSource().getFeatures(), id);

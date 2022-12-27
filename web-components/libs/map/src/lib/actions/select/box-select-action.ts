@@ -2,6 +2,7 @@ import DragBox from 'ol/interaction/DragBox';
 import { VlSelectAction } from './select-action';
 
 export class VlBoxSelectAction extends VlSelectAction {
+    private readonly dragBoxInteraction: DragBox;
   constructor(layer, onSelect, options) {
     super(
       layer,

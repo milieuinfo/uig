@@ -1,6 +1,14 @@
+import VectorLayer from 'ol/layer/Vector';
+import { Style } from 'ol/style';
 import { VlSelectAction } from './select-action';
 
 export class VlSelectActions extends VlSelectAction {
+    private layerConfiguraties: {
+        layer: VectorLayer<any>,
+        style: Style,
+        hoverStyle: Style,
+    }[];
+    private layers: VectorLayer<any>[];
   constructor(layerConfiguraties, onSelect, options) {
     const layers = layerConfiguraties.map((layerConfiguratie) => layerConfiguratie.layer);
 
@@ -46,7 +54,7 @@ export class VlSelectActions extends VlSelectAction {
     return this.layers.find((layer) => layer.getSource().getFeatures().indexOf(feature) !== -1);
   }
 
-  _getLayerStyle(layer, type) {
+  _getLayerStyle(layer, type?) {
     const layerConfiguratie = this.layerConfiguraties.find((layerConfiguratie) => layerConfiguratie.layer === layer);
     return layerConfiguratie ? layerConfiguratie[type || 'style'] : null;
   }
