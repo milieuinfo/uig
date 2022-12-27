@@ -1,4 +1,4 @@
-import { VlSelectAction } from '@domg-lib/map';
+import { VlSelectAction } from './select-action';
 import DragBox from 'ol/interaction/DragBox';
 
 export class VlBoxSelectAction extends VlSelectAction {

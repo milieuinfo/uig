@@ -1,4 +1,4 @@
-import { VlBoxSelectAction } from '@domg-lib/map';
+import { VlBoxSelectAction } from './box-select-action';
 import Feature from 'ol/Feature';
 import Map from 'ol/Map';
 

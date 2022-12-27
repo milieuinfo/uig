@@ -29,7 +29,7 @@ describe('modify action', () => {
 
     it('na het deactiveren wordt de selectie verwijderd', () => {
         const modifyAction = new VlModifyAction({});
-        modifyAction.map = new Map();
+        modifyAction.map = new Map({});
         const feature = new Feature({
             geometry: new Point([0, 0]),
         });

@@ -22,7 +22,7 @@ describe('split action', () => {
 //     };
 //     const createSplitAction = () => {
 //         const splitAction = new VlSplitAction(layer, callbackSpy, optionsSpy);
-//         splitAction.map = new Map();
+//         splitAction.map = new Map({});
 //         return splitAction;
 //     };
 //     it('zal bij het activeren een select en draw actie toevoegen aan de map en de select interacties activeren', () => {
@@ -57,7 +57,7 @@ describe('split action', () => {
 //     });
 //     it('zal na het selecteren de select action deactiveren en de draw action activeren', () => {
 //         const splitAction = createSplitAction();
-//         splitAction.selectAction.map = new Map();
+//         splitAction.selectAction.map = new Map({});
 //         splitAction.selectAction.selectInteraction.getFeatures().push(feature);
 //         splitAction.selectAction.selectInteraction.dispatchEvent({ type: 'select' });
 //         splitAction.selectAction.interactions.forEach((interaction) => expect(interaction.getActive()).to.be.false);

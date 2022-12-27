@@ -1,4 +1,4 @@
-import { VlSelectAction } from '@domg-lib/map';
+import { VlSelectAction } from './select-action';
 import { never } from 'ol/events/condition';
 import Feature from 'ol/Feature';
 import VectorLayer from 'ol/layer/Vector';

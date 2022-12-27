@@ -1,4 +1,4 @@
-import { VlHighlightAction } from '@domg-lib/map';
+import { VlHighlightAction } from './highlight-action';
 import Feature from 'ol/Feature';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
