@@ -260,6 +260,8 @@ jobs:
           npx semantic-release
       - name: release the main branch
         if: contains('refs/heads/main', github.ref)
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_UIG }}
         run: |
           cd ./web-components
           mv .releaserc-main .releaserc
