@@ -1,4 +1,5 @@
 import { assert, fixture, html } from '@open-wc/testing';
+
 import sinon from 'sinon';
 import proj4 from 'proj4';
 import { OpenLayersUtil } from './utils/ol-util.js';
@@ -70,7 +71,7 @@ describe('vl-map', async () => {
     });
 
     it('the extent contains Flanders', async () => {
-        const mapElement = await mapFixture();
+        const mapElement:any = await mapFixture();
         const extent = mapElement._extent;
 
         assert.lengthOf(extent, 4);
@@ -83,7 +84,7 @@ describe('vl-map', async () => {
     });
 
     it('can request the map actions', async () => {
-        const mapElement = await mapWithActionsAndControlFixture();
+        const mapElement:any = await mapWithActionsAndControlFixture();
         await mapElement.ready;
 
         assert.isTrue(!!mapElement.actions);
@@ -91,7 +92,7 @@ describe('vl-map', async () => {
     });
 
     it('can request the map controls', async () => {
-        const mapElement = await mapWithActionsAndControlFixture();
+        const mapElement:any = await mapWithActionsAndControlFixture();
         await mapElement.ready;
 
         assert.isTrue(!!mapElement.controls);
@@ -99,7 +100,7 @@ describe('vl-map', async () => {
     });
 
     it('can request the active action', async () => {
-        const mapElement = await mapWithActionsFixture();
+        const mapElement: any = await mapWithActionsFixture();
         await mapElement.ready;
         await sleep(350); // Wait for default action to be activated
 
@@ -114,7 +115,7 @@ describe('vl-map', async () => {
     });
 
     it('can request the default active action', async () => {
-        const mapElement = await mapWithActionsFixture();
+        const mapElement: any = await mapWithActionsFixture();
         await mapElement.ready;
 
         assert.isTrue(!!mapElement.defaultAction);
@@ -122,7 +123,7 @@ describe('vl-map', async () => {
     });
 
     it('can create a layer group', async () => {
-        const mapElement = await mapFixture();
+        const mapElement:any = await mapFixture();
 
         const title = 'title';
         const layer1 = OpenLayersUtil.createDummyLayer('layer 1');
@@ -138,7 +139,7 @@ describe('vl-map', async () => {
     });
 
     it('an action can be added to the map', async () => {
-        const mapElement = await mapFixture();
+        const mapElement:any = await mapFixture();
         const { map } = mapElement;
 
         const stub = sinon.stub(map, 'getDefaultActiveAction').callsFake(() => undefined);
@@ -156,7 +157,7 @@ describe('vl-map', async () => {
     });
 
     it('an action can be removed from the map', async () => {
-        const mapElement = await mapWithActionsAndControlFixture();
+        const mapElement:any = await mapWithActionsAndControlFixture();
         await mapElement.ready;
 
         const { map } = mapElement;
@@ -173,7 +174,7 @@ describe('vl-map', async () => {
     });
 
     it('if the action to be removed is the current action, the default is activated', async () => {
-        const mapElement = await mapWithActionsFixture();
+        const mapElement: any = await mapWithActionsFixture();
         await mapElement.ready;
         await sleep(350);
 
@@ -190,7 +191,7 @@ describe('vl-map', async () => {
     });
 
     it('if the action to be removed is the current action and the default active action, the action is deactivated and no other action gets activated', async () => {
-        const mapElement = await mapWithActionsFixture();
+        const mapElement: any = await mapWithActionsFixture();
         await mapElement.ready;
         await sleep(350);
 
@@ -204,7 +205,7 @@ describe('vl-map', async () => {
     });
 
     it('a control can be added to the map', async () => {
-        const mapElement = await mapFixture();
+        const mapElement:any = await mapFixture();
         const { map } = mapElement;
 
         const stub = sinon.stub(map, 'addControl');
@@ -220,7 +221,7 @@ describe('vl-map', async () => {
     });
 
     it('when an action is activated, the previous active action gets deactivated', async () => {
-        const mapElement = await mapWithActionsFixture();
+        const mapElement: any = await mapWithActionsFixture();
         await mapElement.ready;
         await sleep(350); // Wait for default action to be activated
         const { map } = mapElement;
@@ -234,7 +235,7 @@ describe('vl-map', async () => {
     });
 
     it("when an action is activated, its active state and its control active state will be set to true, and the previous active action's active state and its control active state will be set to false", async () => {
-        const mapElement = await mapWithActionsAndControlFixture();
+        const mapElement:any = await mapWithActionsAndControlFixture();
         await mapElement.ready;
 
         const controlAction2ToggleButton = mapElement.actions[1].getControl().element;
@@ -255,7 +256,7 @@ describe('vl-map', async () => {
     });
 
     it('an action can only be activated when its layer is visible', async () => {
-        const mapElement = await mapWithActionsAndControlFixture();
+        const mapElement:any = await mapWithActionsAndControlFixture();
         await mapElement.ready;
 
         const { map } = mapElement;
@@ -277,7 +278,7 @@ describe('vl-map', async () => {
     });
 
     it('when the current action is deactivated, the default action will be activated', async () => {
-        const mapElement = await mapWithActionsFixture();
+        const mapElement: any = await mapWithActionsFixture();
         await mapElement.ready;
         await sleep(350); // Wait for default action to be activated
 
@@ -297,7 +298,7 @@ describe('vl-map', async () => {
     });
 
     it("an action can only be deactivated when it's active", async () => {
-        const mapElement = await mapWithActionsAndControlFixture();
+        const mapElement:any = await mapWithActionsAndControlFixture();
         await mapElement.ready;
 
         const { map } = mapElement;
@@ -324,7 +325,7 @@ describe('vl-map', async () => {
     });
 
     it('an active action on a layer will be deactivated when that layer is set to invisible', async () => {
-        const mapElement = await mapWithActionsAndControlFixture();
+        const mapElement:any = await mapWithActionsAndControlFixture();
         await mapElement.ready;
 
         const { map } = mapElement;
@@ -346,7 +347,7 @@ describe('vl-map', async () => {
     });
 
     it('an action control that is linked to an action on a layer will be disabled when that layer is set to invisible and will de deactivated when the action was active', async () => {
-        const mapElement = await mapWithActionsAndControlFixture();
+        const mapElement:any = await mapWithActionsAndControlFixture();
         await mapElement.ready;
 
         const action = mapElement.actions[1];
@@ -369,7 +370,7 @@ describe('vl-map', async () => {
     });
 
     it('a default active action on a layer will be activated when the layer is set visible and there is no other action active', async () => {
-        const mapElement = await mapWithActionsAndMultipleLayersFixture();
+        const mapElement:any = await mapWithActionsAndMultipleLayersFixture();
         await mapElement.ready;
         await sleep(350); // Wait for default action to be activated
 
@@ -420,7 +421,7 @@ describe('vl-map', async () => {
     }).timeout(5000);
 
     it('you can zoom to a bounding box', async () => {
-        const mapElement = await mapFixture();
+        const mapElement:any = await mapFixture();
 
         sandbox.spy(mapElement._map, 'zoomToExtent');
 
@@ -431,7 +432,7 @@ describe('vl-map', async () => {
     });
 
     it('you can zoom to a geometry', async () => {
-        const mapElement = await mapFixture();
+        const mapElement:any = await mapFixture();
 
         sandbox.spy(mapElement._map, 'zoomToGeometry');
 
@@ -445,7 +446,7 @@ describe('vl-map', async () => {
     });
 
     it('when a map has the fullscreen attribute, the fullscreen control will be added', async () => {
-        let mapElement = await mapFixture();
+        let mapElement:any = await mapFixture();
 
         assert.isUndefined(
             mapElement._map.controls.getArray().find((control) => control instanceof OlFullScreenControl)

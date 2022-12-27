@@ -142,7 +142,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
     }
 
     __createZoomControl() {
-        const zoomOptions = {};
+        const zoomOptions: {zoomInTipLabel?, zoomOutTipLabel?} = {};
         if (this.zoomInTipLabel) {
             zoomOptions.zoomInTipLabel = this.zoomInTipLabel;
         }
@@ -320,7 +320,9 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
     }
 
     __createLayerGroup(title, layers) {
-        return new OlLayerGroup({
+        // title is not a valid option property, also can not find it in html DOM when setting it
+        // ref.: https://openlayers.org/en/v6.15.1/apidoc/module-ol_layer_Group-LayerGroup.html
+        return new OlLayerGroup(<any>{
             title,
             layers,
         });
