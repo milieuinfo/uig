@@ -1,4 +1,4 @@
-import { VlShowInfoAction } from '@domg-lib/map';
+import { VlShowInfoAction } from './show-info-action';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import VectorSource from 'ol/source/Vector';

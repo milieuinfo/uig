@@ -1,7 +1,6 @@
 import { Feature } from 'ol';
 import { FilterFunction } from 'ol/interaction/Select';
 import VectorLayer from 'ol/layer/Vector';
-import { Style } from 'ol/style';
 import { VlMapAction } from '../mapaction';
 
 import { click, never, pointerMove } from 'ol/events/condition';

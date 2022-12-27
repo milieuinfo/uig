@@ -1,4 +1,4 @@
-import { VlSelectAction } from '@domg-lib/map';
+import { VlSelectAction } from './select-action';
 import VectorLayer from 'ol/layer/Vector';
 import { Style } from 'ol/style';
 

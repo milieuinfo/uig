@@ -1,4 +1,4 @@
-import { VlMapAction } from '@domg-lib/map';
+import { VlMapAction } from '../mapaction';
 import { pointerMove } from 'ol/events/condition';
 import { Select } from 'ol/interaction';
 

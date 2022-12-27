@@ -1,4 +1,5 @@
-import { VlDrawAction, VlTooltips } from '@domg-lib/map';
+import { VlDrawAction } from '../draw/draw-action';
+import { VlTooltips } from '../tooltips';
 
 export class VlShowInfoAction extends VlDrawAction {
     private Vltooltips: VlTooltips;

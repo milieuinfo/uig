@@ -1,4 +1,4 @@
-import { VlShowInfoSelectAction } from '@domg-lib/map';
+import { VlShowInfoSelectAction } from './show-info-select-action';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import VectorSource from 'ol/source/Vector';

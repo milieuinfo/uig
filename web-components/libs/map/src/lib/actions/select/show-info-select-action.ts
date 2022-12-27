@@ -1,4 +1,5 @@
-import { VlSelectAction, VlTooltips } from '@domg-lib/map';
+import { VlTooltips } from '../tooltips';
+import { VlSelectAction } from './select-action';
 
 export class VlShowInfoSelectAction extends VlSelectAction {
     private tooltips: VlTooltips;
