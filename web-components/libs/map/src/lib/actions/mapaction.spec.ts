@@ -1,4 +1,4 @@
-import { VlMapAction } from '@domg-lib/map';
+import { VlMapAction } from './mapaction';
 import Interaction from 'ol/interaction/Interaction';
 
 describe('map action', () => {
