@@ -7,6 +7,9 @@ export const DEFAULT_ZOOM = 10;
 export const DEFAULT_TOOLTIP = 'Huidige locatie';
 
 export class VlMapCurrentLocation extends LitElement {
+    private zoom: number;
+    private tooltip: string;
+    private _mapElement: any;
     static get styles() {
         return [
             css`

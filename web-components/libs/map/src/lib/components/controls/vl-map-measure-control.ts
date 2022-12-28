@@ -51,4 +51,4 @@ export class VlMapMeasureControl extends VlMapControl(LitElement) {
   }
 }
 
-customElements.define('vl-map-measure-control', VlMapMeasureControl);
+customElements.define('vl-map-measure-control', <any>VlMapMeasureControl);

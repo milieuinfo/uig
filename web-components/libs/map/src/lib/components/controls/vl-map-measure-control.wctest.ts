@@ -1,9 +1,9 @@
 import { expect, fixture, html } from '@open-wc/testing';
-import '../layer/vector-layer/vl-map-features-layer';
+import '../../vl-map';
 import '../action/draw-action/vl-map-measure-action';
+import '../layer/vector-layer/vl-map-features-layer';
 import './vl-map-action-controls';
 import './vl-map-measure-control';
-import '../../vl-map';
 
 const measureControlFixture = async () =>
     fixture(html`
@@ -20,8 +20,8 @@ const measureControlFixture = async () =>
 
 describe('vl-map-measure-control', () => {
     it('the measure control is configured correctly', async () => {
-        const element = await measureControlFixture();
-        const vlMapMeasureControlElement = element.querySelector('vl-map-measure-control');
+        const element: any = await measureControlFixture();
+        const vlMapMeasureControlElement: any = element.querySelector('vl-map-measure-control');
 
         expect(vlMapMeasureControlElement).to.not.be.null;
         expect(vlMapMeasureControlElement.controlElement.tagName.toLowerCase() === 'vl-toggle-button').to.be.true;
@@ -30,19 +30,18 @@ describe('vl-map-measure-control', () => {
     });
 
     it('the measure control will be added to the map', async () => {
-        const element = await measureControlFixture();
+        const element: any = await measureControlFixture();
         await element.ready;
 
         const { map } = element.closest('vl-map');
         const controls = map.getControls().getArray();
 
-        expect(
-            !!controls.find((control) => control.get('element') && control.get('element').identifier === 'measure'),
-        ).to.be.true;
+        expect(!!controls.find((control) => control.get('element') && control.get('element').identifier === 'measure'))
+            .to.be.true;
     });
 
     it('the measure action of the measure control can be requested', async () => {
-        const element = await measureControlFixture();
+        const element: any = await measureControlFixture();
         await element.ready;
 
         const mapElement = element.closest('vl-map');
@@ -55,7 +54,7 @@ describe('vl-map-measure-control', () => {
     });
 
     it('the measure control can be activated and deactivated', async () => {
-        const element = await measureControlFixture();
+        const element: any = await measureControlFixture();
         await element.ready;
 
         const mapElement = element.closest('vl-map');
@@ -71,7 +70,7 @@ describe('vl-map-measure-control', () => {
     });
 
     it('the measure control can be disabled and enabled', async () => {
-        const element = await measureControlFixture();
+        const element: any = await measureControlFixture();
         await element.ready;
 
         const mapElement = element.closest('vl-map');

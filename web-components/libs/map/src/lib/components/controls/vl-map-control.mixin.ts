@@ -7,7 +7,7 @@ export const VlMapControl = (superClass) => {
             this._mapElement = this.closest('vl-map');
             this.map = this._mapElement.map;
             this.controlElement.isInMap = true;
-            this.control = new Control({
+            this.control = new Control(<any>{
                 element: this.controlElement,
                 target: this,
             });
