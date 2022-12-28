@@ -20,6 +20,7 @@ export class VlMapAction {
      * @type {import('ol/layer/Vector').VectorLayer}
      */
     layer: VectorLayer<any>;
+    element: { reset: () => void };
 
     get interactions(): Interaction[] {
         return this._interactions;

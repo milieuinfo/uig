@@ -1,4 +1,6 @@
+import Collection from 'ol/Collection';
 import GeoJSON from 'ol/format/GeoJSON';
+import BaseLayer from 'ol/layer/Base';
 import View from 'ol/View';
 import Overlay from 'ol/Overlay';
 import { Zoom, Rotate, ScaleLine, OverviewMap } from 'ol/control';
@@ -9,6 +11,14 @@ import { VlMapWithActions } from './map-with-actions';
  * De view kan in het map opties object bij constructie worden meegegeven of een default view wordt aangemaakt op basis van de projectie.
  */
 export class VlCustomMap extends VlMapWithActions {
+    private projection: any;
+    private view: any;
+    private custom: any;
+    private geoJSONFormat: GeoJSON;
+    private baseLayers: any;
+    private maxZoomViewToExtent: any;
+    private overviewMapControl: any;
+    private overviewMapLayers: any;
   constructor(options) {
     options.layers = [options.customLayers.baseLayerGroup, options.customLayers.overlayGroup];
 
@@ -58,7 +68,7 @@ export class VlCustomMap extends VlMapWithActions {
   createOverviewMapControl(options) {
     const self = this;
 
-    const toggleBaseLayer = (baseLayer) => {
+    const toggleBaseLayer = (baseLayer?) => {
       const getNextLayerAfterVisibleLayer = (layers) => {
         let currentIndex = 0;
         self.baseLayers.forEach((layer, index) => {
@@ -111,11 +121,15 @@ export class VlCustomMap extends VlMapWithActions {
   }
 
   getBaseLayers() {
-    return this.getLayerGroup().getLayers().getArray()[0].getLayers().getArray();
+      const layerCollection: Collection<BaseLayer> = this.getLayerGroup().getLayers();
+      const firstLayer: BaseLayer = layerCollection.getArray()[0];
+    return (<any>firstLayer).getLayers().getArray();
   }
 
   getOverlayLayers() {
-    return this.getLayerGroup().getLayers().getArray()[1].getLayers().getArray();
+      const layerCollection: Collection<BaseLayer> = this.getLayerGroup().getLayers();
+      const firstLayer: BaseLayer = layerCollection.getArray()[0];
+      return (<any>firstLayer).getLayers().getArray();
   }
 
   initializeView(boundingBox, maxZoom) {
@@ -154,7 +168,8 @@ export class VlCustomMap extends VlMapWithActions {
   showInfo(info, coordinate) {
     const close = document.createElement('div');
     close.setAttribute('class', 'close');
-    close.onclick = () => event.currentTarget.parentNode.remove();
+    // TODO investigate - "parentNode doesn't exist on currentTarget"
+    close.onclick = () => event.currentTarget['parentNode'].remove();
 
     const element = document.createElement('div');
     element.innerHTML = `<span class='content'>${info}</span><div class='arrow'></div>`;
@@ -169,6 +184,6 @@ export class VlCustomMap extends VlMapWithActions {
 
     this.addOverlay(tooltip);
     tooltip.setPosition(coordinate);
-    element.parentNode.style.position = 'fixed'; // because the overlay has absolute positioning and otherwise the left side panel could influence the overlay elements
+    element.parentNode['style'].position = 'fixed'; // because the overlay has absolute positioning and otherwise the left side panel could influence the overlay elements
   }
 }

@@ -9,7 +9,7 @@ import { VlSnapInteraction } from '../snap/snap-interaction';
 
 export class VlDrawAction extends VlMapAction {
     tooltip: Overlay;
-    private measurePointermoveHandler: EventsKey;
+    protected measurePointermoveHandler: EventsKey;
     drawInteraction: Draw;
     constructor(layer, type, onDraw, _options = {}) {
         const interactions = [];

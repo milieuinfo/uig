@@ -1,9 +1,15 @@
+import { EventsKey } from 'ol/events';
 import Overlay from 'ol/Overlay';
 import { unByKey } from 'ol/Observable';
 import GeometryType from 'ol/geom/GeometryType';
 import { VlDrawAction } from '../draw/draw-action';
 
 export class VlMeasureAction extends VlDrawAction {
+    private featureCounter: number;
+    private measurementTooltips: any[];
+    private drawStartHandler: EventsKey;
+    private drawEndHandler: EventsKey;
+    private removeFeatureHandler: any;
   constructor(layer, options) {
     super(
       layer,
@@ -31,7 +37,7 @@ export class VlMeasureAction extends VlDrawAction {
       this._handleRemoveFeature(event);
     });
 
-    super.activate(this);
+    super.activate();
   }
 
   _setMeasurementTooltipsClosable(closable) {
@@ -84,7 +90,7 @@ export class VlMeasureAction extends VlDrawAction {
     feature.setId(featureId);
 
     const tooltipElement = document.createElement('vl-pill');
-    tooltipElement.isInMap = true;
+    tooltipElement['isInMap'] = true;
 
     tooltipElement.addEventListener(
       'close',
@@ -140,7 +146,7 @@ export class VlMeasureAction extends VlDrawAction {
     this._removeMeasurementTooltip(event.feature.getId());
   }
 
-  _cleanUp(removeUnlinkedTooltips) {
+  _cleanUp(removeUnlinkedTooltips = true) {
     unByKey(this.measurePointermoveHandler);
 
     if (removeUnlinkedTooltips) {
@@ -175,7 +181,7 @@ export class VlMeasureAction extends VlDrawAction {
     unByKey(this.drawEndHandler);
     unByKey(this.removeFeatureHandler);
 
-    super.deactivate(this);
+    super.deactivate();
   }
 
   stop() {
