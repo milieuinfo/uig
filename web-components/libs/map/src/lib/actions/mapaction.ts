@@ -21,7 +21,7 @@ export class VlMapAction {
      */
     layer: VectorLayer<any>;
     element: { reset: () => void };
-
+    addAction: any;
     get interactions(): Interaction[] {
         return this._interactions;
     }

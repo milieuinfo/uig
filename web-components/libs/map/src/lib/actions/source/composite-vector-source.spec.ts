@@ -83,12 +83,12 @@ describe('composite wfs source', () => {
         fetchMock.mock('http://localhost/kaartlaag2', { status: 200, body: features2, headers: {} });
 
         const compositeVectorSource = new VlCompositeVectorSource([source1, source2]);
-        const loader = compositeVectorSource.loader_;
+        const loader = compositeVectorSource['loader_'];
         loader(extent, resolution, projection);
         setTimeout(() => {
             expect(compositeVectorSource.getFeatures().length).toBe(2);
             expect(compositeVectorSource.getFeatures()[0].getGeometry() instanceof MultiPolygon).toBe(true);
-            expect(compositeVectorSource.getFeatures()[0].getGeometry().getPolygons()[0].getCoordinates()).toEqual([
+            expect((<any>(compositeVectorSource.getFeatures()[0].getGeometry())).getPolygons()[0].getCoordinates()).toEqual([
                 [
                     [0, 0, 0],
                     [0, 10, 0],
@@ -98,7 +98,7 @@ describe('composite wfs source', () => {
                 ],
             ]);
             expect(compositeVectorSource.getFeatures()[1].getGeometry() instanceof MultiLineString).toBe(true);
-            expect(compositeVectorSource.getFeatures()[1].getGeometry().getLineStrings()[0].getCoordinates()).toEqual([
+            expect((<any>(compositeVectorSource.getFeatures()[1].getGeometry())).getLineStrings()[0].getCoordinates()).toEqual([
                 [0, 0, 0],
                 [20, 20, 0],
             ]);

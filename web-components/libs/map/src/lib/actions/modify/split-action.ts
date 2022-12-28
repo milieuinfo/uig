@@ -7,6 +7,9 @@ import { VlMapAction } from '../mapaction';
 import { VlDrawAction } from '../draw/draw-action';
 
 export class VlSplitAction extends VlMapAction {
+    private selectAction: any;
+    private drawAction: any;
+    override map: any;
   constructor(layer, onSplit, options) {
     const reader = new jsts.io.OL3Parser();
     reader.inject(Point, LineString, LinearRing, Polygon, MultiPoint, MultiLineString, MultiPolygon);

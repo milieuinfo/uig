@@ -2,7 +2,8 @@ import { Translate } from 'ol/interaction';
 import { VlModifyAction } from './modify-action';
 
 export class VlModifyAndTranslateAction extends VlModifyAction {
-  constructor(layer, onModify, options) {
+    translateInteraction: Translate;
+  constructor(layer, onModify, options?) {
     super(layer, onModify, options);
 
     this.translateInteraction = new Translate({

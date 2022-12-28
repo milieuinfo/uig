@@ -2,6 +2,7 @@ import OlVectorSource from 'ol/source/Vector';
 import * as OlLoadingstrategy from 'ol/loadingstrategy';
 
 export class VlCompositeVectorSource extends OlVectorSource {
+    private __sources: any;
   constructor(sources) {
     super({
       strategy: OlLoadingstrategy.bbox,

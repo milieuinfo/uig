@@ -14,11 +14,11 @@ describe('modify and translate action', () => {
         const modifyAndTranslateAction = new VlModifyAndTranslateAction({}, callback);
         const feature = new Feature({ geometry: new Point([0, 0]) });
         modifyAndTranslateAction.selectInteraction.getFeatures().push(feature);
-        modifyAndTranslateAction.translateInteraction.dispatchEvent({
+        modifyAndTranslateAction.translateInteraction.dispatchEvent(<any>{
             type: 'translateend',
             features: [feature],
         });
-        expect(callback).toHaveBeenCalledWith(feature, expect.anything())
+        expect(callback).toHaveBeenCalledWith(feature, expect.anything());
         expect(modifyAndTranslateAction.selectInteraction.getFeatures().getLength()).toBe(0);
     });
 

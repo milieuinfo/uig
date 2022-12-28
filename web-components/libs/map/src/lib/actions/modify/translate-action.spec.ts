@@ -7,7 +7,7 @@ describe('translate action', () => {
         const translateAction = new VlTranslateAction({}, callback);
         const feature = new Feature();
         translateAction.selectInteraction.getFeatures().push(feature);
-        translateAction.translateInteraction.dispatchEvent({
+        translateAction.translateInteraction.dispatchEvent(<any>{
             type: 'translateend',
             features: [feature],
         });

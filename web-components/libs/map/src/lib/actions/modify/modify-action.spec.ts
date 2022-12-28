@@ -1,3 +1,5 @@
+import { VlMapAction } from '@domg-lib/map';
+import BaseLayer from 'ol/layer/Base';
 import Map from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -20,7 +22,7 @@ describe('modify action', () => {
             geometry: new Point([0, 0]),
         });
         modifyAction.selectInteraction.getFeatures().push(feature);
-        modifyAction.modifyInteraction.dispatchEvent({
+        modifyAction.modifyInteraction.dispatchEvent(<any>{
             type: 'modifyend',
             features: [feature],
         });
@@ -55,24 +57,30 @@ describe('modify action', () => {
     });
 
     it('kan snapping aanzetten via opties met als standaard snapping layer de modify action layer', () => {
-        const options = {
+        const options: any = {
             filter,
         };
         let modifyAction = new VlModifyAction(layer, callback, options);
         expect(modifyAction.interactions.length).toBe(4);
-        expect(modifyAction.interactions.find((interaction) => interaction instanceof VlSnapInteraction)).toBeUndefined();
+        expect(
+            modifyAction.interactions.find((interaction) => interaction instanceof VlSnapInteraction)
+        ).toBeUndefined();
 
         options.snapping = false;
         modifyAction = new VlModifyAction(layer, callback, options);
         expect(modifyAction.interactions.length).toBe(4);
-        expect(modifyAction.interactions.find((interaction) => interaction instanceof VlSnapInteraction)).toBeUndefined();
+        expect(
+            modifyAction.interactions.find((interaction) => interaction instanceof VlSnapInteraction)
+        ).toBeUndefined();
 
         options.snapping = true;
         modifyAction = new VlModifyAction(layer, callback, options);
         expect(modifyAction.interactions.length).toBe(5);
         expect(modifyAction.interactions.find((interaction) => interaction instanceof VlSnapInteraction)).toBeDefined();
         expect(
-            modifyAction.interactions.find((interaction) => interaction instanceof VlSnapInteraction).source_,
+            modifyAction.interactions.find(
+                (interaction: VlSnapInteraction) => interaction instanceof VlSnapInteraction
+            )['source_']
         ).toBe(source);
 
         const snappingSource = new VectorSource({ features: [] });
@@ -83,9 +91,11 @@ describe('modify action', () => {
         };
         modifyAction = new VlModifyAction(layer, callback, options);
         expect(modifyAction.interactions.length).toBe(5);
-        const snapInteraction = modifyAction.interactions.find((interaction) => interaction instanceof VlSnapInteraction);
-        expect(snapInteraction.source_).toBe(snappingSource);
-        expect(snapInteraction.pixelTolerance_).toBe(1000);
+        const snapInteraction = modifyAction.interactions.find(
+            (interaction) => interaction instanceof VlSnapInteraction
+        );
+        expect(snapInteraction['source_']).toBe(snappingSource);
+        expect(snapInteraction['pixelTolerance_']).toBe(1000);
     });
 
     it('als er een snapping layer is wordt die toegevoegd en verwijderd bij het aan- en afzetten van de actie', () => {
@@ -111,7 +121,7 @@ describe('modify action', () => {
 
     const createModifyActionWithMap = (options) => {
         const modifyAction = new VlModifyAction(layer, callback, options);
-        modifyAction.map = {
+        modifyAction.map = <any>{
             addLayer: () => {},
             removeLayer: () => {},
         };

@@ -3,7 +3,10 @@ import Translate from 'ol/interaction/Translate';
 import { VlMapAction } from '../mapaction';
 
 export class VlTranslateAction extends VlMapAction {
-  constructor(layer, onTranslate) {
+    selectInteraction: Select;
+    translateInteraction: Translate;
+    translateOptions: { features: any; layers: any[] };
+  constructor(layer, onTranslate?) {
     const selectInteraction = new Select({
       layers: [layer],
       style: layer.selectionStyle,
