@@ -3,10 +3,11 @@ import Style from 'ol/style/Style';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import Feature from 'ol/Feature';
+import { MapActionPayload } from '../../vl-map.model';
 import { VlDeleteAction } from './delete-action';
 
 describe('delete action', () => {
-    const createVlDeleteAction = ({ layer, callback, options = {} }) => {
+    const createVlDeleteAction = ({ layer = <VectorLayer<any>>{}, callback, options}: MapActionPayload) => {
         const action = new VlDeleteAction(layer, callback, options);
         action.map = new Map({});
         action.map.render = jest.fn();
@@ -122,7 +123,9 @@ describe('delete action', () => {
         };
 
         const deleteAction = createVlDeleteAction({ layer });
-        const stub = jest.spyOn(deleteAction.dragBoxInteraction, 'getGeometry').mockClear().mockReturnValue({ getExtent: () => {} });
+        const stub = jest.spyOn(deleteAction.dragBoxInteraction, 'getGeometry').mockClear()
+            // @ts-ignore
+            .mockReturnValue({ getExtent: () => {} });
         deleteAction.dragBoxInteraction.dispatchEvent('boxdrag');
         deleteAction.dragBoxInteraction.dispatchEvent('boxend');
         expect(deleteAction.map.render).toHaveBeenCalled();

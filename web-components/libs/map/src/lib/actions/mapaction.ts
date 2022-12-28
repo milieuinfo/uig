@@ -4,9 +4,9 @@ import Map from 'ol/Map';
 
 export class VlMapAction {
 
-    // it's Style in this class but in inherited class VlSelectionActions it's () => Style
     style: any; // Style;
     hoverStyle: any; // Style;
+    options: any;
     /**
      * property that keeps reference to instance of Map class (OpenLayers)
      * @public

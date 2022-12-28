@@ -1,3 +1,4 @@
+import { MapActionPayload } from '../../vl-map.model';
 import { VlSelectAction } from './select-action';
 import { never } from 'ol/events/condition';
 import Feature from 'ol/Feature';
@@ -7,7 +8,7 @@ import VectorSource from 'ol/source/Vector';
 import Style from 'ol/style/Style';
 
 describe('select action', () => {
-    const createVlSelectAction = ({ layer = <VectorLayer<any>>{}, callback, options}: { layer?, callback?, options?}) => {
+    const createVlSelectAction = ({ layer = <VectorLayer<any>>{}, callback, options}: MapActionPayload) => {
         const action = new VlSelectAction(layer, callback, options);
         action.map = new Map({});
         return action;

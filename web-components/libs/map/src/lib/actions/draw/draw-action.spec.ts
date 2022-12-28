@@ -1,3 +1,4 @@
+import BaseLayer from 'ol/layer/Base';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Feature from 'ol/Feature';
@@ -6,6 +7,7 @@ import Polygon from 'ol/geom/Polygon';
 import LineString from 'ol/geom/LineString';
 import { VlDrawAction } from './draw-action';
 import { VlSnapInteraction } from '../snap/snap-interaction';
+import Map from 'ol/Map';
 
 describe('draw action', () => {
     const source = new VectorSource({ features: [] });
@@ -36,7 +38,7 @@ describe('draw action', () => {
     });
 
     it('kan snapping aanzetten via opties met als standaard snapping layer de draw action layer', () => {
-        const options = {
+        const options: any = {
             maxPoints: 2,
         };
 
@@ -59,7 +61,7 @@ describe('draw action', () => {
             pixelTolerance: 1000,
         };
         drawAction = new VlDrawAction(layer, 'LineString', callback, options);
-        const snapInteraction = drawAction.interactions.find((interaction) => interaction instanceof VlSnapInteraction);
+        const snapInteraction: any = drawAction.interactions.find((interaction) => interaction instanceof VlSnapInteraction);
         expect(snapInteraction.source_).toBe(snappingSource);
         expect(snapInteraction.pixelTolerance_).toBe(1000);
     });
@@ -89,7 +91,7 @@ describe('draw action', () => {
         const drawAction = new VlDrawAction(layer, 'Polygon', callback);
         const sketchFeature = new Feature();
 
-        drawAction.drawInteraction.dispatchEvent({
+        drawAction.drawInteraction.dispatchEvent(<any>{
             type: 'drawend',
             feature: sketchFeature,
         });
@@ -102,7 +104,7 @@ describe('draw action', () => {
         const drawAction = new VlDrawAction(layer, 'Polygon', callback);
         const sketchFeature = new Feature({});
 
-        drawAction.drawInteraction.dispatchEvent({
+        drawAction.drawInteraction.dispatchEvent(<any>{
             type: 'drawend',
             feature: sketchFeature,
         });
@@ -119,7 +121,7 @@ describe('draw action', () => {
         const drawAction = new VlDrawAction(layer, 'Polygon', callback);
         const sketchFeature = new Feature({});
 
-        drawAction.drawInteraction.dispatchEvent({
+        drawAction.drawInteraction.dispatchEvent(<any>{
             type: 'drawend',
             feature: sketchFeature,
         });
@@ -132,7 +134,7 @@ describe('draw action', () => {
             measure: true,
         };
         let drawAction = createDrawActionWithMap('Polygon', options);
-        let sketchFeature = new Feature({
+        let sketchFeature1 = new Feature({
             geometry: new Polygon([
                 [
                     [0, 0],
@@ -141,9 +143,9 @@ describe('draw action', () => {
                 ],
             ]),
         });
-        drawAction.drawInteraction.dispatchEvent({
+        drawAction.drawInteraction.dispatchEvent(<any>{
             type: 'drawstart',
-            feature: sketchFeature,
+            feature: sketchFeature1,
         });
         expect(addOverlay).toHaveBeenCalled();
         let tooltip = addOverlay.mock.calls[0][0];
@@ -157,15 +159,15 @@ describe('draw action', () => {
         addOverlay.mockReset();
 
         drawAction = createDrawActionWithMap('LineString', options);
-        sketchFeature = new Feature({
+        const sketchFeature2 = new Feature({
             geometry: new LineString([
                 [0, 0],
                 [1, 1],
             ]),
         });
-        drawAction.drawInteraction.dispatchEvent({
+        drawAction.drawInteraction.dispatchEvent(<any>{
             type: 'drawstart',
-            feature: sketchFeature,
+            feature: sketchFeature2,
         });
         expect(addOverlay).toHaveBeenCalled();
         tooltip = addOverlay.mock.calls[0][0];
@@ -188,7 +190,7 @@ describe('draw action', () => {
             },
         };
         let drawAction = createDrawActionWithMap('Polygon', options);
-        let sketchFeature = new Feature({
+        let sketchFeature:Feature<Polygon> = new Feature({
             geometry: new Polygon([
                 [
                     [0, 0],
@@ -197,7 +199,7 @@ describe('draw action', () => {
                 ],
             ]),
         });
-        drawAction.drawInteraction.dispatchEvent({
+        drawAction.drawInteraction.dispatchEvent(<any>{
             type: 'drawstart',
             feature: sketchFeature,
         });
@@ -212,15 +214,15 @@ describe('draw action', () => {
 
         addOverlay.mockReset();
         drawAction = createDrawActionWithMap('LineString', options);
-        sketchFeature = new Feature({
+        const sketchFeature2 = new Feature({
             geometry: new LineString([
                 [0, 0],
                 [1, 1],
             ]),
         });
-        drawAction.drawInteraction.dispatchEvent({
+        drawAction.drawInteraction.dispatchEvent(<any>{
             type: 'drawstart',
-            feature: sketchFeature,
+            feature: sketchFeature2,
         });
         expect(addOverlay).toHaveBeenCalled();
         tooltip = addOverlay.mock.calls[0][0];
@@ -245,7 +247,7 @@ describe('draw action', () => {
                 ],
             ]),
         });
-        drawAction.drawInteraction.dispatchEvent({
+        drawAction.drawInteraction.dispatchEvent(<any>{
             type: 'drawstart',
             feature: sketchFeature,
         });
@@ -267,11 +269,11 @@ describe('draw action', () => {
                 ],
             ]),
         });
-        drawAction.drawInteraction.dispatchEvent({
+        drawAction.drawInteraction.dispatchEvent(<any>{
             type: 'drawstart',
             feature: sketchFeature,
         });
-        drawAction.drawInteraction.dispatchEvent({
+        drawAction.drawInteraction.dispatchEvent(<any>{
             type: 'drawend',
             feature: sketchFeature,
         });
@@ -293,7 +295,7 @@ describe('draw action', () => {
                 ],
             ]),
         });
-        drawAction.drawInteraction.dispatchEvent({
+        drawAction.drawInteraction.dispatchEvent(<any>{
             type: 'drawstart',
             feature: sketchFeature,
         });
@@ -306,15 +308,15 @@ describe('draw action', () => {
         removeOverlay = jest.fn();
     };
 
-    const createDrawActionWithMap = (type, options) => {
+    const createDrawActionWithMap = (type, options?) => {
         setMeasureSpies();
         const drawAction = new VlDrawAction(layer, type, callback, options);
-        drawAction.map = {
+        drawAction.map = <Map>{
             addOverlay,
             removeOverlay,
             on: (type, callback) => (drawAction[type] = callback),
             addLayer: (layer) => {},
-            removeLayer: (layer) => {},
+            removeLayer: (layer) => <BaseLayer>{},
         };
         return drawAction;
     };

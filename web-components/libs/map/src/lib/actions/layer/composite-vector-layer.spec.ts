@@ -15,14 +15,14 @@ describe('composite wfs layer', () => {
         url: () => 'http://localhost/kaartlaag2',
     });
 
-    const layer1 = new VectorLayer({
+    const layer1 = new VectorLayer(<any>{
         title: 'Laag 1',
         source: source1,
         minResolution: 4,
         maxResolution: 8,
     });
 
-    const layer2 = new VectorLayer({
+    const layer2 = new VectorLayer(<any>{
         title: 'Laag 1',
         source: source2,
         minResolution: 2,
