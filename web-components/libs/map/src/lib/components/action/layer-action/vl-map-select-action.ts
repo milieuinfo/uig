@@ -1,24 +1,27 @@
 import { define } from '@domg-lib/common-utilities';
-import { VlDeleteAction } from '../../../actions';
 import { VlMapLayerAction } from './vl-map-layer-action';
 import { VlMapLayerStyle } from '../../layer-style/vl-map-layer-style';
+import { VlSelectAction } from '../../../actions';
 
 /**
- * VlMapDeleteAction
+ * VlMapSelectAction
  * @class
- * @classdesc The map delete action component.
+ * @classdesc The map select action component.
+ *
+ * @property {boolean} data-vl-cluster - Attribute indicates if the features are clustered or not.
  *
  * @extends VlMapLayerAction
  *
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-map/releases/latest|Release notes}
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-map/issues|Issues}
- * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-map-delete-action.html|Demo}
+ * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-map-select-action.html|Demo}
  */
-export class VlMapDeleteAction extends VlMapLayerAction {
+export class VlMapSelectAction extends VlMapLayerAction {
+    _action;
     /**
      * Returns the style that a selected feature will be given.
      *
-     * @return {Object} de stijl
+     * @return {Object} the style
      */
     get style() {
         return this._style;
@@ -38,17 +41,36 @@ export class VlMapDeleteAction extends VlMapLayerAction {
         this._processAction();
     }
 
-    /**
-     * Configure the function that will be called after processing an action.
-     * For each selected feature, the resolve callback will be used to delete the feature or the reject callback if the feature does not need to be deleted.
-     *
-     * @param {Function} callback function with the following arguments:
-     *                            - {[ol.Feature]} the features that are requested to be removed
-     *                            - {Function} resolve callback with the to be removed ol.Feature as argument
-     *                            - {Function} reject callback without argument, to remove the highlighted feature(s)
-     */
-    onDelete(callback) {
+    get _cluster() {
+        return this.getAttribute('cluster');
+    }
+
+    mark(id) {
+        if (this._action && id) {
+            this._action.markFeatureWithId(id, this.layer);
+        }
+    }
+
+    removeMarks() {
+        if (this._action) {
+            this._action.demarkAllFeatures();
+        }
+    }
+
+    select(feature) {
+        if (this.action && feature) {
+            this.action.selectFeature(feature);
+        }
+    }
+
+    onSelect(callback) {
         this.__callback = callback;
+    }
+
+    reset() {
+        if (this.action) {
+            this.action.clearFeatures();
+        }
     }
 
     /**
@@ -59,27 +81,18 @@ export class VlMapDeleteAction extends VlMapLayerAction {
      *
      * @Return {boolean} true if the action is allowed to be performed, false if the action may not be performed for the supplied feature and/or layer
      */
-    appliesTo() {
+    appliesTo(feature, layer) {
         return true;
     }
 
-    get _callback() {
-        return (features, resolve, reject) => {
-            if (this.__callback) {
-                this.__callback(features, resolve, reject);
-            } else {
-                features.forEach((feature) => resolve(feature));
-            }
-        };
-    }
-
-    _createAction(layer) {
+    _createAction(layer?) {
         const options = {
-            style: this._style,
+            style: this.style,
+            cluster: this._cluster !== undefined,
             filter: this.appliesTo.bind(this),
         };
-        return new VlDeleteAction(layer, this._callback, options);
+        return new VlSelectAction(layer, this._callback, options);
     }
 }
 
-define('vl-map-delete-action', VlMapDeleteAction);
+define('vl-map-select-action', VlMapSelectAction);

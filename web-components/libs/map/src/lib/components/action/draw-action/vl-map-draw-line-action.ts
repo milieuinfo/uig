@@ -1,12 +1,11 @@
-import GeometryType from 'ol/geom/GeometryType';
 import { define } from '@domg-lib/common-utilities';
 import { VlMapDrawAction } from './vl-map-draw-action';
-import { VlDrawAction } from '../../../actions';
+import { VlDrawAction, VlDrawLineAction } from '../../../actions';
 
 /**
- * VlMapDrawPointAction
+ * VlMapDrawLineAction
  * @class
- * @classdesc De kaart teken actie component.
+ * @classdesc De kaart lijn teken actie component.
  *
  * @extends VlMapDrawAction
  *
@@ -14,10 +13,10 @@ import { VlDrawAction } from '../../../actions';
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-map/issues|Issues}
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-map-draw-actions.html|Demo}
  */
-export class VlMapDrawPointAction extends VlMapDrawAction {
-    _createAction(layer) {
-        return new VlDrawAction(layer, GeometryType.POINT, this._callback, this.__drawOptions);
+export class VlMapDrawLineAction extends VlMapDrawAction {
+    _createAction(layer?): VlDrawAction {
+        return new VlDrawLineAction(layer, this._callback, this.__drawOptions);
     }
 }
 
-define('vl-map-draw-point-action', VlMapDrawPointAction);
+define('vl-map-draw-line-action', VlMapDrawLineAction);

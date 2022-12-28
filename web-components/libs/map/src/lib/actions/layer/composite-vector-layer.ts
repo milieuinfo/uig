@@ -5,7 +5,7 @@ import VectorSource from 'ol/source/Vector';
 import { VlCompositeVectorSource } from '../source/composite-vector-source';
 
 export class VlCompositeVectorLayer extends OlVectorLayer<VectorSource<Geometry>> {
-  constructor(wfsLayers, options: Options<VectorSource<Geometry>> & {title: string} = <any>{}) {
+  constructor(wfsLayers, options: Options<VectorSource<Geometry>> & {title?: string} = <any>{}) {
     super(<any>{
       title: options.title, // title doesn't exist as existing parameter
       source: new VlCompositeVectorSource(wfsLayers.map((layer) => layer.getSource())),

@@ -32,6 +32,7 @@ export class VlMapLayerAction extends VlMapAction {
      *
      * @return {Object}
      */
+    // @ts-ignore
     get layer() {
         return this._layer;
     }
@@ -59,6 +60,11 @@ export class VlMapLayerAction extends VlMapAction {
         }
     }
 
+    _createAction(layer?) {
+        // @ts-ignore
+        super._createAction(layer);
+    }
+
     _processAction() {
         this._mapElement.ready.then(() => {
             if (this._action) {
@@ -71,6 +77,7 @@ export class VlMapLayerAction extends VlMapAction {
             }
         });
     }
+
 }
 
 define('vl-map-layer-action', VlMapLayerAction);

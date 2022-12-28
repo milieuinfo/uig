@@ -45,11 +45,11 @@ export class VlMapModifyAction extends VlMapLayerAction {
      *
      * @Return {boolean} true if the action is allowed to be performed, false if the action may not be performed for the supplied feature and/or layer
      */
-    appliesTo() {
+    appliesTo(feature, layer) {
         return true;
     }
 
-    _createAction(layer) {
+    _createAction(layer?) {
         const options = {
             snapping: this.__snappingOptions,
             filter: this.appliesTo.bind(this),
@@ -105,7 +105,7 @@ export class VlMapModifyAction extends VlMapLayerAction {
         }
     }
 
-    get __snappingLayers() {
+    get __snappingLayers(): any {
         return Array.from(this.querySelectorAll('vl-map-wfs-layer'));
     }
 }

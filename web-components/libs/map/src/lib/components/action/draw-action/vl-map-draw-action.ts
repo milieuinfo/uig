@@ -1,6 +1,6 @@
 import { VlMapLayerAction } from '../layer-action/vl-map-layer-action';
 import { VlMapVectorLayer } from '../../layer/vector-layer/vl-map-vector-layer';
-import { VlCompositeVectorLayer } from '../../../actions';
+import { VlCompositeVectorLayer, VlDrawAction, VlDrawLineAction } from '../../../actions';
 
 /**
  * VlMapDrawAction
@@ -58,7 +58,7 @@ export class VlMapDrawAction extends VlMapLayerAction {
         return snappingLayer;
     }
 
-    get __snappingLayers() {
+    get __snappingLayers(): any {
         return Array.from(this.querySelectorAll('vl-map-wfs-layer'));
     }
 }

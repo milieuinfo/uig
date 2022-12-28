@@ -48,7 +48,7 @@ describe('vl-map-delete-action', () => {
     });
 
     it('delete action configuration is possible', async () => {
-        const map = await mapDeleteActionFixture();
+        const map: any = await mapDeleteActionFixture();
         const { layer } = map.querySelector('vl-map-features-layer');
         const action = map.map.actions[0];
         assert.deepEqual(action.layer, layer);
@@ -56,7 +56,7 @@ describe('vl-map-delete-action', () => {
     });
 
     it('a custom style can be set', async () => {
-        const map = await mapDeleteActionFixtureCustomStijl();
+        const map: any = await mapDeleteActionFixtureCustomStijl();
         const styleElement = map.querySelector('vl-map-layer-style');
         const { layer } = map.querySelector('vl-map-features-layer');
 
@@ -76,7 +76,7 @@ describe('vl-map-delete-action', () => {
     });
 
     it('after the delete action is finished, the onDelete callback will be called', async () => {
-        const map = await mapDeleteActionFixture();
+        const map: any = await mapDeleteActionFixture();
         await map.ready;
         const deleteAction = map.querySelector('vl-map-delete-action');
         await awaitUntil(() => deleteAction.action != null);
@@ -91,7 +91,7 @@ describe('vl-map-delete-action', () => {
     });
 
     it('after the delete action is finished, the features will be deleted', async () => {
-        const map = await mapDeleteActionFixture();
+        const map: any = await mapDeleteActionFixture();
         await map.ready;
         const deleteAction = map.querySelector('vl-map-delete-action');
         await awaitUntil(() => deleteAction.action != null);
@@ -116,7 +116,7 @@ describe('vl-map-delete-action', () => {
     });
 
     it("after the delete action is finished, the onDelete callback will be called and the arguments can be used to ensure some features are deleted and others aren't", async () => {
-        const map = await mapDeleteActionFixture();
+        const map: any = await mapDeleteActionFixture();
         await map.ready;
         const deleteAction = map.querySelector('vl-map-delete-action');
         await awaitUntil(() => deleteAction.action != null);
@@ -152,13 +152,13 @@ describe('vl-map-delete-action', () => {
     });
 
     it('the filter for the delete action returns true by default', async () => {
-        const map = await mapDeleteActionFixture();
+        const map: any = await mapDeleteActionFixture();
         const action = map.map.actions[0];
         assert.isTrue(action.filter());
     });
 
     it('the filter for the delete action can be overridden', async () => {
-        const map = await customMapDeleteActionFixture();
+        const map: any = await customMapDeleteActionFixture();
         const action = map.map.actions[0];
         assert.isTrue(action.filter({ id: '12' }, { id: '12' }));
         assert.isFalse(action.filter({ id: '2' }, { id: '12' }));

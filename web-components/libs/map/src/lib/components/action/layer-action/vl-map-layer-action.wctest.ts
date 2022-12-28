@@ -54,8 +54,8 @@ describe.only('vl-map-layer-action', () => {
     });
 
     it('de actie wordt standaard gekoppeld aan de kaartlaag waarin gedeclareerd', async () => {
-        const createActionStub = sandbox.stub(VlMapLayerAction.prototype, '_createAction').returns(action);
-        const map = await mapLayerActionFixture();
+        const createActionStub = sandbox.stub(VlMapLayerAction.prototype, '_createAction').returns(<any>action);
+        const map: any = await mapLayerActionFixture();
         const layerElement = map.querySelector('vl-map-features-layer');
         await map.ready;
         expect(map._map.actions).to.have.lengthOf(1);
@@ -64,7 +64,7 @@ describe.only('vl-map-layer-action', () => {
         await new Promise((resolve) => {
             setTimeout(() => {
                 expect(action.activate).to.not.have.been.called;
-                resolve();
+                resolve(undefined);
             }, VlMapWithActions.CLICK_COUNT_TIMEOUT);
         });
     });
@@ -72,7 +72,7 @@ describe.only('vl-map-layer-action', () => {
     // todo: fix
     // it('de actie kan standaard geactiveerd worden via het default active attribuut', async () => {
     //     const createActionStub = sandbox.stub(VlMapLayerAction.prototype, '_createAction').returns(action);
-    //     const map = await mapLayerActionDefaultActiveFixture();
+    //     const map: any = await mapLayerActionDefaultActiveFixture();
     //     const layerElement = map.querySelector('vl-map-features-layer');
     //     await map.ready;
     //     expect(map._map.actions).to.have.lengthOf(1);
@@ -87,8 +87,8 @@ describe.only('vl-map-layer-action', () => {
     // });
 
     it('de actie kaartlaag koppeling kan gebeuren via een attribuut', async () => {
-        const createActionStub = sandbox.stub(VlMapLayerAction.prototype, '_createAction').returns(action);
-        const map = await mapLayerActionLayerByNameFixture();
+        const createActionStub = sandbox.stub(VlMapLayerAction.prototype, '_createAction').returns(<any>action);
+        const map: any = await mapLayerActionLayerByNameFixture();
         const layerElement = map.querySelector('vl-map-features-layer');
         await map.ready;
         expect(map._map.actions).to.have.lengthOf(1);
@@ -97,8 +97,8 @@ describe.only('vl-map-layer-action', () => {
     });
 
     it('de actie kaartlaag kan gezet worden zodat één actie voor meerdere kaartlagen gebruikt kan worden', async () => {
-        sandbox.stub(VlMapLayerAction.prototype, '_createAction').returns(action);
-        const map = await mapLayerActionLayerFixture();
+        sandbox.stub(VlMapLayerAction.prototype, '_createAction').returns(<any>action);
+        const map: any = await mapLayerActionLayerFixture();
         const layerElement = map.querySelector('vl-map-features-layer');
         const actionElement = map.querySelector('vl-map-layer-action');
         await map.ready;
@@ -108,7 +108,7 @@ describe.only('vl-map-layer-action', () => {
             setTimeout(() => {
                 expect(map._map.actions).to.have.lengthOf(1);
                 expect(map._map.actions[0]).to.deep.equal(action);
-                resolve();
+                resolve(undefined);
             });
         });
     });

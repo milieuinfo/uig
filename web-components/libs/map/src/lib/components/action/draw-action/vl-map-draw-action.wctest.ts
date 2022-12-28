@@ -19,7 +19,7 @@ const mapDrawActionsFixture = async () =>
 
 describe('vl-map', async () => {
     it('after the draw action is completed, the callback will be called with the feature as the first argument and a reject callback as the second argument', async () => {
-        const map = await mapDrawActionsFixture();
+        const map: any = await mapDrawActionsFixture();
         await map.ready;
         const types = ['point', 'line', 'polygon'];
         for (let index = 0; index < types.length; index++) {

@@ -52,7 +52,7 @@ describe('vl-map-select-action', () => {
     });
 
     it('select action configuration is possible', async () => {
-        const map = await mapSelectActionFixture();
+        const map: any = await mapSelectActionFixture();
         const styleElement = map.querySelector('vl-map-layer-style');
         const { layer } = map.querySelector('vl-map-features-layer');
         await map.ready;
@@ -71,7 +71,7 @@ describe('vl-map-select-action', () => {
     });
 
     it('features on a map can be marked', async () => {
-        const map = await mapSelectActionFixture();
+        const map: any = await mapSelectActionFixture();
         const actionElement = map.querySelector('vl-map-select-action');
         const id = 1;
         sandbox.spy(actionElement.action, 'markFeatureWithId');
@@ -80,7 +80,7 @@ describe('vl-map-select-action', () => {
     });
 
     it('marked features on the map can be demarked', async () => {
-        const map = await mapSelectActionFixture();
+        const map: any = await mapSelectActionFixture();
         const actionElement = map.querySelector('vl-map-select-action');
         sandbox.spy(actionElement.action, 'demarkAllFeatures');
         actionElement.removeMarks();
@@ -88,7 +88,7 @@ describe('vl-map-select-action', () => {
     });
 
     it('a feature on the map can be selected', async () => {
-        const map = await mapSelectActionFixture();
+        const map: any = await mapSelectActionFixture();
         const actionElement = map.querySelector('vl-map-select-action');
         const feature = new OlFeature({
             geometry: new OlPoint([1, 1]),
@@ -99,7 +99,7 @@ describe('vl-map-select-action', () => {
     });
 
     it('all features can be deselected and dehighlighted', async () => {
-        const map = await mapSelectActionFixture();
+        const map: any = await mapSelectActionFixture();
         const actionElement = map.querySelector('vl-map-select-action');
         sandbox.spy(actionElement.action, 'clearFeatures');
         actionElement.reset();
@@ -107,7 +107,7 @@ describe('vl-map-select-action', () => {
     });
 
     it('the cluster attribute will be passed to the underlying select action', async () => {
-        const map = await mapSelectActionFixture();
+        const map: any = await mapSelectActionFixture();
         const actionElement = map.querySelector('vl-map-select-action');
         actionElement.setAttribute('cluster', '');
         const action = map.map.actions[0];
@@ -115,13 +115,13 @@ describe('vl-map-select-action', () => {
     });
 
     it('the filter for the select action returns true by default', async () => {
-        const map = await mapSelectActionFixture();
+        const map: any = await mapSelectActionFixture();
         const action = map.map.actions[0];
         assert.isTrue(action.filter());
     });
 
     it('the filter for the select action can be overridden', async () => {
-        const map = await customMapSelectActionFixture();
+        const map: any = await customMapSelectActionFixture();
         const action = map.map.actions[0];
         assert.isTrue(action.filter({ id: '12' }, { id: '12' }));
         assert.isFalse(action.filter({ id: '2' }, { id: '12' }));
