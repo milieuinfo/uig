@@ -19,9 +19,9 @@ import { define } from '@domg-lib/common-utilities';
  */
 export class VlMapWmtsLayer extends VlMapLayer {
     connectedCallback() {
-        super.connectedCallback();
         this._source = this.__createSource();
         this._layer = this._createLayer();
+        return super.connectedCallback();
     }
 
     get _projection() {
@@ -47,7 +47,7 @@ export class VlMapWmtsLayer extends VlMapLayer {
     }
 
     _createLayer() {
-        const layer = new OlTileLayer({
+        const layer = new OlTileLayer(<any>{
             title: this._name,
             source: this._source,
             minResolution: this._minResolution,

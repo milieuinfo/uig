@@ -64,7 +64,7 @@ describe('vl-map-vector-layer', () => {
 
     it('de stijl kan op de layer gezet worden met een VlMapLayerStyle object', async () => {
         await Promise.all(fixtures.map(async (fixture, index) => {
-            const map = await fixture.visible();
+            const map: any = await fixture.visible();
             await map.ready;
             const layer = getLayer(map);
             layer.style = map.querySelector('vl-map-layer-style');
@@ -76,7 +76,7 @@ describe('vl-map-vector-layer', () => {
 
     it('de stijl kan op de layer gezet worden met een OpenLayers stijl object', async () => {
         await Promise.all(fixtures.map(async (fixture, index) => {
-            const map = await fixture.visible();
+            const map: any = await fixture.visible();
             await map.ready;
             const layer = getLayer(map);
             const color = map.querySelector('vl-map-layer-style').getAttribute('data-vl-color');
@@ -87,7 +87,7 @@ describe('vl-map-vector-layer', () => {
 
     it('de stijl kan op de layer verwijderd worden met null', async () => {
         await Promise.all(fixtures.map(async (fixture, index) => {
-            const map = await fixture.visible();
+            const map: any = await fixture.visible();
             await map.ready;
             const layer = getLayer(map);
             const color = map.querySelector('vl-map-layer-style').getAttribute('data-vl-color');
@@ -111,7 +111,7 @@ describe('vl-map-vector-layer', () => {
     });
 
     it('er wordt een event gegooid als de stijl verandert', async () => {
-        const map = await wfsLayerFixture();
+        const map: any = await wfsLayerFixture();
         await map.ready;
         const layer = getLayer(map);
         await new Promise((resolve) => {

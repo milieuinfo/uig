@@ -3,9 +3,9 @@ import { assert, fixture, html } from '@open-wc/testing';
 import OlFeature from 'ol/Feature';
 import OlPoint from 'ol/geom/Point';
 import OlStyle from 'ol/style/Style';
-import OlStyleStroke from 'ol/style/Stroke';
+import OlStyleStroke, { Options as StrokeOptions } from 'ol/style/Stroke';
 import OlStyleFill from 'ol/style/Fill';
-import OlStyleCircle from 'ol/style/Circle';
+import OlStyleCircle, { Options as CircleOptions } from 'ol/style/Circle';
 import { OpenLayersUtil } from '../../utils/ol-util';
 import '../../vl-map';
 import '../layer/vector-layer/vl-map-features-layer';
@@ -50,7 +50,7 @@ const mapLayerCircleStyleMetTextFeatureAttributeNameFixture = async () =>
 
 describe('vl-map-layer-circle-style', () => {
     it('de style wordt goed geconfigureerd met default properties', async () => {
-        const map = await mapLayerCircleStyleFixture();
+        const map: any = await mapLayerCircleStyleFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         assert.equal(styleElement.color, 'rgba(2, 85, 204, 0.8)');
         assert.equal(styleElement.textColor, '#FFF');
@@ -64,7 +64,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('de style wordt goed geconfigureerd met aangepaste properties', async () => {
-        const map = await mapLayerCircleStylePropertiesFixture();
+        const map: any = await mapLayerCircleStylePropertiesFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         assert.equal(styleElement.color, '#fff');
         assert.equal(styleElement.textColor, '#000');
@@ -78,7 +78,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('de gegenereerde style komt overeen met de ingestelde properties', async () => {
-        const map = await mapLayerCircleStylePropertiesFixture();
+        const map: any = await mapLayerCircleStylePropertiesFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         const style = styleElement.style();
         const imageStyle = style.getImage();
@@ -95,7 +95,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('de style wordt gezet bij het parent element', async () => {
-        const map = await mapLayerCircleStyleFixture();
+        const map: any = await mapLayerCircleStyleFixture();
         const layerElement = map.querySelector('vl-map-features-layer');
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         await awaitUntil(() => layerElement._styles.length > 0);
@@ -103,7 +103,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('indien er meerdere features binnen een bepaalde afstand liggen van elkaar zullen ze geclusterd weergegeven worden en zal het aantal features in de cluster weergegeven worden', async () => {
-        const map = await mapLayerCircleStyleFixture();
+        const map: any = await mapLayerCircleStyleFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         const feature1 = new OlFeature({
             geometry: new OlPoint([109100, 204175]),
@@ -118,7 +118,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('de cluster grootte is afhankelijk van het aantal features in de cluster', async () => {
-        const map = await mapLayerCircleStylePropertiesFixture();
+        const map: any = await mapLayerCircleStylePropertiesFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         const feature = new OlFeature({
             geometry: new OlPoint([109100, 204175]),
@@ -143,7 +143,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('indien al de features binnen een cluster een identieke cirkel custom style hebben, zal de cluster deze style overnemen', async () => {
-        const map = await mapLayerCircleStylePropertiesFixture();
+        const map: any = await mapLayerCircleStylePropertiesFixture();
         const layerElement = map.querySelector('vl-map-features-layer');
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         const featureFillColor = '#fff';
@@ -153,7 +153,7 @@ describe('vl-map-layer-circle-style', () => {
         const featureRadius2 = 6;
         const featurePoints = 15;
         const featureStyle = new OlStyle({
-            image: new OlStyleCircle({
+            image: new OlStyleCircle(<CircleOptions>{
                 fill: new OlStyleFill({
                     color: featureFillColor,
                 }),
@@ -189,7 +189,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('indien de features binnen een cluster een verschillende cirkel style hebben, zal de cluster de gedefinieerde cluster kleur krijgen', async () => {
-        const map = await mapLayerCircleStylePropertiesFixture();
+        const map: any = await mapLayerCircleStylePropertiesFixture();
         const layerElement = map.querySelector('vl-map-features-layer');
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         const clusterKleur = '#789';
@@ -205,11 +205,11 @@ describe('vl-map-layer-circle-style', () => {
 
         feature1.setStyle(
             new OlStyle({
-                image: new OlStyleCircle({
+                image: new OlStyleCircle(<CircleOptions>{
                     fill: new OlStyleFill({
                         color: 'rgba(1, 2, 3, 1)',
                     }),
-                    stroke: new OlStyleStroke({
+                    stroke: new OlStyleStroke(<StrokeOptions>{
                         color: 'rgba(2, 3, 4, 1)',
                         width: 10,
                     }),
@@ -222,11 +222,11 @@ describe('vl-map-layer-circle-style', () => {
 
         feature2.setStyle(
             new OlStyle({
-                image: new OlStyleCircle({
+                image: new OlStyleCircle(<CircleOptions>{
                     fill: new OlStyleFill({
                         color: 'rgba(2, 3, 4, 1)',
                     }),
-                    stroke: new OlStyleStroke({
+                    stroke: new OlStyleStroke(<StrokeOptions>{
                         color: 'rgba(3, 4, 5, 1)',
                         width: 11,
                     }),
@@ -254,7 +254,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('indien de features binnen een cluster geen cirkel custom style hebben, zal de cluster de standaard laag style krijgen', async () => {
-        const map = await mapLayerCircleStyleFixture();
+        const map: any = await mapLayerCircleStyleFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         const feature1 = new OlFeature({
             geometry: new OlPoint([109100, 204175]),
@@ -280,7 +280,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('wanneer als feature een niet-feature object wordt meegegeven, kan de style functie er mee om', async () => {
-        const map = await mapLayerCircleStyleFixture();
+        const map: any = await mapLayerCircleStyleFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
 
         const style = styleElement.style(1);
@@ -297,7 +297,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('als er een featureAttributeName gedefinieerd is, zal de tekst stijl ook beschikbaar zijn', async () => {
-        const element = await mapLayerCircleStyleMetTextFeatureAttributeNameFixture();
+        const element: any = await mapLayerCircleStyleMetTextFeatureAttributeNameFixture();
         const vlMapLayerStyleElement = element.querySelector('vl-map-layer-circle-style');
         assert.equal(vlMapLayerStyleElement.textFeatureAttributeName, 'label');
         const style = vlMapLayerStyleElement.style({
@@ -314,7 +314,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('als er geen featureAttributeName gedefinieerd is én indien er geen features binnen een bepaalde afstand liggen van elkaar zullen ze niet geclusterd weergegeven worden en zal er geen tekst stijl beschikbaar zijn', async () => {
-        const map = await mapLayerCircleStyleFixture();
+        const map: any = await mapLayerCircleStyleFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         assert.equal(styleElement.textFeatureAttributeName, null);
 
@@ -330,7 +330,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('als er een featureAttributeName gedefinieerd is én indien er geen features binnen een bepaalde afstand liggen van elkaar zullen ze niet geclusterd weergegeven worden en zal de tekst stijl ook beschikbaar zijn', async () => {
-        const map = await mapLayerCircleStyleMetTextFeatureAttributeNameFixture();
+        const map: any = await mapLayerCircleStyleMetTextFeatureAttributeNameFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         assert.equal(styleElement.textFeatureAttributeName, 'label');
 
@@ -356,7 +356,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('als er geen featureAttributeName gedefinieerd is én indien er meerdere features binnen een bepaalde afstand liggen van elkaar zullen ze geclusterd weergegeven worden en zal het aantal features in de cluster weergegeven worden', async () => {
-        const map = await mapLayerCircleStyleFixture();
+        const map: any = await mapLayerCircleStyleFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         assert.equal(styleElement.textFeatureAttributeName, null);
 
@@ -377,7 +377,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('als er een featureAttributeName gedefinieerd is én indien er meerdere features binnen een bepaalde afstand liggen van elkaar zullen ze geclusterd weergegeven worden en zal het aantal features in de cluster weergegeven worden', async () => {
-        const map = await mapLayerCircleStyleMetTextFeatureAttributeNameFixture();
+        const map: any = await mapLayerCircleStyleMetTextFeatureAttributeNameFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         assert.equal(styleElement.textFeatureAttributeName, 'label');
 
@@ -398,7 +398,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('als er geen featureAttributeName gedefinieerd is én clustering is niet ingeschakeld moet de er geen label van de feature weergegeven', async () => {
-        const map = await mapLayerCircleStyleFixture();
+        const map: any = await mapLayerCircleStyleFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         assert.equal(styleElement.textFeatureAttributeName, null);
 
@@ -413,7 +413,7 @@ describe('vl-map-layer-circle-style', () => {
     });
 
     it('als er een featureAttributeName gedefinieerd is én clustering is niet ingeschakeld moet de label van de feature goed weergegeven worden', async () => {
-        const map = await mapLayerCircleStyleMetTextFeatureAttributeNameFixture();
+        const map: any = await mapLayerCircleStyleMetTextFeatureAttributeNameFixture();
         const styleElement = map.querySelector('vl-map-layer-circle-style');
         assert.equal(styleElement.textFeatureAttributeName, 'label');
 

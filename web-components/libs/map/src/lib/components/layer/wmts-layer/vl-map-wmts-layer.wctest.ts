@@ -44,7 +44,7 @@ describe('vl-map-wmts-layer', () => {
     const getLayer = (map) => map.querySelector(LAYER_SELECTOR);
 
     it('de wmts source wordt correct geconfigureerd', async () => {
-        const map = await wmtsLayerFixture();
+        const map: any = await wmtsLayerFixture();
         await map.ready;
 
         const layers = map.map.getOverlayLayers();
@@ -73,21 +73,21 @@ describe('vl-map-wmts-layer', () => {
     });
 
     it('de kaartlaag zal pas angemaakt worden na constructie zodat op moment van constructie nog niet al de attributen gekend moeten zijn', async () => {
-        const map = await mapFixture();
+        const map: any = await mapFixture();
         const layer = document.createElement('vl-map-wmts-layer');
         layer.setAttribute('data-vl-url', 'https://tile.informatievlaanderen.be/ws/raadpleegdiensten/wmts');
         layer.setAttribute('data-vl-layer', 'grb_sel');
         layer.setAttribute('data-vl-name', 'GRB Wegenkaart');
         layer.setAttribute('data-vl-min-resolution', '2');
         layer.setAttribute('data-vl-max-resolution', '4');
-        assert.isUndefined(layer.source);
-        assert.isUndefined(layer.layer);
+        assert.isUndefined(layer['source']);
+        assert.isUndefined(layer['layer']);
         map.appendChild(layer);
         await new Promise((resolve) => {
             setTimeout(() => {
-                assert.isDefined(layer.source);
-                assert.isDefined(layer.layer);
-                resolve();
+                assert.isDefined(layer['source']);
+                assert.isDefined(layer['layer']);
+                resolve(undefined);
             });
         });
     });

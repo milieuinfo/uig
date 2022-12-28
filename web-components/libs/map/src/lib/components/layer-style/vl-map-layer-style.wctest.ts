@@ -74,7 +74,7 @@ describe('vl-map-layer-style', () => {
         }];
 
     it('de style wordt goed geconfigureerd met default properties', async () => {
-        const element = await mapLayerStyleFixture();
+        const element: any = await mapLayerStyleFixture();
         const vlMapLayerStyleElement = element.querySelector('vl-map-layer-style');
         assert.equal(vlMapLayerStyleElement.color, 'rgba(2, 85, 204, 0.8)');
         assert.equal(vlMapLayerStyleElement.borderColor, 'rgba(2, 85, 204, 1)');
@@ -106,7 +106,7 @@ describe('vl-map-layer-style', () => {
     it('de style geeft null terug als de stijl niet valid is voor een feature', async () => {
         await Promise.all(
             styles.map(async (style) => {
-                const element = await style.fixture();
+                const element: any = await style.fixture();
                 const styleElement = element.querySelector(style.tag);
                 styleElement.appliesTo = () => false;
                 assert.isNull(styleElement.style());
@@ -117,7 +117,7 @@ describe('vl-map-layer-style', () => {
     it('de style geeft niet null terug als de stijl valid is', async () => {
         await Promise.all(
             styles.map(async (style) => {
-                const element = await style.fixture();
+                const element: any = await style.fixture();
                 const styleElement = element.querySelector(style.tag);
                 styleElement.appliesTo = () => true;
                 assert.isNotNull(styleElement.style());
@@ -126,7 +126,7 @@ describe('vl-map-layer-style', () => {
     });
 
     it('als er een featureAttributeName gedefinieerd is, zal de tekst stijl ook beschikbaar zijn', async () => {
-        const element = await mapLayerStyleMetTextFeatureAttributeNameFixture();
+        const element: any = await mapLayerStyleMetTextFeatureAttributeNameFixture();
         const vlMapLayerStyleElement = element.querySelector('vl-map-layer-style');
         assert.equal(vlMapLayerStyleElement.textFeatureAttributeName, 'label');
         const style = vlMapLayerStyleElement.style({
@@ -143,7 +143,7 @@ describe('vl-map-layer-style', () => {
     });
 
     it('de style wordt goed geconfigureerd met aangepaste properties', async () => {
-        const element = await mapLayerStyleMetPropertiesFixture();
+        const element: any = await mapLayerStyleMetPropertiesFixture();
         const vlMapLayerStyleElement = element.querySelector('vl-map-layer-style');
         assert.equal(vlMapLayerStyleElement.color, 'rgba(255,0,0,0.5)');
         assert.equal(vlMapLayerStyleElement.borderColor, 'rgba(255,255,100,1)');
@@ -173,7 +173,7 @@ describe('vl-map-layer-style', () => {
     });
 
     it('de correcte stijl kan opgevraagd worden bij een laag met meerdere stijlen', async () => {
-        const element = await mapLayerStyleMetMeerdereStijlenFixture();
+        const element: any = await mapLayerStyleMetMeerdereStijlenFixture();
         element.querySelector('#map-layer-style-red').appliesTo = (feature) => feature.get('status') === 'red';
         element.querySelector('#map-layer-style-green').appliesTo = (feature) => feature.get('status') === 'green';
 

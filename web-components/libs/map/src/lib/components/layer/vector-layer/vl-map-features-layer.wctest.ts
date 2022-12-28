@@ -75,7 +75,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('het features attribuut op de kaartlaag bevat dezelfde features als in de source', async () => {
-        const mapElement = await mapFixture();
+        const mapElement: any = await mapFixture();
         const layerElement = mapElement.querySelector('vl-map-features-layer');
 
         await mapElement.ready;
@@ -90,21 +90,21 @@ describe('vl-map-features-layer', () => {
 
     it('na het toevoegen van de kaartlaag zal de kaart zoomen naar de extent van de kaartlaag indien de auto-extent geactiveerd werd', async () => {
         let map = await mapFixture();
-        assert.deepEqual(map.map.getView().getCenter(), [140860.69299028325, 190532.7165957574]);
+        assert.deepEqual(map['map'].getView().getCenter(), [140860.69299028325, 190532.7165957574]);
 
         map = await mapAutoExtentFixture();
-        await awaitUntil(() => map.map.getView().getZoom() > 3).then(async () => {
-            assert.deepEqual(map.map.getView().getCenter(), [147555, 197908]);
+        await awaitUntil(() => map['map'].getView().getZoom() > 3).then(async () => {
+            assert.deepEqual(map['map'].getView().getCenter(), [147555, 197908]);
 
             map = await mapAutoExtentMaxZoomFixture();
-            await awaitUntil(() => map.map.getView().getZoom() === 3).then(() => {
-                assert.deepEqual(map.map.getView().getCenter(), [147055, 197908]);
+            await awaitUntil(() => map['map'].getView().getZoom() === 3).then(() => {
+                assert.deepEqual(map['map'].getView().getCenter(), [147055, 197908]);
             });
         });
     });
 
     it('het aanroepen van zoomToExtent zal de kaart doen inzoomen op de bounding box', async () => {
-        const map = await mapFixture();
+        const map: any = await mapFixture();
         const layerElement = map.querySelector('vl-map-features-layer');
 
         await map.ready;
@@ -121,7 +121,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('bij het toevoegen van een feature zal deze automatisch toegevoegd worden aan de laag en zal de kaart opnieuw zoomen naar de extent van de kaartlaag indien de auto-extent geactiveerd werd', async () => {
-        const map = await mapFixture();
+        const map: any = await mapFixture();
         const layerElement = map.querySelector('vl-map-features-layer');
 
         await map.ready;
@@ -150,7 +150,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('kan de boundingbox opvragen van de features op de laag', async () => {
-        const map = await featuresLayerFixture();
+        const map: any = await featuresLayerFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
         assert.isUndefined(layer.boundingBox);
@@ -162,7 +162,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('kan een feature verkrijgen via id', async () => {
-        const map = await mapFixture();
+        const map: any = await mapFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
         assert.isDefined(layer.getFeature(1));
@@ -170,7 +170,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('kan een cluster verkrijgen via een feature id in de cluster', async () => {
-        const map = await mapFixture();
+        const map: any = await mapFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
         const feature1 = new OlFeature({
@@ -197,7 +197,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('al de feature specifieke stijl kan verwijderd worden', async () => {
-        const map = await featuresLayerFixture();
+        const map: any = await featuresLayerFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
         const feature1 = new OlFeature();
@@ -213,7 +213,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('kan programmatorisch features verwijderen', async () => {
-        const map = await mapFixture();
+        const map: any = await mapFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
         assert.lengthOf(layer.layer.getSource().getFeatures(), 1);
@@ -222,7 +222,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('kan programmatorisch feature toevoegen', async () => {
-        const map = await mapFixture();
+        const map: any = await mapFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
         assert.lengthOf(layer.layer.getSource().getFeatures(), 1);
@@ -233,7 +233,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('kan programmatorisch feature toevoegen aan layer met cluster', async () => {
-        const map = await mapClusterFixture();
+        const map: any = await mapClusterFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
 
@@ -247,7 +247,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('kan programmatorisch features wijzigen in layer met cluster', async () => {
-        const map = await mapClusterFixture();
+        const map: any = await mapClusterFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
 
@@ -276,7 +276,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('kan programmatorisch feature collection toevoegen', async () => {
-        const map = await mapFixture();
+        const map: any = await mapFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
         assert.lengthOf(layer.layer.getSource().getFeatures(), 1);
@@ -287,7 +287,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('wanneer programmatorisch features van een laag met auto zoom verwijderd worden zal deze niet zoomen omdat er geen extent van de features meer is', async () => {
-        const map = await mapAutoExtentFixture();
+        const map: any = await mapAutoExtentFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
         await awaitUntil(() => map.map.getView().getZoom() > 3).then(async () => {
@@ -298,7 +298,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('wanneer programmatorisch een feature aan een laag met auto zoom toegevoegd wordt zal de map daar naartoe zoomen', async () => {
-        const map = await mapAutoExtentFixture();
+        const map: any = await mapAutoExtentFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
         await awaitUntil(() => map.map.getView().getZoom() > 3).then(async () => {
@@ -316,7 +316,7 @@ describe('vl-map-features-layer', () => {
     });
 
     it('wanneer programmatorisch features aan een laag met auto zoom toegevoegd worden zal de map daar naartoe zoomen', async () => {
-        const map = await mapAutoExtentFixture();
+        const map: any = await mapAutoExtentFixture();
         const layer = map.querySelector('vl-map-features-layer');
         await map.ready;
         await awaitUntil(() => map.map.getView().getZoom() > 3).then(async () => {

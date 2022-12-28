@@ -28,8 +28,9 @@ export class VlMapLayerCircleStyle extends VlMapLayerStyle {
      *
      * @Return {number}
      */
-    get size() {
-        return this.getAttribute('size') || 5;
+    get size(): number {
+        const getSize = Number(this.getAttribute('size'));
+        return !isNaN(getSize) ? getSize : 5;
     }
 
     /**
@@ -79,7 +80,7 @@ export class VlMapLayerCircleStyle extends VlMapLayerStyle {
             let { borderSize } = this;
             let radius = size > 1 ? this.size * clusterMultiplier : this.size;
 
-            if (this.parentElement && this.parentElement.cluster) {
+            if (this.parentElement && this.parentElement['cluster']) {
                 if (this._hasUniqueStyles(features)) {
                     let style = features[0].getStyle();
                     if (style instanceof Function) {
@@ -105,7 +106,7 @@ export class VlMapLayerCircleStyle extends VlMapLayerStyle {
                     }),
                     stroke: new OlStyleStroke({
                         color: borderColor,
-                        width: borderSize,
+                        width: Number(borderSize),
                     }),
                     radius,
                 }),

@@ -1,3 +1,4 @@
+import styles from '*.scss';
 import { BaseElementOfType } from '@domg-lib/common-utilities';
 
 /**
@@ -21,6 +22,13 @@ export class VlMapLayer extends BaseElementOfType(HTMLElement) {
         return ['hidden'];
     }
 
+    __counter: number;
+    __ready: boolean;
+    _layer: any;
+    _source: any;
+    __styles: any;
+    __layerClass: any;
+    __sourceClass: any;
     constructor() {
         super();
         VlMapLayer._counter = 0;
@@ -120,6 +128,14 @@ export class VlMapLayer extends BaseElementOfType(HTMLElement) {
 
     get _visible() {
         return this.getAttribute('hidden') == undefined;
+    }
+
+    get _styles() {
+        return this.__styles;
+    }
+
+    set _styles(styles) {
+        this.__styles = styles;
     }
 
     /**

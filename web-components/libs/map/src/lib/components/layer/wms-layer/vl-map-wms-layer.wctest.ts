@@ -94,7 +94,7 @@ describe('vl-map-wms-layer', () => {
 
     it('de kaartlaag zal pas angemaakt worden na constructie zodat op moment van constructie nog niet al de attributen gekend moeten zijn', async () => {
         const types = ['image', 'tiled'];
-        const map = await mapFixture();
+        const map: any = await mapFixture();
 
         await Promise.all(types.map(async (type, index) => {
             const layer = document.createElement(`vl-map-${type}-wms-layer`);

@@ -21,6 +21,7 @@ import { VlMapLayerStyle } from '../../layer-style/vl-map-layer-style';
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-map-wfs-layer.html|Demo}
  */
 export class VlMapVectorLayer extends VlMapLayer {
+
     static get EVENTS() {
         return {
             styleChanged: 'style-changed',
@@ -38,8 +39,8 @@ export class VlMapVectorLayer extends VlMapLayer {
      * @return {ol.style}
      */
     get style() {
-        if (this._layer) {
-            return this._layer.getStyle();
+        if (this.layer) {
+            return this.layer.getStyle();
         }
     }
 
@@ -74,7 +75,7 @@ export class VlMapVectorLayer extends VlMapLayer {
     }
 
     _createLayer() {
-        const layer = new OlVectorLayer({
+        const layer = new OlVectorLayer(<any>{
             title: this._name,
             source: this._source,
             updateWhileAnimating: true,

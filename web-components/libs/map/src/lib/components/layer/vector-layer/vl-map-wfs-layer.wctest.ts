@@ -53,7 +53,7 @@ describe('vl-map-wfs-layer', () => {
     });
 
     it('de kaartlaag zal pas angemaakt worden na constructie zodat op moment van constructie nog niet al de attributen gekend moeten zijn', async () => {
-        const map = await wfsLayerWithQueryParamsInUrlFixture();
+        const map: any = await wfsLayerWithQueryParamsInUrlFixture();
         const layer = document.createElement('vl-map-wfs-layer');
         layer.setAttribute('data-vl-name', 'foobar');
         layer.setAttribute('data-vl-url', 'http://dummy/wfs');

@@ -188,7 +188,7 @@ describe('vl-map-layer', () => {
     it('kan een attribuut, titel, opvragen van de kaartlaag op basis van zijn sleutel', async () => {
         await Promise.all(
             fixtures.map(async (fixture, index) => {
-                const map = await fixture.single();
+                const map: any = await fixture.single();
                 await map.ready;
                 const layer = getLayer(map);
                 await awaitUntil(() => layer.ready);
@@ -201,7 +201,7 @@ describe('vl-map-layer', () => {
     it('kan de zichtbaarheid van de kaartlaag opvragen en wijzigen', async () => {
         await Promise.all(
             fixtures.map(async (fixture, index) => {
-                const map = await fixture.single();
+                const map: any = await fixture.single();
                 await map.ready;
                 const layer = getLayer(map);
                 await awaitUntil(() => layer.ready);
@@ -219,7 +219,7 @@ describe('vl-map-layer', () => {
     it(`er kan gecontroleerd worden of de kaartlaag zichtbaar is op een bepaalde resolutie (minVisibility = , maxVisibility = )`, async () => {
         await Promise.all(
             fixtures.map(async (fixture, index) => {
-                const map = await fixture.single();
+                const map: any = await fixture.single();
                 await map.ready;
                 const layer = getLayer(map);
                 const minVisibility = Number.valueOf(layer.getAttribute('data-vl-min-resolution'));
@@ -245,7 +245,7 @@ describe('vl-map-layer', () => {
     it('elke kaartlaag zal een id krijgen', async () => {
         await Promise.all(
             fixtures.map(async (fixture, index) => {
-                const map = await fixture.multiple();
+                const map: any = await fixture.multiple();
                 await map.ready;
                 const layers = [...getLayers(map)];
                 await Promise.all(layers.map((layer) => awaitUntil(() => layer.ready)));
@@ -258,7 +258,7 @@ describe('vl-map-layer', () => {
     it('de kaartlaag zal toegevoegd worden aan de map', async () => {
         await Promise.all(
             fixtures.map(async (fixture, index) => {
-                const map = await fixture.single();
+                const map: any = await fixture.single();
                 await map.ready;
                 await Promise.all([...getLayers(map)].map((layer) => awaitUntil(() => layer.ready)));
                 const layerElement = getLayer(map);
@@ -277,7 +277,7 @@ describe('vl-map-layer', () => {
     it('wanneer het hidden attribuut wijzigt zal de kaartlaag zichtbaarheid aangepast worden en de map opnieuw gerenderd worden', async () => {
         await Promise.all(
             fixtures.map(async (fixture, index) => {
-                const map = await fixture.single();
+                const map: any = await fixture.single();
                 await map.ready;
                 await Promise.all([...getLayers(map)].map((layer) => awaitUntil(() => layer.ready)));
                 sandbox.spy(map, 'rerender');
