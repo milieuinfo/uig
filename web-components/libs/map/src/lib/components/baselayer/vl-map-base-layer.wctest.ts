@@ -35,29 +35,29 @@ describe('vl-map-baselayer', () => {
     };
 
     it('de basiskaartlaag wordt goed geconfigureerd wanneer de type-layer niet gezet is', async () => {
-        const element = await baselayerFixture();
+        const element: any = await baselayerFixture();
         const vlMapBaseLayerElement = element.querySelector('vl-map-baselayer');
 
         assertLayerProperties(vlMapBaseLayerElement, 'https://localhost', 'wmts', 'layername_1', 'layer title 1');
     });
 
     it('de basiskaartlaag wordt goed geconfigureerd wanneer de type-layer van het type wmts is', async () => {
-        const element = await baselayerWmtsFixture();
+        const element: any = await baselayerWmtsFixture();
         const vlMapBaseLayerElement = element.querySelector('vl-map-baselayer');
 
         assertLayerProperties(vlMapBaseLayerElement, 'https://localhost/wmts', 'wmts', 'layername_2', 'layer title 2');
     });
 
     it('de basiskaartlaag wordt goed geconfigureerd wanneer de type-layer van het type wfs is', async () => {
-        const element = await baselayerWfsFixture();
+        const element: any = await baselayerWfsFixture();
         const vlMapBaseLayerElement = element.querySelector('vl-map-baselayer');
 
         assertLayerProperties(vlMapBaseLayerElement, 'https://localhost/wfs', 'wfs', 'layername_3', 'layer title 3');
     });
 
     it('wanneer een wmts source wordt aangemaakt wordt een WMTS source teruggegeven', async () => {
-        const element = await baselayerWmtsFixture();
-        const vlMapBaseLayerElement = element.querySelector('vl-map-baselayer');
+        const element: any = await baselayerWmtsFixture();
+        const vlMapBaseLayerElement: any = element.querySelector('vl-map-baselayer');
 
         const source = vlMapBaseLayerElement._createWMTSSource();
         assert.isTrue(source instanceof OlWMTSSource);
@@ -78,24 +78,24 @@ describe('vl-map-baselayer', () => {
     });
 
     it('wanneer een WFS source wordt aangemaakt wordt een Vector source teruggegeven', async () => {
-        const element = await baselayerWfsFixture();
+        const element: any = await baselayerWfsFixture();
         const vlMapBaseLayerElement = element.querySelector('vl-map-baselayer');
         const source = vlMapBaseLayerElement._createVectorSource();
         assert.isTrue(source instanceof OlVectorSource);
     });
 
     it('wanneer een WFS source wordt aangemaakt zal het formaat correct gedefinieerd worden', async () => {
-        const element = await baselayerWfsFixture();
+        const element: any = await baselayerWfsFixture();
         assert.equal(element.map.baseLayers[0].getSource().getFormat().dataProjection.getCode(), 'EPSG:31370');
     });
 
     it('een WMTS source wordt maar 1x aangemaakt', async () => {
-        const element = await baselayerWmtsFixture();
+        const element: any = await baselayerWmtsFixture();
         assert.lengthOf(element.map.baseLayers, 1);
     });
 
     it('een WFS source wordt maar 1x aangemaakt', async () => {
-        const element = await baselayerWfsFixture();
+        const element: any = await baselayerWfsFixture();
         assert.lengthOf(element.map.baseLayers, 1);
     });
 });

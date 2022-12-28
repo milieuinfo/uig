@@ -11,7 +11,7 @@ const baselayerGrbOrthoFixture = async () =>
 
 describe("vl-map-baselayer-grb-ortho", () => {
     it("de grb basiskaartlaag wordt goed geconfigureerd", async () => {
-        const element = await baselayerGrbOrthoFixture();
+        const element: any = await baselayerGrbOrthoFixture();
         const vlMapBaseLayerElement = element.querySelector("vl-map-baselayer-grb-ortho");
         assert.equal(
             vlMapBaseLayerElement.url,

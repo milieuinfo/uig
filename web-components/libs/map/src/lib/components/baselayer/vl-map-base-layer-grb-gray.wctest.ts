@@ -11,7 +11,7 @@ const baselayerGrbGrayFixture = async () =>
 
 describe("vl-map-baselayer-grb-gray", () => {
     it("de grb basiskaartlaag wordt goed geconfigureerd", async () => {
-        const element = await baselayerGrbGrayFixture();
+        const element: any = await baselayerGrbGrayFixture();
         const vlMapBaseLayerElement = element.querySelector("vl-map-baselayer-grb-gray");
         assert.equal(
             vlMapBaseLayerElement.url,

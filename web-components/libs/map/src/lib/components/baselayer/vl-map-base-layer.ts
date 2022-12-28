@@ -150,7 +150,7 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
     _createBaseLayer() {
         switch (this.type) {
             case 'wmts':
-                return new OlTileLayer({
+                return new OlTileLayer(<any>{
                     title: this.title,
                     type: 'base',
                     source: this._WMTSSource,
