@@ -66,7 +66,7 @@ const mapLayerSwitcherLayerNonDirectChildFixture = async () =>
 
 describe('vl-map-layer-switcher', () => {
     it('wanneer er geen layer input child elementen aanwezig zijn, zullen deze automatisch gegenereerd worden', async () => {
-        const map = await mapLayerSwitcherFixture();
+        const map: any = await mapLayerSwitcherFixture();
         const layerSwitcher = map.querySelector('vl-map-layer-switcher');
         await map.ready;
         await awaitUntil(() => layerSwitcher._layerInputs.length === 3);
@@ -87,7 +87,7 @@ describe('vl-map-layer-switcher', () => {
     });
 
     it('non-direct child elementen van de vl-map worden niet meegenomen in de default layer switcher', async () => {
-        const map = await mapLayerSwitcherLayerNonDirectChildFixture();
+        const map: any = await mapLayerSwitcherLayerNonDirectChildFixture();
         const layerSwitcher = map.querySelector('vl-map-layer-switcher');
         await map.ready;
         await awaitUntil(() => layerSwitcher._layerInputs.length === 1);
@@ -96,7 +96,7 @@ describe('vl-map-layer-switcher', () => {
     });
 
     it('wanneer er layer input child elementen aanwezig zijn, zullen er geen extra input elementen gegenereerd worden', async () => {
-        const map = await mapLayerSwitcherCustomFixture();
+        const map: any = await mapLayerSwitcherCustomFixture();
         const layerSwitcher = map.querySelector('vl-map-layer-switcher');
         await map.ready;
         await awaitUntil(() => layerSwitcher._layerInputs.length === 1);
@@ -104,7 +104,7 @@ describe('vl-map-layer-switcher', () => {
     });
 
     it('een change event van een element met een layer attribuut zal de zichtbaarheid van de gekoppelde laag wijzigen', async () => {
-        const map = await mapLayerSwitcherCustomFixture();
+        const map: any = await mapLayerSwitcherCustomFixture();
         const checkbox = map.querySelector('vl-map-layer-switcher vl-checkbox');
         await map.ready;
         const layers = map.nonBaseLayers;

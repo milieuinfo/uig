@@ -17,7 +17,7 @@ const mapOverviewMapFixture = async () =>
 
 describe('vl-map-overview-map', () => {
     it('de overview map wordt goed geconfigureerd', async () => {
-        const element = await mapOverviewMapFixture();
+        const element: any = await mapOverviewMapFixture();
         const vlMapOverviewMapElement = element.querySelector('vl-map-overview-map');
         const bevatOverviewMap = (map) => map.getControls().getArray().includes(map.overviewMapControl);
         while (!bevatOverviewMap(vlMapOverviewMapElement._map)) {

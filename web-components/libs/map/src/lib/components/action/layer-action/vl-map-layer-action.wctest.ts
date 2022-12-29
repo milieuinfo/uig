@@ -61,10 +61,10 @@ describe.only('vl-map-layer-action', () => {
         expect(map._map.actions).to.have.lengthOf(1);
         expect(map._map.actions[0]).to.deep.equal(action);
         expect(createActionStub).to.have.been.calledWith(layerElement.layer);
-        await new Promise((resolve) => {
+        await new Promise<void>((resolve) => {
             setTimeout(() => {
                 expect(action.activate).to.not.have.been.called;
-                resolve(undefined);
+                resolve();
             }, VlMapWithActions.CLICK_COUNT_TIMEOUT);
         });
     });
@@ -104,11 +104,11 @@ describe.only('vl-map-layer-action', () => {
         await map.ready;
         expect(map._map.actions).to.be.empty;
         actionElement.layer = layerElement.layer;
-        await new Promise((resolve) => {
+        await new Promise<void>((resolve) => {
             setTimeout(() => {
                 expect(map._map.actions).to.have.lengthOf(1);
                 expect(map._map.actions[0]).to.deep.equal(action);
-                resolve(undefined);
+                resolve();
             });
         });
     });

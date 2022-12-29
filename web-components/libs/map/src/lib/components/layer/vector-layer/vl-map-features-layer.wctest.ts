@@ -6,7 +6,7 @@ import OlGeoJSON from 'ol/format/GeoJSON';
 import OlStyle from 'ol/style/Style';
 import sinon from 'sinon';
 import '../../../vl-map';
-import '../../layer/vector-layer/vl-map-features-layer';
+import './vl-map-features-layer';
 
 const featuresLayerFixture = async () =>
     fixture(html`

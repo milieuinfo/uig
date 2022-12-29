@@ -23,8 +23,8 @@ export class VlMapLayerAction extends VlMapAction {
     }
 
     connectedCallback() {
-        super.connectedCallback();
         this._layerChangedCallback();
+        return super.connectedCallback();
     }
 
     /**
@@ -77,7 +77,6 @@ export class VlMapLayerAction extends VlMapAction {
             }
         });
     }
-
 }
 
 define('vl-map-layer-action', VlMapLayerAction);

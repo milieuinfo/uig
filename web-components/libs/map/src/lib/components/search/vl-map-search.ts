@@ -69,7 +69,7 @@ class VlMapSearch extends BaseElementOfType(HTMLElement) {
             if (this.parentNode && this.parentNode.map) {
                 this._map = this.parentNode._shadow.host;
                 this._map.map.addOverlay(
-                    new OlOverlay({
+                    new OlOverlay(<any>{
                         className: 'vl-map-search__overlaycontainer',
                         element: this,
                     })

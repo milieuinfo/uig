@@ -106,7 +106,7 @@ describe('vl-select-location', () => {
     });
 
     it('er zijn default placeholders voor het zoek adres select element', async () => {
-        const select = await selectLocationFixture();
+        const select: any = await selectLocationFixture();
         await select.ready();
         assert.equal(select._placeholderElement.innerText, 'Zoeken op kaart');
         assert.equal(select.DEFAULT_SEARCH_PLACEHOLDER, 'Zoeken op adres of coördinaat');
@@ -115,7 +115,7 @@ describe('vl-select-location', () => {
     });
 
     it('de default placeholder van het zoek adres select element kan gewijzigd worden', async () => {
-        const select = await selectLocationFixture();
+        const select: any = await selectLocationFixture();
         await select.ready();
         const text1 = 'nieuwe tekst 1';
         select.setAttribute('data-vl-placeholder', text1);
@@ -126,7 +126,7 @@ describe('vl-select-location', () => {
     });
 
     it('het data-vl-select attribuut wordt gezet zodat de zoek functionaliteit geïnitialiseerd wordt', async () => {
-        const element = await selectLocationFixture();
+        const element: any = await selectLocationFixture();
         assert.isTrue(element.hasAttribute('data-vl-select'));
     });
 
@@ -151,8 +151,8 @@ describe('vl-select-location', () => {
         const fetchStub = sandbox.stub(window, 'fetch');
         fetchStub
             .withArgs(`https://geo.api.vlaanderen.be/geolocation/Suggestion?q=${suggestions[0]}`)
-            .returns(response);
-        const select = await selectLocationFixture();
+            .returns(<any>response);
+        const select: any = await selectLocationFixture();
         await select.ready();
         select.dispatchEvent(
             new CustomEvent('search', {
@@ -191,9 +191,9 @@ describe('vl-select-location', () => {
             .withArgs(
                 `https://geo.api.vlaanderen.be/geolocation/Location?c=5&xy=${lambertCoordinaat.x},${lambertCoordinaat.y}`
             )
-            .returns(response);
+            .returns(<any>response);
 
-        const select = await selectLocationFixture();
+        const select: any = await selectLocationFixture();
         await select.ready();
         select.dispatchEvent(
             new CustomEvent('search', {
@@ -227,14 +227,14 @@ describe('vl-select-location', () => {
                         {
                             LocationResult: [locationAntwerpen1],
                         },
-                        { status: 200 }
+                        <any>{ status: 200 }
                     )
                 )
             );
         });
         const fetchStub = sandbox.stub(window, 'fetch');
-        fetchStub.withArgs(`https://geo.api.vlaanderen.be/geolocation/Location?q=${value}`).returns(response);
-        const select = await selectLocationFixture();
+        fetchStub.withArgs(`https://geo.api.vlaanderen.be/geolocation/Location?q=${value}`).returns(<any>response);
+        const select: any = await selectLocationFixture();
         await select.ready();
         select.choices = choices;
         select.value = choices[0].value;
@@ -260,7 +260,7 @@ describe('vl-select-location', () => {
                 label: `Lambert-coördinaat: ${lambertCoordinaat.toString()}`,
             },
         ];
-        const select = await selectLocationFixture();
+        const select: any = await selectLocationFixture();
         await select.ready();
         select.choices = choices;
         select.value = choices[0].value;
@@ -283,7 +283,7 @@ describe('vl-select-location', () => {
                 label: locationAntwerpen1.FormattedAddress,
             },
         ];
-        const select = await selectLocationFixture();
+        const select: any = await selectLocationFixture();
         await select.ready();
         select.choices = choices;
         select.value = choices[0].value;
@@ -299,7 +299,7 @@ describe('vl-select-location', () => {
     });
 
     it('verstuurt een change event wanneer een choice event getriggerd wordt', async () => {
-        const select = await selectLocationFixture();
+        const select: any = await selectLocationFixture();
         select.addEventListener('change', () => null);
         select.dispatchEvent(new CustomEvent('choice'));
         // TODO: er wordt hier niets getest

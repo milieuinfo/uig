@@ -1,4 +1,5 @@
 import { awaitUntil } from '@domg-lib/common-utilities';
+import { VlMapLayerCircleStyle } from '@domg-lib/map';
 import { assert, fixture, html } from '@open-wc/testing';
 import OlFeature from 'ol/Feature';
 import OlPoint from 'ol/geom/Point';
@@ -51,7 +52,7 @@ const mapLayerCircleStyleMetTextFeatureAttributeNameFixture = async () =>
 describe('vl-map-layer-circle-style', () => {
     it('de style wordt goed geconfigureerd met default properties', async () => {
         const map: any = await mapLayerCircleStyleFixture();
-        const styleElement = map.querySelector('vl-map-layer-circle-style');
+        const styleElement: VlMapLayerCircleStyle = map.querySelector('vl-map-layer-circle-style');
         assert.equal(styleElement.color, 'rgba(2, 85, 204, 0.8)');
         assert.equal(styleElement.textColor, '#FFF');
         assert.equal(styleElement.textOffsetX, 0);

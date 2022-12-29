@@ -11,7 +11,7 @@ const mapSideSheetFixture = async () =>
 
 describe('vl-map-side-sheet', () => {
     it('de side sheet zal absoluut en links gepositioneerd worden', async () => {
-        const map = await mapSideSheetFixture();
+        const map: any = await mapSideSheetFixture();
         const sideSheet = map.querySelector('vl-map-side-sheet');
         assert.isTrue(sideSheet.hasAttribute('data-vl-left'));
         assert.isTrue(sideSheet.hasAttribute('data-vl-absolute'));

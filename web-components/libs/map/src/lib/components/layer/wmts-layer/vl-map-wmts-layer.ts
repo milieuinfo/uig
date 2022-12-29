@@ -26,7 +26,7 @@ export class VlMapWmtsLayer extends VlMapLayer {
 
     get _projection() {
         if (this.parentNode) {
-            return this.parentNode._projection;
+            return (<any>this.parentNode)._projection;
         }
     }
 

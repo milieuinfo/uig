@@ -76,13 +76,13 @@ describe('vl-map-measure-action', () => {
 
     it('measure action has the correct identifier', async () => {
         const fixtureElement = await mapMeasureActionFixture();
-        const measureAction = fixtureElement.querySelector('vl-map-measure-action');
+        const measureAction: any = fixtureElement.querySelector('vl-map-measure-action');
         assert.isTrue(measureAction.identifier === 'measure');
     });
 
     it('snapping is properly configured if the snapping attribute is there but without layers', async () => {
         const fixtureWithSnapping = await mapMeasureActionSnappingFixture();
-        const measureWithSnappingAction = fixtureWithSnapping.querySelector('vl-map-measure-action');
+        const measureWithSnappingAction: any = fixtureWithSnapping.querySelector('vl-map-measure-action');
         await awaitUntil(() => measureWithSnappingAction.action != null);
         const measureActionOptions = measureWithSnappingAction.action.options;
         expect(measureActionOptions.snapping).to.equal(true);
@@ -90,7 +90,7 @@ describe('vl-map-measure-action', () => {
 
     it('snapping is properly configured if there are layers and pixel tolerance', async () => {
         const fixtureWithSnapping = await mapMeasureActionASnappingWfsLayersFixture();
-        const measureWithSnappingOnWfsLayersAction = fixtureWithSnapping.querySelector('vl-map-measure-action');
+        const measureWithSnappingOnWfsLayersAction: any = fixtureWithSnapping.querySelector('vl-map-measure-action');
         await awaitUntil(() => measureWithSnappingOnWfsLayersAction.action != null);
         const measureActionsOptions = measureWithSnappingOnWfsLayersAction.action.options;
         expect(measureActionsOptions.snapping.pixelTolerance).to.equal('1000');
@@ -98,16 +98,12 @@ describe('vl-map-measure-action', () => {
         expect(measureActionsOptions.snapping.vertex).to.equal(false);
         expect(measureActionsOptions.snapping.layer instanceof VlCompositeVectorLayer).to.equal(true);
         expect(measureActionsOptions.snapping.layer.getSource() instanceof VlCompositeVectorSource).to.equal(true);
-        expect(measureActionsOptions.snapping.layer.getSource().sources[0]).to.equal(
-            fixtureWithSnapping.querySelector('#stromendwater')._layer.getSource()
-        );
+        const stromendWater: any = fixtureWithSnapping.querySelector('#stromendwater');
+        const stilstaandWater: any = fixtureWithSnapping.querySelector('#stilstaandwater');
+        expect(measureActionsOptions.snapping.layer.getSource().sources[0]).to.equal(stromendWater._layer.getSource());
         expect(measureActionsOptions.snapping.layer.getSource().sources[1]).to.equal(
-            fixtureWithSnapping.querySelector('#stilstaandwater')._layer.getSource()
+            stilstaandWater._layer.getSource()
         );
-        await awaitUntil(
-            () =>
-                measureActionsOptions.snapping.layer.getStyle() ==
-                fixtureWithSnapping.querySelector('#stromendwater').style
-        );
+        await awaitUntil(() => measureActionsOptions.snapping.layer.getStyle() == stromendWater.style);
     });
 });

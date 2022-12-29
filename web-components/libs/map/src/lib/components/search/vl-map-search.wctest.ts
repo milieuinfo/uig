@@ -1,4 +1,5 @@
 import { awaitUntil } from '@domg-lib/common-utilities';
+import { VlMapSearch } from '@domg-lib/map';
 import { assert, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
 import '../../vl-map';
@@ -29,7 +30,7 @@ describe('vl-map-search', () => {
     });
 
     it('bevat een search element met correct geconfigureerd select element als input slot', async () => {
-        const map = await mapSearchFixture();
+        const map: any = await mapSearchFixture();
         await customElements.whenDefined('vl-search');
         const searchElement = map.shadowRoot.querySelector('vl-search');
         assert.isDefined(searchElement);
@@ -40,7 +41,7 @@ describe('vl-map-search', () => {
     });
 
     it('indien vl-map-search element binnen een vl-map element zit, zal dit element toegevoegd worden aan de shadow dom', async () => {
-        const map = await mapWithSearchFixture();
+        const map: any = await mapWithSearchFixture();
         await customElements.whenDefined('vl-map');
         assert.isDefined(map.shadowRoot.querySelector('vl-map-search'));
     });
@@ -50,7 +51,7 @@ describe('vl-map-search', () => {
         await customElements.whenDefined('vl-map-search');
         const fixture = await standaloneVlMapSearchFixture();
         const mapElement = fixture.getElementsByTagName('vl-map')[0];
-        const searchElement = fixture.getElementsByTagName('vl-map-search')[0];
+        const searchElement: any = fixture.getElementsByTagName('vl-map-search')[0];
         searchElement.bindMap(mapElement);
         assert.equal(searchElement._map, mapElement);
     });
@@ -63,7 +64,7 @@ describe('vl-map-search', () => {
                 label: value,
             },
         ];
-        const map = await mapWithSearchFixture();
+        const map: any = await mapWithSearchFixture();
         sandbox.spy(map, 'zoomTo');
         await customElements.whenDefined('vl-map-search');
         const searchElement = map.shadowRoot.querySelector('vl-map-search');
@@ -83,7 +84,7 @@ describe('vl-map-search', () => {
                 label: value,
             },
         ];
-        const map = await mapWithSearchFixture();
+        const map: any = await mapWithSearchFixture();
         await customElements.whenDefined('vl-map-search');
         const searchElement = map.shadowRoot.querySelector('vl-map-search');
         const selectElement = searchElement._selectElement;
@@ -97,7 +98,7 @@ describe('vl-map-search', () => {
     });
 
     it('zal de select placeholders doorgeven', async () => {
-        const mapSearch = await mapSearchFixture();
+        const mapSearch: any = await mapSearchFixture();
         const select = mapSearch._selectElement;
         const attributes = ['placeholder', 'search-placeholder', 'search-empty-text', 'search-no-results-text'];
         attributes.forEach((item, index) => {

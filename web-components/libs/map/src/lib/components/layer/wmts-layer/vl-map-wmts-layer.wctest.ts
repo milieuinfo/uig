@@ -83,17 +83,17 @@ describe('vl-map-wmts-layer', () => {
         assert.isUndefined(layer['source']);
         assert.isUndefined(layer['layer']);
         map.appendChild(layer);
-        await new Promise((resolve) => {
+        await new Promise<void>((resolve) => {
             setTimeout(() => {
                 assert.isDefined(layer['source']);
                 assert.isDefined(layer['layer']);
-                resolve(undefined);
+                resolve();
             });
         });
     });
 
     it('de kaartlaag kan bij creatie op hidden gezet worden', async () => {
-        const mapVisible = await wmtsLayerFixture();
+        const mapVisible: any = await wmtsLayerFixture();
         const mapHidden = await wmtsLayerHiddenFixture();
         await mapVisible;
         await mapHidden;

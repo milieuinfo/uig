@@ -67,7 +67,7 @@ describe('vl-map-draw-line-action', () => {
 
     it('snapping is properly configured if the snapping attribute is there but without layers', async () => {
         const fixtureMetSnapping = await mapDrawLineActionSnapping();
-        const drawLineMetSnappingAction = fixtureMetSnapping.querySelector('vl-map-draw-line-action');
+        const drawLineMetSnappingAction: any = fixtureMetSnapping.querySelector('vl-map-draw-line-action');
         await awaitUntil(() => drawLineMetSnappingAction.action != null);
         const drawActionOptions = drawLineMetSnappingAction.action.options;
         expect(drawActionOptions.snapping).to.equal(true);
@@ -75,7 +75,7 @@ describe('vl-map-draw-line-action', () => {
 
     it('snapping is properly configured if there are layers and pixel tolerance', async () => {
         const fixtureMetSnapping = await mapDrawLineActionSnappingWfsLayersFixture();
-        const drawLineMetSnappingOpWfsLagenAction = fixtureMetSnapping.querySelector('vl-map-draw-line-action');
+        const drawLineMetSnappingOpWfsLagenAction: any = fixtureMetSnapping.querySelector('vl-map-draw-line-action');
         await awaitUntil(() => drawLineMetSnappingOpWfsLagenAction.action != null);
         const drawActionOptions = drawLineMetSnappingOpWfsLagenAction.action.options;
         expect(drawActionOptions.snapping.pixelTolerance).to.equal('1000');
@@ -83,15 +83,10 @@ describe('vl-map-draw-line-action', () => {
         expect(drawActionOptions.snapping.vertex).to.equal(false);
         expect(drawActionOptions.snapping.layer instanceof VlCompositeVectorLayer).to.equal(true);
         expect(drawActionOptions.snapping.layer.getSource() instanceof VlCompositeVectorSource).to.equal(true);
-        expect(drawActionOptions.snapping.layer.getSource().sources[0]).to.equal(
-            fixtureMetSnapping.querySelector('#stromendwater')._layer.getSource()
-        );
-        expect(drawActionOptions.snapping.layer.getSource().sources[1]).to.equal(
-            fixtureMetSnapping.querySelector('#stilstaandwater')._layer.getSource()
-        );
-        await awaitUntil(
-            () =>
-                drawActionOptions.snapping.layer.getStyle() == fixtureMetSnapping.querySelector('#stromendwater').style
-        );
+        const stromendWater: any = fixtureMetSnapping.querySelector('#stromendwater');
+        const stilstaandWater: any = fixtureMetSnapping.querySelector('#stilstaandwater');
+        expect(drawActionOptions.snapping.layer.getSource().sources[0]).to.equal(stromendWater._layer.getSource());
+        expect(drawActionOptions.snapping.layer.getSource().sources[1]).to.equal(stilstaandWater._layer.getSource());
+        await awaitUntil(() => drawActionOptions.snapping.layer.getStyle() == stromendWater.style);
     });
 });

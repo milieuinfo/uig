@@ -21,7 +21,7 @@ const wfsLayerWithQueryParamsInUrlFixture = async () =>
 
 describe('vl-map-wfs-layer', () => {
     it('wfs layer kan toegevoegd worden aan een map met de correcte configuratie', async () => {
-        const mapElement = await wfsLayerFixture();
+        const mapElement: any = await wfsLayerFixture();
         const layerElement = mapElement.querySelector('vl-map-wfs-layer');
         const projection = new OlProjection({
             code: 'EPSG:31370',
@@ -37,7 +37,7 @@ describe('vl-map-wfs-layer', () => {
     });
 
     it('de query params in de geconfigureerde wfs url worden gelaten as-is indien we ze niet moeten overschrijven', async () => {
-        const mapElement = await wfsLayerWithQueryParamsInUrlFixture();
+        const mapElement: any = await wfsLayerWithQueryParamsInUrlFixture();
         const layerElement = mapElement.querySelector('vl-map-wfs-layer');
         const projection = new OlProjection({
             code: 'EPSG:31370',
@@ -54,14 +54,14 @@ describe('vl-map-wfs-layer', () => {
 
     it('de kaartlaag zal pas angemaakt worden na constructie zodat op moment van constructie nog niet al de attributen gekend moeten zijn', async () => {
         const map: any = await wfsLayerWithQueryParamsInUrlFixture();
-        const layer = document.createElement('vl-map-wfs-layer');
+        const layer: any = document.createElement('vl-map-wfs-layer');
         layer.setAttribute('data-vl-name', 'foobar');
         layer.setAttribute('data-vl-url', 'http://dummy/wfs');
         layer.setAttribute('data-vl-layers', 'layer1,layer2');
         assert.isUndefined(layer.source);
         assert.isUndefined(layer.layer);
         map.appendChild(layer);
-        await new Promise((resolve) => {
+        await new Promise<void>((resolve) => {
             setTimeout(() => {
                 assert.isDefined(layer.source);
                 assert.isDefined(layer.layer);

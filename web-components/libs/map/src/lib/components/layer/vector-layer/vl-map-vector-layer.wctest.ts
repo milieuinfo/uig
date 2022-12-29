@@ -99,8 +99,8 @@ describe('vl-map-vector-layer', () => {
 
     it('de kaartlaag kan bij creatie op hidden gezet worden', async () => {
         await Promise.all(fixtures.map(async (fixture, index) => {
-            const mapVisible = await fixture.visible();
-            const mapHidden = await fixture.hidden();
+            const mapVisible: any = await fixture.visible();
+            const mapHidden: any = await fixture.hidden();
             await mapVisible.ready;
             await mapHidden.ready;
             const layerVisible = getLayer(mapVisible);
@@ -114,7 +114,7 @@ describe('vl-map-vector-layer', () => {
         const map: any = await wfsLayerFixture();
         await map.ready;
         const layer = getLayer(map);
-        await new Promise((resolve) => {
+        await new Promise<void>((resolve) => {
             layer.addEventListener('style-changed', (event) => {
                 resolve();
             });

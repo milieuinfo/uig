@@ -14,19 +14,19 @@ const mapSideSheetMenuItemFixture = async () =>
 
 describe('vl-map-side-sheet-menu-item', () => {
     it('bevat default titel', async () => {
-        const element = await mapSideSheetMenuItemFixture();
+        const element: any = await mapSideSheetMenuItemFixture();
         const vlmapPane = element.querySelector('vl-map-side-sheet-menu-item');
         assert.equal(vlmapPane._titleElement.innerText, 'Terug');
     });
 
     it('bevat default href', async () => {
-        const element = await mapSideSheetMenuItemFixture();
+        const element: any = await mapSideSheetMenuItemFixture();
         const vlmapPane = element.querySelector('vl-map-side-sheet-menu-item');
         assert.equal(vlmapPane._hrefElement.getAttribute('href'), '#');
     });
 
     it('bevat titel op basis van het titel attribuut', async () => {
-        const element = await mapSideSheetMenuItemFixture();
+        const element: any = await mapSideSheetMenuItemFixture();
         const vlmapPane = element.querySelector('vl-map-side-sheet-menu-item');
         const text = 'Dit is een titel';
         vlmapPane.setAttribute('data-vl-title', text);
@@ -34,7 +34,7 @@ describe('vl-map-side-sheet-menu-item', () => {
     });
 
     it('bevat href op basis van het href attribuut', async () => {
-        const element = await mapSideSheetMenuItemFixture();
+        const element: any = await mapSideSheetMenuItemFixture();
         const vlmapPane = element.querySelector('vl-map-side-sheet-menu-item');
         const hrefPath = '/test-path';
         vlmapPane.setAttribute('data-vl-href', hrefPath);

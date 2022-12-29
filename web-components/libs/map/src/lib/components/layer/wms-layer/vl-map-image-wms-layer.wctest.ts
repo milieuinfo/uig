@@ -30,7 +30,7 @@ const imageWmsLayerAdjustedConfigFixture = async () =>
 
 describe('vl-map-image-wms-layer', () => {
     it('wms image layer kan toegevoegd worden aan een map met de correcte configuratie', async () => {
-        const mapElement = await imageWmsLayerFixture();
+        const mapElement: any = await imageWmsLayerFixture();
         const layerElement = mapElement.querySelector('vl-map-image-wms-layer');
 
         await mapElement.ready;
@@ -45,7 +45,7 @@ describe('vl-map-image-wms-layer', () => {
     });
 
     it('wms image layer kan toegevoegd worden met een aangepaste configuratie', async () => {
-        const mapElement = await imageWmsLayerAdjustedConfigFixture();
+        const mapElement: any = await imageWmsLayerAdjustedConfigFixture();
         const layerElement = mapElement.querySelector('vl-map-image-wms-layer');
 
         await mapElement.ready;

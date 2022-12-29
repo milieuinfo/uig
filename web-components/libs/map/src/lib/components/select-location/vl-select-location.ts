@@ -56,6 +56,8 @@ class VlSelectLocation extends VlSelect {
                     location.LocationResult[0].BoundingBox.UpperRight.X_Lambert72,
                     location.LocationResult[0].BoundingBox.UpperRight.Y_Lambert72,
                 ]);
+        } else {
+            return undefined;
         }
     }
 

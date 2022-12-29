@@ -10,7 +10,21 @@ export const LEGEND_PLACEMENT = {
     BOTTOM_RIGHT: 'bottom_right',
 };
 
+export interface Position {
+    top: string;
+    left: string;
+    right: string;
+    bottom: string;
+}
+
 export class VlMapLegend extends LitElement {
+    top: string;
+    left: string;
+    right: string;
+    bottom: string;
+    private placement: string;
+    private _mapElement: any;
+    private items: any[];
     static get styles() {
         return [
             css`
@@ -39,7 +53,7 @@ export class VlMapLegend extends LitElement {
     }
 
     __getPosition() {
-        const position = {};
+        const position: Position = <Position>{};
 
         switch (this.placement) {
             case LEGEND_PLACEMENT.TOP_LEFT:
@@ -122,10 +136,7 @@ export class VlMapLegend extends LitElement {
     }
 
     __createItem(style, name) {
-        const item = {};
-        item.style = style;
-        item.name = name;
-        return item;
+        return { style, name };
     }
 
     render() {

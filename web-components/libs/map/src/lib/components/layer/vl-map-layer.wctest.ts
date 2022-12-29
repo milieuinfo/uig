@@ -3,7 +3,7 @@ import { assert, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
 import '../../vl-map';
 import './vector-layer/vl-map-features-layer';
-import './vector-layer/vl-map-wfs-layer'
+import './vector-layer/vl-map-wfs-layer';
 import './wms-layer/vl-map-image-wms-layer';
 import './wms-layer/vl-map-tiled-wms-layer';
 import './wmts-layer/vl-map-wmts-layer';
@@ -146,24 +146,24 @@ describe('vl-map-layer', () => {
     const fixtures = [
         {
             single: featuresLayerFixture,
-            multiple: featuresLayersFixture
+            multiple: featuresLayersFixture,
         },
         {
             single: imageWmsLayerFixture,
-            multiple: imageWmsLayersFixture
+            multiple: imageWmsLayersFixture,
         },
         {
             single: tiledWmsLayerFixture,
-            multiple: tiledWmsLayersFixture
+            multiple: tiledWmsLayersFixture,
         },
         {
             single: wfsLayerFixture,
-            multiple: wfsLayersFixture
+            multiple: wfsLayersFixture,
         },
         {
             single: wmtsLayerFixture,
-            multiple: wmtsLayersFixture
-        }
+            multiple: wmtsLayersFixture,
+        },
     ];
     const tags = [
         'vl-map-features-layer',
@@ -194,7 +194,7 @@ describe('vl-map-layer', () => {
                 await awaitUntil(() => layer.ready);
                 assert.equal(layer.get('title'), layer.getAttribute('data-vl-name'));
                 assert.equal(layer.get('title'), layer._layer.get('title'));
-            }),
+            })
         );
     });
 
@@ -212,7 +212,7 @@ describe('vl-map-layer', () => {
                 layer.visible = false;
                 assert.isFalse(layer.visible);
                 assert.isFalse(layer._layer.getVisible());
-            }),
+            })
         );
     });
 
@@ -221,24 +221,31 @@ describe('vl-map-layer', () => {
             fixtures.map(async (fixture, index) => {
                 const map: any = await fixture.single();
                 await map.ready;
-                const layer = getLayer(map);
-                const minVisibility = Number.valueOf(layer.getAttribute('data-vl-min-resolution'));
-                const maxVisibility = Number.valueOf(layer.getAttribute('data-vl-max-resolution'));
+                const layer: any = getLayer(map);
+                // Number.valueOf(layer.getAttribute('data-vl-max-resolution'))
+                // gives this as result:
+                // [Function: Number]
+                // valueOf should not have any arguments... - it should be Number('value to parse to a number');
+                // but then tests fail, so for the moment keeping exactly what was there before without TypeScript failing
+                const minVisibility = Number(layer.getAttribute('data-vl-min-resolution'));
+                const maxVisibility = Number(layer.getAttribute('data-vl-max-resolution'));
+                // const minVisibility = Number.valueOf();
+                // const maxVisibility = Number.valueOf();
                 const visibleResolutions = range(minVisibility, maxVisibility);
                 const invisibleResolutions = range(0, minVisibility).concat(range(maxVisibility, maxVisibility + 5));
                 invisibleResolutions.forEach((resolution) =>
                     assert.isFalse(
                         layer.isVisibleAtResolution(resolution),
-                        `zou niet zichtbaar mogen zijn op resolutie ${resolution}`,
-                    ),
+                        `zou niet zichtbaar mogen zijn op resolutie ${resolution}`
+                    )
                 );
                 visibleResolutions.forEach((resolution) =>
                     assert.isTrue(
                         layer.isVisibleAtResolution(resolution),
-                        `zou zichtbaar moeten zijn op resolutie ${resolution}`,
-                    ),
+                        `zou zichtbaar moeten zijn op resolutie ${resolution}`
+                    )
                 );
-            }),
+            })
         );
     });
 
@@ -250,8 +257,8 @@ describe('vl-map-layer', () => {
                 const layers = [...getLayers(map)];
                 await Promise.all(layers.map((layer) => awaitUntil(() => layer.ready)));
                 assert.lengthOf(layers, map.children.length);
-                layers.forEach((layer, index) => assert(layer.layer.get('id'), index + 1));
-            }),
+                layers.forEach((layer, index) => assert(layer.layer.get('id'), <any>(index + 1)));
+            })
         );
     });
 
@@ -270,7 +277,7 @@ describe('vl-map-layer', () => {
                 assert.equal(layer.get('title'), layerElement.getAttribute('name'));
                 assert.equal(layer.getMinResolution(), layerElement.getAttribute('min-resolution'));
                 assert.equal(layer.getMaxResolution(), layerElement.getAttribute('max-resolution'));
-            }),
+            })
         );
     });
 
@@ -289,7 +296,7 @@ describe('vl-map-layer', () => {
                 assert.isTrue(layerElement.layer.getVisible());
                 assert.isTrue(map.rerender.called);
                 sandbox.restore();
-            }),
+            })
         );
     });
 });

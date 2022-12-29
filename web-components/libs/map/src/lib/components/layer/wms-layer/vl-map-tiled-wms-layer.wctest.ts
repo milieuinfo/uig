@@ -30,7 +30,7 @@ const tiledWmsLayerAdjustedConfigFixture = async () =>
 
 describe('vl-map-tiled-wms-layer', () => {
     it('wms tiled layer kan toegevoegd worden aan een map met de correcte configuratie', async () => {
-        const mapElement = await tiledWmsLayerFixture();
+        const mapElement: any = await tiledWmsLayerFixture();
         const layerElement = mapElement.querySelector('vl-map-tiled-wms-layer');
 
         await mapElement.ready;
@@ -45,7 +45,7 @@ describe('vl-map-tiled-wms-layer', () => {
     });
 
     it('wms tiled layer kan toegevoegd worden met een aangepaste configuratie', async () => {
-        const mapElement = await tiledWmsLayerAdjustedConfigFixture();
+        const mapElement: any = await tiledWmsLayerAdjustedConfigFixture();
         const layerElement = mapElement.querySelector('vl-map-tiled-wms-layer');
 
         await mapElement.ready;

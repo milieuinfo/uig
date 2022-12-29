@@ -20,9 +20,9 @@ import { VlMapVectorLayer } from './vl-map-vector-layer';
  */
 export class VlMapWfsLayer extends VlMapVectorLayer {
     connectedCallback() {
-        super.connectedCallback();
         this._source = this.__createSource();
         this._layer = this._createLayer();
+        return super.connectedCallback();
     }
 
     get _url() {

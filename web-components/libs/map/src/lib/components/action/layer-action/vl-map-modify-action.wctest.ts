@@ -81,10 +81,10 @@ describe('vl-map-modify-action', () => {
         const modifyAction = map.querySelector('vl-map-modify-action');
         await awaitUntil(() => modifyAction.action != null);
 
-        await new Promise((resolve) => {
+        await new Promise<void>((resolve) => {
             modifyAction.onModify((feature) => {
                 assert.equal(feature, 'gewijzigdeFeature');
-                resolve(undefined);
+                resolve();
             });
             modifyAction.action.modifyInteraction.dispatchEvent({
                 type: 'modifyend',

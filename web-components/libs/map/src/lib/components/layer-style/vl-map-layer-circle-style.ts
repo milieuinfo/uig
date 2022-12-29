@@ -30,7 +30,7 @@ export class VlMapLayerCircleStyle extends VlMapLayerStyle {
      */
     get size(): number {
         const getSize = Number(this.getAttribute('size'));
-        return !isNaN(getSize) ? getSize : 5;
+        return getSize || 5;
     }
 
     /**

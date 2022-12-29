@@ -3,7 +3,7 @@ import { define } from '@domg-lib/common-utilities';
 
 export class VlTestCustomMapModifyAction extends VlMapModifyAction {
     appliesTo(feature, layer) {
-        return feature.id.startsWith('1') && layer.id.startsWith('1');
+        return (feature && feature.id.startsWith('1')) && (layer && layer.id.startsWith('1'));
     }
 }
 
