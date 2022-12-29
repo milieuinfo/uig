@@ -12,7 +12,7 @@ import { CONTROL_TYPE } from '../../vl-map.model';
  */
 export class VlMapWithActions extends Map {
     private actions: any[];
-    private timeout: number;
+    private timeout: any;
     static get CLICK_COUNT_TIMEOUT() {
         return 300;
     }

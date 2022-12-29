@@ -250,16 +250,29 @@ describe('vl-map-layer', () => {
     });
 
     it('elke kaartlaag zal een id krijgen', async () => {
+        const now = (new Date()).getTime();
+        console.log('        await Promise.all(\n', new Date());
+        console.time('jk');
         await Promise.all(
             fixtures.map(async (fixture, index) => {
+                console.log('fixtures.map(async (fixture, index) => {', index);
                 const map: any = await fixture.multiple();
                 await map.ready;
+                console.log('await map.ready;', index);
                 const layers = [...getLayers(map)];
-                await Promise.all(layers.map((layer) => awaitUntil(() => layer.ready)));
+                console.log(layers);
+                // await Promise.all(layers.map((layer) => awaitUntil(() => layer.ready)));
                 assert.lengthOf(layers, map.children.length);
+                console.log('assert.lengthOf(layers, map.children.length);', index);
                 layers.forEach((layer, index) => assert(layer.layer.get('id'), <any>(index + 1)));
+                console.log('finish - index', index);
             })
         );
+        console.timeEnd('jk');
+        const then = (new Date()).getTime()
+        console.log(' Promise.all(\n finish!', new Date());
+        console.log((then - now)/1000, ' milliseconds for execution')
+
     });
 
     it('de kaartlaag zal toegevoegd worden aan de map', async () => {
@@ -271,7 +284,6 @@ describe('vl-map-layer', () => {
                 const layerElement = getLayer(map);
                 const layers = map.map.getOverlayLayers();
                 assert.lengthOf(layers, 1);
-
                 const layer = layers[0];
                 assert.equal(layer, layerElement.layer);
                 assert.equal(layer.get('title'), layerElement.getAttribute('name'));

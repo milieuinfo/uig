@@ -10,7 +10,7 @@ export class VlMeasureAction extends VlDrawAction {
     private drawStartHandler: EventsKey;
     private drawEndHandler: EventsKey;
     private removeFeatureHandler: any;
-  constructor(layer, options) {
+  constructor(layer, options?) {
     super(
       layer,
       GeometryType.LINE_STRING,
@@ -146,7 +146,8 @@ export class VlMeasureAction extends VlDrawAction {
     this._removeMeasurementTooltip(event.feature.getId());
   }
 
-  _cleanUp(removeUnlinkedTooltips = true) {
+  // @ts-ignore
+    _cleanUp(removeUnlinkedTooltips) {
     unByKey(this.measurePointermoveHandler);
 
     if (removeUnlinkedTooltips) {

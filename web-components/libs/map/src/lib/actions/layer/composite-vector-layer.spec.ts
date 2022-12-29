@@ -34,8 +34,8 @@ describe('composite wfs layer', () => {
         expect(compositeVectorLayer.getMinResolution()).toBe(2);
         expect(compositeVectorLayer.getMaxResolution()).toBe(10);
         expect(compositeVectorLayer.getSource() instanceof VlCompositeVectorSource).toBe(true);
-        expect(compositeVectorLayer.getSource().sources[0]).toBe(source1);
-        expect(compositeVectorLayer.getSource().sources[1]).toBe(source2);
+        expect(compositeVectorLayer.getSource()['sources'][0]).toBe(source1);
+        expect(compositeVectorLayer.getSource()['sources'][1]).toBe(source2);
     });
 
     it('het options argument is optioneel', () => {

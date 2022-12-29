@@ -157,11 +157,8 @@ export class VlMapLayer extends BaseElementOfType(HTMLElement) {
     }
 
     isVisibleAtResolution(resolution) {
-        const maxResolution = parseFloat(this._layer.getMaxResolution());
         const minResolution = parseFloat(this._layer.getMinResolution());
-        console.log('[isVisibleAtResolution] resolution', resolution);
-        console.log('[isVisibleAtResolution] maxResolution', maxResolution);
-        console.log('[isVisibleAtResolution] minResolution', minResolution);
+        const maxResolution = parseFloat(this._layer.getMaxResolution());
         return resolution >= minResolution && resolution < maxResolution;
     }
 
