@@ -84,7 +84,7 @@ describe('vl-map-layer-switcher', () => {
                 layer.getAttribute('data-vl-name')
             )
         );
-    });
+    }).timeout(5000);
 
     it('non-direct child elementen van de vl-map worden niet meegenomen in de default layer switcher', async () => {
         const map: any = await mapLayerSwitcherLayerNonDirectChildFixture();

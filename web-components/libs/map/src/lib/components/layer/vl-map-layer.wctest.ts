@@ -250,30 +250,16 @@ describe('vl-map-layer', () => {
     });
 
     it('elke kaartlaag zal een id krijgen', async () => {
-        const now = (new Date()).getTime();
-        console.log('        await Promise.all(\n', new Date());
-        console.time('jk');
         await Promise.all(
             fixtures.map(async (fixture, index) => {
-                console.log('fixtures.map(async (fixture, index) => {', index);
                 const map: any = await fixture.multiple();
                 await map.ready;
-                console.log('await map.ready;', index);
                 const layers = [...getLayers(map)];
-                console.log(layers);
-                // await Promise.all(layers.map((layer) => awaitUntil(() => layer.ready)));
                 assert.lengthOf(layers, map.children.length);
-                console.log('assert.lengthOf(layers, map.children.length);', index);
                 layers.forEach((layer, index) => assert(layer.layer.get('id'), <any>(index + 1)));
-                console.log('finish - index', index);
             })
         );
-        console.timeEnd('jk');
-        const then = (new Date()).getTime()
-        console.log(' Promise.all(\n finish!', new Date());
-        console.log((then - now)/1000, ' milliseconds for execution')
-
-    });
+    }).timeout(6000);
 
     it('de kaartlaag zal toegevoegd worden aan de map', async () => {
         await Promise.all(
