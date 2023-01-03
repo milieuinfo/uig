@@ -1,3 +1,4 @@
+import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-accordion.component';
 import { accordionArgs, accordionArgTypes } from './vl-accordion.stories-arg';
@@ -6,7 +7,10 @@ export default {
     title: 'Components/accordion',
     args: accordionArgs,
     argTypes: accordionArgTypes,
-};
+    parameters: {
+        controls: { expanded: true},
+    }
+} as Meta<typeof accordionArgs>;
 
 export const accordionDefault = ({ toggleText, content }: typeof accordionArgs) => html` <vl-accordion
     data-vl-toggle-text=${toggleText}
@@ -16,8 +20,12 @@ export const accordionDefault = ({ toggleText, content }: typeof accordionArgs) 
 </vl-accordion>`;
 accordionDefault.storyName = 'vl-accordion - default';
 accordionDefault.argTypes = {
-    openToggleText: { table: { disable: true } },
-    closedToggleText: { table: { disable: true } },
+    openToggleText: {
+        control: false,
+    },
+    closedToggleText: {
+        control: false,
+    },
 };
 
 export const accordionWithTitleSlot = ({ toggleText, content }: typeof accordionArgs) => html`
@@ -28,8 +36,8 @@ export const accordionWithTitleSlot = ({ toggleText, content }: typeof accordion
 `;
 accordionWithTitleSlot.storyName = 'vl-accordion - with title slot';
 accordionWithTitleSlot.argTypes = {
-    openToggleText: { table: { disable: true } },
-    closedToggleText: { table: { disable: true } },
+    openToggleText: { control: false },
+    closedToggleText: { control: false },
     toggleText: {
         name: 'title (slot)',
     },

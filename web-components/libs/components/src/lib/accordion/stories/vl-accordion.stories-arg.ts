@@ -8,31 +8,45 @@ export const accordionArgs = {
 export const accordionArgTypes = {
     toggleText: {
         name: 'data-vl-toggle-text',
-        type: { summary: 'string' },
         description:
             'Attribuut wordt gebruikt als tekst waarop de gebruiker kan klikken om de accordion te openen en te sluiten.',
         table: {
+            type: {
+                summary: 'string',
+            },
             defaultValue: { summary: '' },
+            category: 'Attributes',
         },
     },
     openToggleText: {
         name: 'data-vl-open-toggle-text',
-        type: { summary: 'string' },
         description: 'Attribuut wordt gebruikt als tekst wanneer de gebruiker de accordion geopend heeft.',
         table: {
+            type: {
+                summary: 'string',
+            },
             defaultValue: { summary: '' },
-        },
+            category: 'Attributes',        },
     },
     closedToggleText: {
         name: 'data-vl-close-toggle-text',
-        type: { summary: 'string' },
         description: 'Attribuut wordt gebruikt als tekst wanneer de gebruiker de accordion gesloten heeft.',
         table: {
+            type: {
+                summary: 'string',
+            },
             defaultValue: { summary: '' },
+            category: 'Attributes',
         },
     },
     content: {
         name: 'content (for demo purposes)',
-        type: { summary: 'string' },
+        table: {
+            type: {
+                summary: 'string',
+            },
+            defaultValue: { summary: '' },
+            category: 'Attributes',
+        },
     },
 };
