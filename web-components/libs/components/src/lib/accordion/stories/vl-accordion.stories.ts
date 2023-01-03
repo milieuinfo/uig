@@ -6,10 +6,7 @@ import { accordionArgs, accordionArgTypes } from './vl-accordion.stories-arg';
 export default {
     title: 'Components/accordion',
     args: accordionArgs,
-    argTypes: accordionArgTypes,
-    parameters: {
-        controls: { expanded: true},
-    }
+    argTypes: accordionArgTypes
 } as Meta<typeof accordionArgs>;
 
 export const accordionDefault = ({ toggleText, content }: typeof accordionArgs) => html` <vl-accordion
