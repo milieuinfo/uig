@@ -1,15 +1,15 @@
 export const COMPLIANCE_STATUS = {
-    FULLY_COMPLIANT: 'FULLY_COMPLIANT',
-    PARTIALLY_COMPLIANT: 'PARTIALLY_COMPLIANT',
-    NOT_COMPLIANT: 'NOT_COMPLIANT',
+    FULLY_COMPLIANT: 'fully-compliant',
+    PARTIALLY_COMPLIANT: 'partially-compliant',
+    NOT_COMPLIANT: 'not-compliant',
 } as const;
 
 export type COMPLIANCE_STATUS = typeof COMPLIANCE_STATUS[keyof typeof COMPLIANCE_STATUS];
 
 export const EVALUATION_STATUS = {
-    EXPERT_EVALUATED: 'EXPERT_EVALUATED',
-    SELF_EVALUATED: 'SELF_EVALUATED',
-    NOT_EVALUATED: 'NOT_EVALUATED',
+    EXPERT_EVALUATED: 'expert-evaluated',
+    SELF_EVALUATED: 'self-evaluated',
+    NOT_EVALUATED: 'not-evaluated',
 } as const;
 
 export type EVALUATION_STATUS = typeof EVALUATION_STATUS[keyof typeof EVALUATION_STATUS];
