@@ -11,10 +11,10 @@ export const inaccessibleContent = ({
     limitations: any;
 }) => {
     const inaccessibleContentTemplate = () => {
-        if (evaluationStatus === 'NOT_EVALUATED') {
+        if (evaluationStatus === EVALUATION_STATUS.NOT_EVALUATED) {
             return html`De niet-toegankelijke inhoud is onbekend omdat de website niet is getest.`;
         }
-        if (complianceStatus === 'FULLY_COMPLIANT') {
+        if (complianceStatus === COMPLIANCE_STATUS.FULLY_COMPLIANT) {
             return html`Er is geen niet-toegankelijke inhoud omdat de website volledig toegankelijk is.`;
         }
         return html`
@@ -44,7 +44,7 @@ export const inaccessibleContent = ({
         `;
     };
     return html` <div
-        style=${complianceStatus === 'FULLY_COMPLIANT' && 'display: none'}
+        style=${complianceStatus === COMPLIANCE_STATUS.FULLY_COMPLIANT && 'display: none'}
         id="inaccessible-content"
         is="vl-column"
         data-vl-size="12"

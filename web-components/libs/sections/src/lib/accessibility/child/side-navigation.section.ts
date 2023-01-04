@@ -20,7 +20,7 @@ export const sideNavigation = ({ complianceStatus }: { complianceStatus: COMPLIA
                         </a>
                     </li>
                     <li
-                        style=${complianceStatus === 'FULLY_COMPLIANT' && 'display: none'}
+                        style=${complianceStatus === COMPLIANCE_STATUS.FULLY_COMPLIANT && 'display: none'}
                         is="vl-side-navigation-item"
                         data-vl-parent
                     >

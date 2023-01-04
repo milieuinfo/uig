@@ -12,16 +12,16 @@ export const setupStatement = ({
 }) => {
     const setupStatementTemplate = () => {
         switch (evaluationStatus) {
-            case 'EXPERT_EVALUATED':
+            case EVALUATION_STATUS.EXPERT_EVALUATED:
                 return html`Deze toegankelijkheidsverklaring is opgesteld op ${date} en gebaseerd op een analyse van een
                 web accessibility specialist, gecertificeerd door the International Association of Accessibility
                 Professionals (IAAP). Deze toegankelijkheidsverklaring is voor het laatst herzien op ${dateModified}.`;
                 break;
-            case 'SELF_EVALUATED':
+            case EVALUATION_STATUS.SELF_EVALUATED:
                 return html`Deze toegankelijkheidsverklaring is opgesteld op ${date} en gebaseerd op een analyse van
                 Departement Omgeving. Deze toegankelijkheidsverklaring is voor het laatst herzien op ${dateModified}.`;
                 break;
-            case 'NOT_EVALUATED':
+            case EVALUATION_STATUS.NOT_EVALUATED:
                 return html`Deze toegankelijkheidsverklaring is opgesteld op ${date} en werd voor het laatst herzien op
                 ${dateModified}.`;
             default:

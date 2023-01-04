@@ -60,8 +60,8 @@ export class VlAccessibility extends LitElement {
         this.application = 'deze applicatie';
         this.date = '20 juli 2021';
         this.dateModified = '20 juli 2021';
-        this.compliance = 'PARTIALLY_COMPLIANT';
-        this.evaluation = 'NOT_EVALUATED';
+        this.compliance = COMPLIANCE_STATUS.PARTIALLY_COMPLIANT;
+        this.evaluation = EVALUATION_STATUS.NOT_EVALUATED;
     }
 
     render() {
