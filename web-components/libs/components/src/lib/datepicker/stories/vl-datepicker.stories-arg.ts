@@ -2,7 +2,7 @@ import { TYPES } from '@domg-wc/common-utilities';
 import { Args, ArgTypes } from '@storybook/web-components';
 
 export const datepickerArgs: Args = {
-    type: 'range',
+    type: '',
     format: 'd.m.Y',
     visualFormat: '',
     selectedDate: '',
